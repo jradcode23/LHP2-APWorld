@@ -1,0 +1,147 @@
+from BaseClasses import MultiWorld, Region, Entrance, Location, ItemClassification
+from .Locations import LHP2Location
+from .Items import LHP2Item
+from .Names import RegionName
+
+
+level_regions = [
+    RegionName.dt,
+    RegionName.da,
+    RegionName.foc,
+    RegionName.kd,
+    RegionName.agv,
+    RegionName.avt,
+    RegionName.oor,
+    RegionName.jd,
+    RegionName.ansmc,
+    RegionName.lh,
+    RegionName.ff,
+    RegionName.thath,
+    RegionName.tsh,
+    RegionName.mim,
+    RegionName.igd,
+    RegionName.sal,
+    RegionName.ll,
+    RegionName.dob,
+    RegionName.ttd,
+    RegionName.bts,
+    RegionName.bb,
+    RegionName.fiend,
+    RegionName.st,
+    RegionName.tfitp
+]
+
+hub_regions = [
+    RegionName.diag,
+    RegionName.knock,
+    RegionName.bnb,
+    RegionName.www,
+    RegionName.mm,
+    RegionName.cust,
+    RegionName.leak,
+    RegionName.lond,
+    RegionName.cafe,
+    RegionName.kcs,
+    RegionName.tent,
+    RegionName.wild,
+    RegionName.hogstat,
+    RegionName.hogspath,
+    RegionName.hogs,
+    RegionName.hogwpath,
+    RegionName.quad,
+    RegionName.herbcourt,
+    RegionName.green,
+    RegionName.ground,
+    RegionName.qp,
+    RegionName.thest,
+    RegionName.lake,
+    RegionName.enthall,
+    RegionName.stair,
+    RegionName.house,
+    RegionName.slyth,
+    RegionName.huff,
+    RegionName.gryf,
+    RegionName.dorm,
+    RegionName.raven,
+    RegionName.lib,
+    RegionName.ghe,
+    RegionName.wc,
+    RegionName.ws,
+    RegionName.gh,
+    RegionName.ror,
+    RegionName.clc,
+    RegionName.y5c,
+    RegionName.y6c,
+    RegionName.dada,
+    RegionName.pot,
+    RegionName.divc,
+    RegionName.div,
+    RegionName.ast,
+]
+
+
+lhp2_all_regions = [
+    *level_regions,
+    *hub_regions,
+]
+
+
+def create_regions(world: MultiWorld, player: int, seed_locs):
+    menu = Region("Menu", player, world)
+    world.regions.append(menu)
+
+    for region in lhp2_all_regions:
+        create_regions_and_locations(region, player, world, seed_locs)
+
+    connect_regions(world, player, "Menu", RegionName.diag)
+    connect_regions(world, player, RegionName.diag, RegionName.knock)
+    connect_regions(world, player, RegionName.knock, RegionName.bnb)
+    connect_regions(world, player, RegionName.diag, RegionName.www)
+    connect_regions(world, player, RegionName.diag, RegionName.mm)
+    connect_regions(world, player, RegionName.mm, RegionName.cust)
+    connect_regions(world, player, RegionName.diag, RegionName.leak)
+    connect_regions(world, player, RegionName.leak, RegionName.lond)
+    connect_regions(world, player, RegionName.lond, RegionName.tent)
+    connect_regions(world, player, RegionName.tent, RegionName.wild)
+    connect_regions(world, player, RegionName.lond, RegionName.kcs)
+    connect_regions(world, player, RegionName.kcs, RegionName.hogstat)
+
+    for region in level_regions:
+        connect_regions(world, player, RegionName.leak, region)
+
+
+def connect_regions(world: MultiWorld, player: int, source: str, target: str) -> Entrance:
+    source_region = world.get_region(source, player)
+    target_region = world.get_region(target, player)
+    return source_region.connect(target_region)
+
+
+def create_regions_and_locations(name: str, player: int, world: MultiWorld, seed_locations) -> Region:
+    region = Region(name, player, world)
+
+    for (key, data) in seed_locations.items():
+        if data.region == name:
+            location = LHP2Location(player, key, data.id, region)
+            region.locations.append(location)
+
+    world.regions.append(region)
+    return region
+
+
+# def create_events(world: MultiWorld, player: int) -> int:
+#     count = 0
+#
+#     for (name, data) in level_beaten_event_location_table.items():
+#         item_name = "Level Beaten Token"
+#         event: Location = create_event(name, item_name, world.get_region(data.region, player), player)
+#         event.show_in_spoiler = True
+#         count += 1
+#
+#     return count
+#
+#
+# def create_event(name: str, item_name: str, region: Region, player: int) -> Location:
+#     event = LHP2Location(player, name, None, region)
+#     region.locations.append(event)
+#     event.place_locked_item(LHP2Item(item_name, ItemClassification.progression, None, player))
+#     return event

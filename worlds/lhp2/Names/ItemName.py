@@ -1,6 +1,8 @@
 # Character Definitions
+char = "Character"
 
 # Character Token Definitions
+ct = "Character Token"
 
 # Spell & Ability Definitions
 
@@ -33,30 +35,31 @@ st_unlock = "Snape's Tears: Level Unlocked"
 tfitp_unlock = "The Flaw in the Plan: Level Unlocked"
 
 # Student In Peril Definitions
-dt_sip = "Dark Times: Student in Peril"
-da_sip = "Dumbledore's Army: Student in Peril"
-foc_sip = "Focus!: Student in Peril"
-kd_sip = "Kreacher Discomforts: Student in Peril"
-agv_sip = "A Giant Virtuoso: Student in Peril"
-avt_sip = "A Veiled Threat: Student in Peril"
-oor_sip = "Out of Retirement: Student in Peril"
-jd_sip = "Just Desserts: Student in Peril"
-ansmc_sip = "A Not So Merry Christmas: Student in Peril"
-lh_sip = "Love Hurts: Student in Peril"
-ff_sip = "Felix Felicis: Student in Peril"
-thath_sip = "The Horcrux and the Hand: Student in Peril"
-tsh_sip = "The Seven Harrys: Student in Peril"
-mim_sip = "Magic is Might: Student in Peril"
-igd_sip = "In Grave Danger: Student in Peril"
-sal_sip = "Sword and Locket: Student in Peril"
-ll_sip = "Lovegood's Lunacy: Student in Peril"
-dob_sip = "DOBBY!: Student in Peril"
-ttd_sip = "The Thief's Downfall: Student in Peril"
-bts_sip = "Back to School: Student in Peril"
-bb_sip = "Burning Bridges: Student in Peril"
-fiend_sip = "Fiendfyre Frenzy: Student in Peril"
-st_sip = "Snape's Tears: Student in Peril"
-tfitp_sip = "The Flaw in the Plan: Student in Peril"
+sip = "Student in Peril"
+# dt_sip = "Dark Times: Student in Peril"
+# da_sip = "Dumbledore's Army: Student in Peril"
+# foc_sip = "Focus!: Student in Peril"
+# kd_sip = "Kreacher Discomforts: Student in Peril"
+# agv_sip = "A Giant Virtuoso: Student in Peril"
+# avt_sip = "A Veiled Threat: Student in Peril"
+# oor_sip = "Out of Retirement: Student in Peril"
+# jd_sip = "Just Desserts: Student in Peril"
+# ansmc_sip = "A Not So Merry Christmas: Student in Peril"
+# lh_sip = "Love Hurts: Student in Peril"
+# ff_sip = "Felix Felicis: Student in Peril"
+# thath_sip = "The Horcrux and the Hand: Student in Peril"
+# tsh_sip = "The Seven Harrys: Student in Peril"
+# mim_sip = "Magic is Might: Student in Peril"
+# igd_sip = "In Grave Danger: Student in Peril"
+# sal_sip = "Sword and Locket: Student in Peril"
+# ll_sip = "Lovegood's Lunacy: Student in Peril"
+# dob_sip = "DOBBY!: Student in Peril"
+# ttd_sip = "The Thief's Downfall: Student in Peril"
+# bts_sip = "Back to School: Student in Peril"
+# bb_sip = "Burning Bridges: Student in Peril"
+# fiend_sip = "Fiendfyre Frenzy: Student in Peril"
+# st_sip = "Snape's Tears: Student in Peril"
+# tfitp_sip = "The Flaw in the Plan: Student in Peril"
 
 # House Crest Definitions
 dt_gc = "Dark Times: Gryffindor Crest"
@@ -157,6 +160,7 @@ tfitp_rc = "The Flaw in the Plan: Ravenclaw Crest"
 tfitp_hc = "The Flaw in the Plan: Hufflepuff Crest"
 
 # Completed House Crest Definitions
+hcgb = "House Crest Gold Brick"
 dt_hcgb = "Dark Times: House Crest Gold Brick"
 da_hcgb = "Dumbledore's Army: House Crest Gold Brick"
 foc_hcgb = "Focus!: House Crest Gold Brick"
@@ -183,6 +187,7 @@ st_hcgb = "Snape's Tears: House Crest Gold Brick"
 tfitp_hcgb = "The Flaw in the Plan: House Crest Gold Brick"
 
 # Gold Brick Definitions
+gb = "Gold Brick"
 
 # Gold Brick Purchase Definitions
 
@@ -190,7 +195,8 @@ tfitp_hcgb = "The Flaw in the Plan: House Crest Gold Brick"
 
 # Red Brick Purchase Definitions
 
-# True Status Definitions
+# True Wizard Definitions
+tw = "True Wizard"
 dt_tw = "Dark Times: True Wizard"
 da_tw = "Dumbledore's Army: True Wizard"
 foc_tw = "Focus!: True Wizard"

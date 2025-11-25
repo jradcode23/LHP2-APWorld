@@ -62,7 +62,30 @@ level_unlock_loc_table: Dict[str, LHP2ItemData] = {
 
 # 475 - 535 (to verify totals since there are extras)
 sip_item_table: Dict[str, LHP2ItemData] = {
-    ItemName.sip: LHP2ItemData(base_item_id + 475, 24)
+    ItemName.dt_sip: LHP2ItemData(base_item_id + 475),
+    ItemName.da_sip: LHP2ItemData(base_item_id + 476),
+    ItemName.foc_sip: LHP2ItemData(base_item_id + 477),
+    ItemName.kd_sip: LHP2ItemData(base_item_id + 478),
+    ItemName.agv_sip: LHP2ItemData(base_item_id + 479),
+    ItemName.avt_sip: LHP2ItemData(base_item_id + 480),
+    ItemName.oor_sip: LHP2ItemData(base_item_id + 481),
+    ItemName.jd_sip: LHP2ItemData(base_item_id + 482),
+    ItemName.ansmc_sip: LHP2ItemData(base_item_id + 483),
+    ItemName.lh_sip: LHP2ItemData(base_item_id + 484),
+    ItemName.ff_sip: LHP2ItemData(base_item_id + 485),
+    ItemName.thath_sip: LHP2ItemData(base_item_id + 486),
+    ItemName.tsh_sip: LHP2ItemData(base_item_id + 487),
+    ItemName.mim_sip: LHP2ItemData(base_item_id + 488),
+    ItemName.igd_sip: LHP2ItemData(base_item_id + 489),
+    ItemName.sal_sip: LHP2ItemData(base_item_id + 490),
+    ItemName.ll_sip: LHP2ItemData(base_item_id + 491),
+    ItemName.dob_sip: LHP2ItemData(base_item_id + 492),
+    ItemName.ttd_sip: LHP2ItemData(base_item_id + 493),
+    ItemName.bts_sip: LHP2ItemData(base_item_id + 494),
+    ItemName.bb_sip: LHP2ItemData(base_item_id + 495),
+    ItemName.fiend_sip: LHP2ItemData(base_item_id + 496),
+    ItemName.st_sip: LHP2ItemData(base_item_id + 497),
+    ItemName.tfitp_sip: LHP2ItemData(base_item_id + 498),
 }
 
 # 550 - 525
@@ -179,4 +202,5 @@ item_data_table = {
 def setup_items(options: LHP2Options):
     temp_item_table = {}
     temp_item_table.update(level_unlock_loc_table)
+    temp_item_table.update(sip_item_table)
     return temp_item_table

@@ -56,4 +56,3 @@ class LHP2World(World):
     def create_items(self):
         self.seed_item_table = setup_items(self.options)
         self.multiworld.itempool += [self.create_item(item_name) for item_name in self.seed_item_table]
-        self.multiworld.itempool += [self.create_item(ItemName.sip) for i in range(0, 24)]

@@ -24,16 +24,16 @@ base_item_id = 400000
 character_item_table: Dict[str, LHP2ItemData] = {}
 
 # 200 - 399
-character_token_loc_table: Dict[str, LHP2ItemData] = {}
+character_token_item_table: Dict[str, LHP2ItemData] = {}
 
 # 400 - 408 Spells, 409 - 418 Unlockable abilities 419 - 424 Extra abilities
-spell_loc_table: Dict[str, LHP2ItemData] = {}
+spell_item_table: Dict[str, LHP2ItemData] = {}
 
 # 425 - 443
-joke_shop_loc_table: Dict[str, LHP2ItemData] = {}
+joke_shop_item_table: Dict[str, LHP2ItemData] = {}
 
 # 450 - 473
-level_unlock_loc_table: Dict[str, LHP2ItemData] = {
+level_unlock_item_table: Dict[str, LHP2ItemData] = {
     ItemName.dt_unlock: LHP2ItemData(base_item_id + 450, ItemClassification.progression),
     ItemName.da_unlock: LHP2ItemData(base_item_id + 451, ItemClassification.progression),
     ItemName.foc_unlock: LHP2ItemData(base_item_id + 452, ItemClassification.progression),
@@ -89,7 +89,7 @@ sip_item_table: Dict[str, LHP2ItemData] = {
 }
 
 # 550 - 525
-house_crest_loc_table: Dict[str, LHP2ItemData] = {
+house_crest_item_table: Dict[str, LHP2ItemData] = {
     # Gryff Crests
     ItemName.dt_gc: LHP2ItemData(base_item_id + 550),
     ItemName.da_gc: LHP2ItemData(base_item_id + 551),
@@ -192,16 +192,49 @@ house_crest_loc_table: Dict[str, LHP2ItemData] = {
     ItemName.tfitp_hc: LHP2ItemData(base_item_id + 645),
 }
 
+# 650 - 673
+# House Crest Completed
+
+# 675 - 698
+true_wizard_item_table: Dict[str, LHP2ItemData] = {
+    ItemName.dt_tw: LHP2ItemData(base_item_id + 675),
+    ItemName.da_tw: LHP2ItemData(base_item_id + 676),
+    ItemName.foc_tw: LHP2ItemData(base_item_id + 677),
+    ItemName.kd_tw: LHP2ItemData(base_item_id + 678),
+    ItemName.agv_tw: LHP2ItemData(base_item_id + 679),
+    ItemName.avt_tw: LHP2ItemData(base_item_id + 680),
+    ItemName.oor_tw: LHP2ItemData(base_item_id + 681),
+    ItemName.jd_tw: LHP2ItemData(base_item_id + 682),
+    ItemName.ansmc_tw: LHP2ItemData(base_item_id + 683),
+    ItemName.lh_tw: LHP2ItemData(base_item_id + 684),
+    ItemName.ff_tw: LHP2ItemData(base_item_id + 685),
+    ItemName.thath_tw: LHP2ItemData(base_item_id + 686),
+    ItemName.tsh_tw: LHP2ItemData(base_item_id + 687),
+    ItemName.mim_tw: LHP2ItemData(base_item_id + 688),
+    ItemName.igd_tw: LHP2ItemData(base_item_id + 689),
+    ItemName.sal_tw: LHP2ItemData(base_item_id + 690),
+    ItemName.ll_tw: LHP2ItemData(base_item_id + 691),
+    ItemName.dob_tw: LHP2ItemData(base_item_id + 692),
+    ItemName.ttd_tw: LHP2ItemData(base_item_id + 693),
+    ItemName.bts_tw: LHP2ItemData(base_item_id + 694),
+    ItemName.bb_tw: LHP2ItemData(base_item_id + 695),
+    ItemName.fiend_tw: LHP2ItemData(base_item_id + 696),
+    ItemName.st_tw: LHP2ItemData(base_item_id + 697),
+    ItemName.tfitp_tw: LHP2ItemData(base_item_id + 698),
+}
+
 item_data_table = {
-    **level_unlock_loc_table,
+    **level_unlock_item_table,
     **sip_item_table,
-    **house_crest_loc_table,
+    **house_crest_item_table,
+    **true_wizard_item_table,
 }
 
 
 def setup_items(options: LHP2Options):
     temp_item_table = {}
-    temp_item_table.update(level_unlock_loc_table)
+    temp_item_table.update(level_unlock_item_table)
     temp_item_table.update(sip_item_table)
-    temp_item_table.update(house_crest_loc_table)
+    temp_item_table.update(house_crest_item_table)
+    temp_item_table.update(true_wizard_item_table)
     return temp_item_table

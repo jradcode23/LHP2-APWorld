@@ -186,15 +186,6 @@ fiend_hcgb = "Fiendfyre Frenzy: House Crest Gold Brick"
 st_hcgb = "Snape's Tears: House Crest Gold Brick"
 tfitp_hcgb = "The Flaw in the Plan: House Crest Gold Brick"
 
-# Gold Brick Definitions
-gb = "Gold Brick"
-
-# Gold Brick Purchase Definitions
-
-# Red Brick Definitions
-
-# Red Brick Purchase Definitions
-
 # True Wizard Definitions
 tw = "True Wizard"
 dt_tw = "Dark Times: True Wizard"
@@ -221,3 +212,14 @@ bb_tw = "Burning Bridges: True Wizard"
 fiend_tw = "Fiendfyre Frenzy: True Wizard"
 st_tw = "Snape's Tears: True Wizard"
 tfitp_tw = "The Flaw in the Plan: True Wizard"
+
+# Gold Brick Definitions
+gb = "Gold Brick"
+
+# Gold Brick Purchase Definitions
+
+# Red Brick Definitions
+
+# Red Brick Purchase Definitions
+
+

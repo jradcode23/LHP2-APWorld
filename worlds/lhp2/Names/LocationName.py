@@ -182,14 +182,6 @@ fiend_hcc = "Fiendfyre Frenzy: House Crest Completed"
 st_hcc = "Snape's Tears: House Crest Completed"
 tfitp_hcc = "The Flaw in the Plan: House Crest Completed"
 
-# Gold Brick Definitions
-
-# Gold Brick Purchase Definitions
-
-# Red Brick Definitions
-
-# Red Brick Purchase Definitions
-
 # True Status Definitions
 dt_tw = "Dark Times: True Wizard"
 da_tw = "Dumbledore's Army: True Wizard"
@@ -215,3 +207,13 @@ bb_tw = "Burning Bridges: True Wizard"
 fiend_tw = "Fiendfyre Frenzy: True Wizard"
 st_tw = "Snape's Tears: True Wizard"
 tfitp_tw = "The Flaw in the Plan: True Wizard"
+
+# Gold Brick Definitions
+
+# Gold Brick Purchase Definitions
+
+# Red Brick Definitions
+
+# Red Brick Purchase Definitions
+
+

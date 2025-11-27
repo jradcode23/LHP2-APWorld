@@ -189,10 +189,42 @@ house_crest_loc_table: Dict[str, LocationData] = {
     LocationName.tfitp_hc: LocationData(base_location_id + 645, RegionName.tfitp),
 }
 
+# 650 - 673
+# House Crest Completed
+
+# 675 - 698
+true_wizard_loc_table: Dict[str, LocationData] = {
+    LocationName.dt_tw: LocationData(base_location_id + 675),
+    LocationName.da_tw: LocationData(base_location_id + 676),
+    LocationName.foc_tw: LocationData(base_location_id + 677),
+    LocationName.kd_tw: LocationData(base_location_id + 678),
+    LocationName.agv_tw: LocationData(base_location_id + 679),
+    LocationName.avt_tw: LocationData(base_location_id + 680),
+    LocationName.oor_tw: LocationData(base_location_id + 681),
+    LocationName.jd_tw: LocationData(base_location_id + 682),
+    LocationName.ansmc_tw: LocationData(base_location_id + 683),
+    LocationName.lh_tw: LocationData(base_location_id + 684),
+    LocationName.ff_tw: LocationData(base_location_id + 685),
+    LocationName.thath_tw: LocationData(base_location_id + 686),
+    LocationName.tsh_tw: LocationData(base_location_id + 687),
+    LocationName.mim_tw: LocationData(base_location_id + 688),
+    LocationName.igd_tw: LocationData(base_location_id + 689),
+    LocationName.sal_tw: LocationData(base_location_id + 690),
+    LocationName.ll_tw: LocationData(base_location_id + 691),
+    LocationName.dob_tw: LocationData(base_location_id + 692),
+    LocationName.ttd_tw: LocationData(base_location_id + 693),
+    LocationName.bts_tw: LocationData(base_location_id + 694),
+    LocationName.bb_tw: LocationData(base_location_id + 695),
+    LocationName.fiend_tw: LocationData(base_location_id + 696),
+    LocationName.st_tw: LocationData(base_location_id + 697),
+    LocationName.tfitp_tw: LocationData(base_location_id + 698),
+}
+
 all_location_table = {
     **level_beaten_loc_table,
     **sip_loc_table,
-    **house_crest_loc_table
+    **house_crest_loc_table,
+    **true_wizard_loc_table,
 }
 
 
@@ -201,4 +233,5 @@ def setup_locations(options: LHP2Options):
     temp_location_table.update(level_beaten_loc_table)
     temp_location_table.update(sip_loc_table)
     temp_location_table.update(house_crest_loc_table)
+    temp_location_table.update(true_wizard_loc_table)
     return temp_location_table

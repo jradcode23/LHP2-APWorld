@@ -203,4 +203,5 @@ def setup_items(options: LHP2Options):
     temp_item_table = {}
     temp_item_table.update(level_unlock_loc_table)
     temp_item_table.update(sip_item_table)
+    temp_item_table.update(house_crest_loc_table)
     return temp_item_table

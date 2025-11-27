@@ -200,4 +200,5 @@ def setup_locations(options: LHP2Options):
     temp_location_table = {}
     temp_location_table.update(level_beaten_loc_table)
     temp_location_table.update(sip_loc_table)
+    temp_location_table.update(house_crest_loc_table)
     return temp_location_table

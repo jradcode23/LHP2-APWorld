@@ -22,21 +22,22 @@ class CollectibleQuantity(OptionDict):
     The number of each collectible you need to beat the seed. Does nothing if the collector is your not win con.
 
     Valid Keys:
+    - Character Token
     - Gold Brick
+    - House Crest Completed
     - Student in Peril
     - True Wizard
-    - Character Token
-    - House Crest Completed
     """
     display_name = "Collectibles Required"
     min = 0
     max_values_dict: dict[str, int] = {
-        ItemName.gb: 201,
-        ItemName.sip: 61,
+        ItemName.gb: 200,
+        ItemName.sip: 60,
         ItemName.tw: 24,
         ItemName.ct: 200,
         ItemName.hcgb: 24,
     }
+    default = {ItemName.gb: 100, ItemName.sip: 30, ItemName.tw: 12, ItemName.ct: 100, ItemName.hcgb: 12}
 
 
 @dataclass

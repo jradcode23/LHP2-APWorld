@@ -15,8 +15,9 @@ class LHP2Item(Item):
 class LHP2ItemData(NamedTuple):
     code: Optional[int] = None
     qty: int = 0
-    classification: ItemClassification = ItemClassification.filler
-   
+    classification: ItemClassification = ItemClassification.progression_deprioritized_skip_balancing
+    # TODO: not sure why gen fails if everything but level unlocks is filler
+
 
 base_item_id = 400000
 

@@ -17,17 +17,11 @@ class LocationData(NamedTuple):
 
 base_location_id = 400000
 
-# 0 - 199
+# 0 - 212
 character_loc_table: Dict[str, LocationData] = {}
 
-# 200 - 399
+# 215 - 425
 character_token_loc_table: Dict[str, LocationData] = {}
-
-# 400 - 408 Spells, 409 - 418 Unlockable abilities 419 - 424 Extra abilities
-spell_loc_table: Dict[str, LocationData] = {}
-
-# 425 - 443
-joke_shop_loc_table: Dict[str, LocationData] = {}
 
 # 450 - 473
 level_beaten_loc_table: Dict[str, LocationData] = {

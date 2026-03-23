@@ -196,6 +196,7 @@ class LHP2World(World):
 
     seed_location_table: Dict[str, int]
     seed_item_table: Dict[str, int]
+    starting_items: list[str] = []
 
     data_version = 1
     web = LHP2Web()
@@ -217,6 +218,7 @@ class LHP2World(World):
     def generate_early(self):
         self.validate_yaml()
         self.multiworld.push_precollected(self.create_item(ItemName.dt_unlock))
+        self.starting_items.append(ItemName.dt_unlock)
         self.choose_starting_levels()
 
     def validate_yaml(self):
@@ -233,9 +235,21 @@ class LHP2World(World):
         return item
 
     def create_items(self):
-        itempool = []  # TODO: to break this out like Batman
+        itempool = []
         for name, data in item_data_table.items():
             itempool += [self.create_item(name) for _ in range(data.qty)]
+
+        for item in self.starting_items:
+            print(item)
+            for i in itempool:
+                if i.name == item:
+                    itempool.remove(i)
+                    break
+
+        extra_locations = len(self.seed_location_table) - len(itempool)
+        while extra_locations > 0:
+            itempool += [self.create_item("Purple Stud")]
+            extra_locations -= 1
         self.multiworld.itempool.extend(itempool)
 
     def set_rules(self):
@@ -248,6 +262,7 @@ class LHP2World(World):
             self.options.StartingLevelOptions.value.remove(starting_level)
             starting_level = starting_level + ": Level Unlocked"
             self.multiworld.push_precollected(self.create_item(starting_level))
+            self.starting_items.append(starting_level)
             levels_pushed += 1
 
     def collect(self, state: CollectionState, item: Item) -> bool:

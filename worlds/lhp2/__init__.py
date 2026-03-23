@@ -221,6 +221,16 @@ class LHP2World(World):
         self.starting_items.append(ItemName.dt_unlock)
         self.choose_starting_levels()
 
+        if self.options.StartingDetectors.value == 1:
+            self.multiworld.push_precollected(self.create_item(ItemName.char_token_detect_unlock))
+            self.multiworld.push_precollected(self.create_item(ItemName.red_brick_detect_unlock))
+            self.multiworld.push_precollected(self.create_item(ItemName.crest_detect_unlock))
+            self.multiworld.push_precollected(self.create_item(ItemName.gb_detect_unlock))
+            self.starting_items.append(ItemName.char_token_detect_unlock)
+            self.starting_items.append(ItemName.red_brick_detect_unlock)
+            self.starting_items.append(ItemName.crest_detect_unlock)
+            self.starting_items.append(ItemName.gb_detect_unlock)
+
     def validate_yaml(self):
         if self.options.NumStartLevels > len(self.options.StartingLevelOptions.value) + 1:
             raise OptionError("You want to start with more levels than are in the starting pool")

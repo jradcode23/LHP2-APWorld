@@ -186,6 +186,13 @@ class HighMultiplierMinimum(Range):
     default = 100000
 
 
+class StartingDetectors(DefaultOnToggle):
+    """
+    Determines if the player starts with Character Token, Red Brick, Hogwarts Crest, & Gold Brick Detectors.
+    """
+    display_name = "Start With Detectors"
+
+
 @dataclass
 class LHP2Options(PerGameCommonOptions):
     EndGoal: EndGoal
@@ -197,3 +204,4 @@ class LHP2Options(PerGameCommonOptions):
     HardPurchases: HardPurchases
     LowMultiplierPriceMinimum: LowMultiplierPriceMinimum
     HighMultiplierMinimum: HighMultiplierMinimum
+    StartingDetectors: StartingDetectors

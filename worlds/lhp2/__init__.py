@@ -13,12 +13,15 @@ from .Regions import create_regions, connect_regions
 from .Rules import set_rules
 from ..AutoWorld import World, WebWorld, CollectionState
 
+
 class UTPackPath(FilePath):
     required = False
 
+
 class LHP2Settings(settings.Group):
     ut_pack_path: Union[UTPackPath, str] = UTPackPath()
-    
+
+
 class LHP2Web(WebWorld):
     theme = "ocean"
     tutorial = [Tutorial(
@@ -29,6 +32,7 @@ class LHP2Web(WebWorld):
         "setup/en",
         ["jrad"]
     )]
+
 
 def lhp2_map_to_tab_index(data: Any) -> int:
     if data is None or data == "" or data == b"":
@@ -176,6 +180,7 @@ def lhp2_map_to_tab_index(data: Any) -> int:
         return hub_offset_to_tab.get(hub_offset, 0)
  
     return 0
+
 
 class LHP2World(World):
     """

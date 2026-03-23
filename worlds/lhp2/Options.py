@@ -60,6 +60,16 @@ class NumHorcruxesRequired(Range):
     default = 4
 
 
+class NumStartSpells(Range):
+    """
+    Determine the number of starting spells (excludes joke spells).
+    """
+    display_name = "Number of Starting Spells"
+    range_start = 0
+    range_end = 10
+    default = 0
+
+
 class NumStartLevels(Range):
     """
     Determine the number of starting levels.
@@ -199,6 +209,7 @@ class LHP2Options(PerGameCommonOptions):
     # CollectibleQuantity: CollectibleQuantity
     # FlawInThePlanCondition: FlawInThePlanCondition
     NumHorcruxRequired: NumHorcruxesRequired
+    NumStartSpells: NumStartSpells
     NumStartLevels: NumStartLevels
     StartingLevelOptions: StartingLevelOptions
     HardPurchases: HardPurchases

@@ -827,3 +827,9 @@ item_data_table = {
 }
 
 horcrux_names_set = set(horcrux_item_table.keys())
+progression_spells = [
+    name
+    for table in (spell_item_table, ability_item_table)
+    for name, data in table.items()
+    if data.classification == ItemClassification.progression
+]

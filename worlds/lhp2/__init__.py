@@ -5,7 +5,7 @@ from settings import FilePath
 
 from BaseClasses import Item, Tutorial
 from Options import OptionError
-from .Items import LHP2Item, item_data_table, horcrux_names_set
+from .Items import LHP2Item, item_data_table, horcrux_names_set, progression_spells
 from .Locations import all_location_table, LocationData, setup_locations
 from .Names import ItemName, RegionName
 from .Options import LHP2Options
@@ -220,6 +220,7 @@ class LHP2World(World):
         self.multiworld.push_precollected(self.create_item(ItemName.dt_unlock))
         self.starting_items.append(ItemName.dt_unlock)
         self.choose_starting_levels()
+        self.choose_starting_spells()
 
         if self.options.StartingDetectors.value == 1:
             self.multiworld.push_precollected(self.create_item(ItemName.char_token_detect_unlock))
@@ -274,6 +275,15 @@ class LHP2World(World):
             self.multiworld.push_precollected(self.create_item(starting_level))
             self.starting_items.append(starting_level)
             levels_pushed += 1
+
+    def choose_starting_spells(self):
+        spells_pushed: int = 0
+        while spells_pushed < self.options.NumStartSpells.value:
+            spell = self.random.choice(progression_spells)
+            progression_spells.remove(spell)
+            self.multiworld.push_precollected(self.create_item(spell))
+            self.starting_items.append(spell)
+            spells_pushed += 1
 
     def collect(self, state: CollectionState, item: Item) -> bool:
         changed = super().collect(state, item)

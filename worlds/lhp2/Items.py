@@ -826,6 +826,16 @@ item_data_table = {
     **horcrux_item_table,
 }
 
+spell_and_ability_table = {
+    **spell_item_table,
+    **ability_item_table,
+}
+
+student_in_peril_table = {
+    **level_sip_item_table,
+    **hub_sip_item_table,
+}
+
 horcrux_names_set = set(horcrux_item_table.keys())
 progression_spells = [
     name
@@ -833,3 +843,16 @@ progression_spells = [
     for name, data in table.items()
     if data.classification == ItemClassification.progression
 ]
+
+item_name_groups = {
+    "Token": {name: data for name, data in character_token_item_table.items()},
+    "Character": {name: data for name, data in character_item_table.items()},
+    "Spell": {name: data for name, data in spell_and_ability_table.items()},
+    "Level Unlock": {name: data for name, data in level_unlock_item_table.items()},
+    "Student In Peril": {name: data for name, data in student_in_peril_table.items()},
+    "House Crest": {name: data for name, data in house_crest_item_table.items()},
+    "True Wizard": {name: data for name, data in true_wizard_item_table.items()},
+    "Red Brick Purchasable": {name: data for name, data in red_brick_purchasable_table.items()},
+    "Red Brick Unlocked": {name: data for name, data in red_brick_unlock_table.items()},
+    "Horcrux": {name: data for name, data in horcrux_item_table.items()},
+}

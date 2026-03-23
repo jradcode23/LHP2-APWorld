@@ -5,8 +5,8 @@ from settings import FilePath
 
 from BaseClasses import Item, Tutorial
 from Options import OptionError
-from .Items import LHP2Item, item_data_table, horcrux_names_set, progression_spells
-from .Locations import all_location_table, LocationData, setup_locations
+from .Items import LHP2Item, item_data_table, horcrux_names_set, progression_spells, item_name_groups
+from .Locations import all_location_table, LocationData, setup_locations, location_name_groups
 from .Names import ItemName, RegionName
 from .Options import LHP2Options
 from .Regions import create_regions, connect_regions
@@ -197,6 +197,9 @@ class LHP2World(World):
     seed_location_table: Dict[str, int]
     seed_item_table: Dict[str, int]
     starting_items: list[str] = []
+
+    item_name_groups = item_name_groups
+    location_name_groups = location_name_groups
 
     data_version = 1
     web = LHP2Web()

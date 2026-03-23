@@ -940,3 +940,48 @@ def setup_locations(options: LHP2Options):
     temp_location_table.update(red_brick_purch_table)
     temp_location_table.update(hub_progress_loc_table)
     return temp_location_table
+
+
+location_name_groups = {
+    RegionName.dt:    {name for name, data in all_location_table.items() if data.region == RegionName.dt},
+    RegionName.da:    {name for name, data in all_location_table.items() if data.region == RegionName.da},
+    RegionName.foc:   {name for name, data in all_location_table.items()
+                       if data.region == RegionName.foc or data.region == RegionName.focf},
+    RegionName.kd:    {name for name, data in all_location_table.items() if data.region == RegionName.kd},
+    RegionName.agv:   {name for name, data in all_location_table.items() if data.region == RegionName.agv},
+    RegionName.avt:   {name for name, data in all_location_table.items() if data.region == RegionName.avt},
+    RegionName.oor:   {name for name, data in all_location_table.items()
+                       if data.region == RegionName.oor or data.region == RegionName.oorf},
+    RegionName.jd:    {name for name, data in all_location_table.items() if data.region == RegionName.jd},
+    RegionName.ansmc: {name for name, data in all_location_table.items()
+                       if data.region == RegionName.ansmc or data.region == RegionName.ansmcf},
+    RegionName.lh:    {name for name, data in all_location_table.items()
+                       if data.region == RegionName.lh or data.region == RegionName.lhf},
+    RegionName.ff:    {name for name, data in all_location_table.items()
+                       if data.region == RegionName.ff or data.region == RegionName.fff},
+    RegionName.thath: {name for name, data in all_location_table.items()
+                       if data.region == RegionName.thath or data.region == RegionName.thathf},
+    RegionName.tsh:   {name for name, data in all_location_table.items()
+                       if data.region == RegionName.tsh or data.region == RegionName.tshf},
+    RegionName.mim:   {name for name, data in all_location_table.items()
+                       if data.region == RegionName.mim or data.region == RegionName.mimf},
+    RegionName.igd:   {name for name, data in all_location_table.items()
+                       if data.region == RegionName.igd or data.region == RegionName.igdf},
+    RegionName.sal:   {name for name, data in all_location_table.items() if data.region == RegionName.sal},
+    RegionName.ll:    {name for name, data in all_location_table.items()
+                       if data.region == RegionName.ll or data.region == RegionName.llf},
+    RegionName.dob:   {name for name, data in all_location_table.items()
+                       if data.region == RegionName.dob or data.region == RegionName.dobf},
+    RegionName.ttd:   {name for name, data in all_location_table.items()
+                       if data.region == RegionName.ttd or data.region == RegionName.ttdf},
+    RegionName.bts:   {name for name, data in all_location_table.items()
+                       if data.region == RegionName.bts or data.region == RegionName.btsf},
+    RegionName.bb:    {name for name, data in all_location_table.items()
+                       if data.region == RegionName.bb or data.region == RegionName.bbf},
+    RegionName.fiend: {name for name, data in all_location_table.items()
+                       if data.region == RegionName.fiend or data.region == RegionName.fiendf},
+    RegionName.st:    {name for name, data in all_location_table.items()
+                       if data.region == RegionName.st or data.region == RegionName.stf},
+    RegionName.tfitp: {name for name, data in all_location_table.items()
+                       if data.region == RegionName.tfitp or data.region == RegionName.tfitpf},
+}

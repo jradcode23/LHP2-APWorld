@@ -212,7 +212,7 @@ can_get_wormtail = can_use_dark_mag
 # The Thief's Downfall Logic
 can_access_ttd_free = Has(itm.herm_bag_unlock)
 can_beat_ttd = HasAll(itm.reducto_unlock, itm.agua_unlock, itm.delum_unlock)
-can_get_ttd_gc = Has(itm.diffindo_unlock)
+can_get_ttd_gc = Has(itm.reducto_unlock)
 can_get_ttd_sc = can_use_dark_mag
 can_get_ttd_rc = Has(itm.specs_unlock) & char_is_strong_level
 can_get_ttd_hc = HasAll(itm.reducto_unlock, itm.agua_unlock, itm.delum_unlock, itm.specs_unlock) & char_is_strong_level

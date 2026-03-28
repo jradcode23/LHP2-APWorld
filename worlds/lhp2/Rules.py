@@ -325,7 +325,6 @@ can_get_quad_rb = HasAll(itm.diffindo_unlock, itm.dada_lesson_e_item)
 can_get_quad_sip = Has(itm.delum_unlock)
 can_get_tg_gb = can_use_dm_in_hub
 can_get_herb_gb = Has(itm.diffindo_unlock)
-can_get_grounds_gb = char_is_strong_hub
 can_get_grounds_rb = HasAll(itm.specs_unlock, itm.y6_hogwarts_e_item)
 can_get_thest_gb = Has(itm.thestral_lesson_e_item)
 can_get_thest_rb = Has(itm.thestral_lesson_e_item) & can_use_dm_in_hub
@@ -932,7 +931,6 @@ def set_hub_collect_logic(world):
     world.set_rule(world.get_location(locn.quad_sip), can_get_quad_sip)
     world.set_rule(world.get_location(locn.tg_gb), can_get_tg_gb)
     world.set_rule(world.get_location(locn.herb_gb), can_get_herb_gb)
-    world.set_rule(world.get_location(locn.ground_gb), can_get_grounds_gb)
     world.set_rule(world.get_location(locn.ground_rb), can_get_grounds_rb)
     world.set_rule(world.get_location(locn.thest_gb), can_get_thest_gb)
     world.set_rule(world.get_location(locn.thest_rb), can_get_thest_rb)

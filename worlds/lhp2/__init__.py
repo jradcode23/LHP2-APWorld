@@ -196,7 +196,7 @@ class LHP2World(World):
 
     seed_location_table: Dict[str, int]
     seed_item_table: Dict[str, int]
-    starting_items: list[str] = []
+    starting_items: list[tuple[str, int]] = []
 
     item_name_groups = item_name_groups
     location_name_groups = location_name_groups
@@ -221,7 +221,7 @@ class LHP2World(World):
     def generate_early(self):
         self.validate_yaml()
         self.multiworld.push_precollected(self.create_item(ItemName.dt_unlock))
-        self.starting_items.append(ItemName.dt_unlock)
+        self.starting_items.append((ItemName.dt_unlock, self.player))
         self.choose_starting_levels()
         self.choose_starting_spells()
 
@@ -230,10 +230,10 @@ class LHP2World(World):
             self.multiworld.push_precollected(self.create_item(ItemName.red_brick_detect_unlock))
             self.multiworld.push_precollected(self.create_item(ItemName.crest_detect_unlock))
             self.multiworld.push_precollected(self.create_item(ItemName.gb_detect_unlock))
-            self.starting_items.append(ItemName.char_token_detect_unlock)
-            self.starting_items.append(ItemName.red_brick_detect_unlock)
-            self.starting_items.append(ItemName.crest_detect_unlock)
-            self.starting_items.append(ItemName.gb_detect_unlock)
+            self.starting_items.append((ItemName.char_token_detect_unlock, self.player))
+            self.starting_items.append((ItemName.red_brick_detect_unlock, self.player))
+            self.starting_items.append((ItemName.crest_detect_unlock, self.player))
+            self.starting_items.append((ItemName.gb_detect_unlock, self.player))
 
     def validate_yaml(self):
         if self.options.NumStartLevels > len(self.options.StartingLevelOptions.value) + 1:
@@ -250,20 +250,27 @@ class LHP2World(World):
 
     def create_items(self):
         itempool = []
+
+        # Build the full pool
         for name, data in item_data_table.items():
             itempool += [self.create_item(name) for _ in range(data.qty)]
 
-        for item in self.starting_items:
-            print(item)
+        # Remove starting items for selected player
+        for name, player in self.starting_items:
+            if player != self.player:
+                continue
+
             for i in itempool:
-                if i.name == item:
+                if i.name == name and i.player == self.player:
                     itempool.remove(i)
                     break
 
+        # Fill extra locations
         extra_locations = len(self.seed_location_table) - len(itempool)
         while extra_locations > 0:
-            itempool += [self.create_item("Purple Stud")]
+            itempool.append(self.create_item("Purple Stud"))
             extra_locations -= 1
+
         self.multiworld.itempool.extend(itempool)
 
     def set_rules(self):
@@ -276,7 +283,7 @@ class LHP2World(World):
             self.options.StartingLevelOptions.value.remove(starting_level)
             starting_level = starting_level + ": Level Unlocked"
             self.multiworld.push_precollected(self.create_item(starting_level))
-            self.starting_items.append(starting_level)
+            self.starting_items.append((starting_level, self.player))
             levels_pushed += 1
 
     def choose_starting_spells(self):
@@ -285,7 +292,7 @@ class LHP2World(World):
             spell = self.random.choice(progression_spells)
             progression_spells.remove(spell)
             self.multiworld.push_precollected(self.create_item(spell))
-            self.starting_items.append(spell)
+            self.starting_items.append((spell, self.player))
             spells_pushed += 1
 
     def collect(self, state: CollectionState, item: Item) -> bool:

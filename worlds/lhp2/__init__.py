@@ -5,7 +5,7 @@ from settings import FilePath
 
 from BaseClasses import Item, Tutorial
 from Options import OptionError
-from .Items import LHP2Item, item_data_table, horcrux_names_set, progression_spells, item_name_groups
+from .Items import LHP2Item, item_data_table, horcrux_names_set, progression_spells, item_name_groups, setup_items
 from .Locations import all_location_table, LocationData, setup_locations, location_name_groups
 from .Names import ItemName, RegionName
 from .Options import LHP2Options
@@ -250,9 +250,10 @@ class LHP2World(World):
 
     def create_items(self):
         itempool = []
+        seed_items = setup_items(self.options)
 
         # Build the full pool
-        for name, data in item_data_table.items():
+        for name, data in seed_items.items():
             itempool += [self.create_item(name) for _ in range(data.qty)]
 
         # Remove starting items for selected player
@@ -321,4 +322,6 @@ class LHP2World(World):
             # "CollectiblesRequired": self.options.CollectibleQuantity.value,
             # "FlawInThePlanCondition": self.options.FlawInThePlanCondition.value,
             "NumHorcruxRequired": self.options.NumHorcruxRequired.value,
+            "ShuffleJokeSpells": self.options.ShuffleJokeSpells.value,
+            "ShuffleGoldBrickPurchases": self.options.ShuffleGoldBrickPurchases.value,
         }

@@ -1,4 +1,5 @@
-from typing import NamedTuple, Optional, Dict
+from dataclasses import dataclass
+from typing import Optional, Dict
 
 from BaseClasses import Item, ItemClassification
 from .Names import ItemName
@@ -9,7 +10,8 @@ class LHP2Item(Item):
     game: str = "Lego Harry Potter 5-7"
 
 
-class LHP2ItemData(NamedTuple):
+@dataclass
+class LHP2ItemData:
     code: Optional[int] = None
     classification: ItemClassification = ItemClassification.filler
     qty: int = 1
@@ -705,8 +707,8 @@ purp_stud_item_table: Dict[str, LHP2ItemData] = {
 
 # Gold Bricks 700 - 899
 gold_brick_item_table: Dict[str, LHP2ItemData] = {
-    ItemName.gb: LHP2ItemData(base_item_id + 700, qty=52),
-    ItemName.gb5: LHP2ItemData(base_item_id + 701, qty=1),
+    ItemName.gb: LHP2ItemData(base_item_id + 700, qty=0),
+    ItemName.gb5: LHP2ItemData(base_item_id + 701, qty=50),
 }
 
 # Red Brick Purchasable 900 - 933
@@ -762,7 +764,7 @@ red_brick_unlock_table: Dict[str, LHP2ItemData] = {
 }
 
 # 975 - 1005
-spell_item_table: Dict[str, LHP2ItemData] = {
+joke_spell_table: Dict[str, LHP2ItemData] = {
     # ItemName.wingarad_unlock: LHP2ItemData(base_item_id + 975),
     ItemName.slug_unlock: LHP2ItemData(base_item_id + 976),
     ItemName.rictu_unlock: LHP2ItemData(base_item_id + 977),
@@ -783,6 +785,10 @@ spell_item_table: Dict[str, LHP2ItemData] = {
     ItemName.transfig_unlock: LHP2ItemData(base_item_id + 992),
     ItemName.engorg_unlock: LHP2ItemData(base_item_id + 993),
     ItemName.immob_unlock: LHP2ItemData(base_item_id + 994),
+}
+
+
+spell_item_table: Dict[str, LHP2ItemData] = {
     # ItemName.pets_unlock: LHP2ItemData(base_item_id + 995),
     # ItemName.invis_unlock: LHP2ItemData(base_item_id + 996),
     # ItemName.avada_unlock: LHP2ItemData(base_item_id + 997),
@@ -812,6 +818,7 @@ ability_item_table: Dict[str, LHP2ItemData] = {
 item_data_table = {
     **character_item_table,
     **character_token_item_table,
+    **joke_spell_table,
     **spell_item_table,
     **level_unlock_item_table,
     **level_sip_item_table,
@@ -825,6 +832,30 @@ item_data_table = {
     **purp_stud_item_table,
     **horcrux_item_table,
 }
+
+
+def setup_items(options: LHP2Options):
+    temp_item_table = {}
+    temp_item_table.update(character_item_table)
+    temp_item_table.update(character_token_item_table)
+    if options.ShuffleJokeSpells == 1:
+        temp_item_table.update(joke_spell_table)
+    temp_item_table.update(spell_item_table)
+    temp_item_table.update(level_unlock_item_table)
+    temp_item_table.update(level_sip_item_table)
+    temp_item_table.update(hub_sip_item_table)
+    temp_item_table.update(house_crest_item_table)
+    temp_item_table.update(true_wizard_item_table)
+    temp_item_table.update(gold_brick_item_table)
+    if options.ShuffleGoldBrickPurchases == 0:
+        temp_item_table[ItemName.gb5].qty = 35
+    temp_item_table.update(red_brick_purchasable_table)
+    temp_item_table.update(red_brick_unlock_table)
+    temp_item_table.update(ability_item_table)
+    temp_item_table.update(purp_stud_item_table)
+    temp_item_table.update(horcrux_item_table)
+    return temp_item_table
+
 
 spell_and_ability_table = {
     **spell_item_table,

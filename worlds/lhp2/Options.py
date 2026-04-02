@@ -166,6 +166,20 @@ class StartingLevelOptions(OptionList):
     ]
 
 
+class ShuffleJokeSpells(DefaultOnToggle):
+    """
+    Turning this on makes it so Joke Shop purchases are shuffled
+    """
+    display_name = "Shuffle Joke Shop Purchases"
+
+
+class ShuffleGoldBrickPurchases(DefaultOnToggle):
+    """
+    Turning this on makes it so Gold Brick purchases are shuffled
+    """
+    display_name = "Shuffle Gold Brick Purchases"
+
+
 class HardPurchases(Toggle):
     """
     Turning this on makes it so purchases no longer require a stud multiplier.
@@ -212,6 +226,8 @@ class LHP2Options(PerGameCommonOptions):
     NumStartSpells: NumStartSpells
     NumStartLevels: NumStartLevels
     StartingLevelOptions: StartingLevelOptions
+    ShuffleJokeSpells: ShuffleJokeSpells
+    ShuffleGoldBrickPurchases: ShuffleGoldBrickPurchases
     HardPurchases: HardPurchases
     LowMultiplierPriceMinimum: LowMultiplierPriceMinimum
     HighMultiplierMinimum: HighMultiplierMinimum

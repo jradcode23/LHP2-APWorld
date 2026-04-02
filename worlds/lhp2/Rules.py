@@ -535,8 +535,10 @@ def set_rules(world: "LHP2World"):
     set_hub_token_logic(world)
     # Shop Logic
     set_char_purch_logic(world)
-    set_joke_purch_logic(world)
-    set_gold_brick_purch_logic(world)
+    if world.options.ShuffleJokeSpells == 1:
+        set_joke_purch_logic(world)
+    if world.options.ShuffleGoldBrickPurchases == 1:
+        set_gold_brick_purch_logic(world)
     set_red_brick_purch_logic(world)
 
 

@@ -850,7 +850,7 @@ spell_loc_table: Dict[str, LocationData] = {
     # LocationName.diffindo_purch: LocationData(base_location_id + 998, RegionName.y5c),
     # # LocationName.lumos_purch: LocationData(base_location_id + 999, RegionName.www),
     # # lumos has 2 bits
-    LocationName.delum_lesson: LocationData(base_location_id + 1001, RegionName.tsh),
+
     # LocationName.agua_purch: LocationData(base_location_id + 1002, RegionName.y6c),
     # LocationName.focus_purch: LocationData(base_location_id + 1003, RegionName.cl),
     # LocationName.expecto_purch: LocationData(base_location_id + 1004, RegionName.ror),
@@ -858,6 +858,7 @@ spell_loc_table: Dict[str, LocationData] = {
 }
 
 hub_progress_loc_table: Dict[str, LocationData] = {
+    LocationName.delum_lesson: LocationData(base_location_id + 1001, RegionName.tsh),
     LocationName.y5_hogwarts: LocationData(base_location_id + 1006, RegionName.hogwpath),
     LocationName.dada_lesson: LocationData(base_location_id + 1007, RegionName.dada),
     LocationName.thestral_lesson: LocationData(base_location_id + 1008, RegionName.thest),
@@ -925,16 +926,18 @@ all_location_table = {
 
 
 def setup_locations(options: LHP2Options):
-    temp_location_table = {}
+    temp_location_table: Dict[str, LocationData] = {}
     temp_location_table.update(character_location_table)
     temp_location_table.update(character_token_location_table)
-    temp_location_table.update(spell_loc_table)
+    if options.ShuffleJokeSpells == 1:
+        temp_location_table.update(spell_loc_table)
     temp_location_table.update(level_beaten_loc_table)
     temp_location_table.update(leve_sip_loc_table)
     temp_location_table.update(hub_sip_loc_table)
     temp_location_table.update(house_crest_loc_table)
     temp_location_table.update(true_wizard_loc_table)
-    temp_location_table.update(bb_gb_loc_table)
+    if options.ShuffleGoldBrickPurchases == 1:
+        temp_location_table.update(bb_gb_loc_table)
     temp_location_table.update(hub_gb_loc_table)
     temp_location_table.update(red_brick_loc_table)
     temp_location_table.update(red_brick_purch_table)

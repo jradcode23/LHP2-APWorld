@@ -708,7 +708,7 @@ purp_stud_item_table: Dict[str, LHP2ItemData] = {
 # Gold Bricks 700 - 899
 gold_brick_item_table: Dict[str, LHP2ItemData] = {
     ItemName.gb: LHP2ItemData(base_item_id + 700, qty=0),
-    ItemName.gb5: LHP2ItemData(base_item_id + 701, qty=50),
+    ItemName.gb5: LHP2ItemData(base_item_id + 701, qty=40),
 }
 
 # Red Brick Purchasable 900 - 933
@@ -848,7 +848,7 @@ def setup_items(options: LHP2Options):
     temp_item_table.update(true_wizard_item_table)
     temp_item_table.update(gold_brick_item_table)
     if options.ShuffleGoldBrickPurchases == 0:
-        temp_item_table[ItemName.gb5].qty = 35
+        temp_item_table[ItemName.gb5].qty = 24
     temp_item_table.update(red_brick_purchasable_table)
     temp_item_table.update(red_brick_unlock_table)
     temp_item_table.update(ability_item_table)

@@ -576,7 +576,7 @@ house_crest_loc_table: Dict[str, LocationData] = {
     LocationName.bts_gc: LocationData(base_location_id + 569, RegionName.bts),
     LocationName.bb_gc: LocationData(base_location_id + 570, RegionName.bbf),
     LocationName.fiend_gc: LocationData(base_location_id + 571, RegionName.fiendf),
-    LocationName.st_gc: LocationData(base_location_id + 572, RegionName.stf),
+    LocationName.st_gc: LocationData(base_location_id + 572, RegionName.st),
     LocationName.tfitp_gc: LocationData(base_location_id + 573, RegionName.tfitpf),
     # Slyth Crests
     LocationName.dt_sc: LocationData(base_location_id + 574, RegionName.dt),
@@ -601,7 +601,7 @@ house_crest_loc_table: Dict[str, LocationData] = {
     LocationName.bts_sc: LocationData(base_location_id + 593, RegionName.btsf),
     LocationName.bb_sc: LocationData(base_location_id + 594, RegionName.bb),
     LocationName.fiend_sc: LocationData(base_location_id + 595, RegionName.fiendf),
-    LocationName.st_sc: LocationData(base_location_id + 596, RegionName.st),
+    LocationName.st_sc: LocationData(base_location_id + 596, RegionName.stf),
     LocationName.tfitp_sc: LocationData(base_location_id + 597, RegionName.tfitpf),
     # Raven Crests
     LocationName.dt_rc: LocationData(base_location_id + 598, RegionName.dt),

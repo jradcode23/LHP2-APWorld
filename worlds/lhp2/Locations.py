@@ -370,7 +370,7 @@ character_token_location_table: Dict[str, LocationData] = {
     LocationName.marietta_token: LocationData(base_location_id + 345, RegionName.hogs),
     LocationName.dumble_young_token: LocationData(base_location_id + 346, RegionName.dumble_office),
     LocationName.slughorn_young_token: LocationData(base_location_id + 347, RegionName.herb),
-    LocationName.slughorn_pyjamas_token: LocationData(base_location_id + 348, RegionName.oor),
+    LocationName.slughorn_pyjamas_token: LocationData(base_location_id + 348, RegionName.oorf),
     LocationName.lily_young_casual_token: LocationData(base_location_id + 349, RegionName.hogwpath),
     LocationName.ginny_dress_token: LocationData(base_location_id + 350, RegionName.divc),
     LocationName.ginny_pyjamas_token: LocationData(base_location_id + 351, RegionName.gryf),

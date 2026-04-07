@@ -180,6 +180,18 @@ class ShuffleGoldBrickPurchases(DefaultOnToggle):
     display_name = "Shuffle Gold Brick Purchases"
 
 
+class CheaperShops(Range):
+    """
+    Determines how many times cheaper purchases are from vanilla game. This does not affect joke shop purchases.
+    1 is no change and 10 is 10x cheaper.
+    This is taken into account for stud multiplier logic
+    """
+    display_name = "Cheaper Shop Purchases"
+    range_start = 1
+    range_end = 10
+    default = 5
+
+
 class HardPurchases(Toggle):
     """
     Turning this on makes it so purchases no longer require a stud multiplier.
@@ -228,6 +240,7 @@ class LHP2Options(PerGameCommonOptions):
     StartingLevelOptions: StartingLevelOptions
     ShuffleJokeSpells: ShuffleJokeSpells
     ShuffleGoldBrickPurchases: ShuffleGoldBrickPurchases
+    CheaperShops: CheaperShops
     HardPurchases: HardPurchases
     LowMultiplierPriceMinimum: LowMultiplierPriceMinimum
     HighMultiplierMinimum: HighMultiplierMinimum

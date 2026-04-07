@@ -482,7 +482,8 @@ class HasMultiplier(Rule, game="Lego Harry Potter 5-7"):
     def _instantiate(self, world: "LHP2World") -> Rule.Resolved:
         # Look up the price
         data = all_location_table[self.location_name]
-        price = data.price
+        cheaper_shop_amount = world.options.CheaperShops
+        price = data.price / cheaper_shop_amount
 
         # Get Multiplier Requirements
         low = world.options.LowMultiplierPriceMinimum

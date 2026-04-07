@@ -324,4 +324,5 @@ class LHP2World(World):
             "NumHorcruxRequired": self.options.NumHorcruxRequired.value,
             "ShuffleJokeSpells": self.options.ShuffleJokeSpells.value,
             "ShuffleGoldBrickPurchases": self.options.ShuffleGoldBrickPurchases.value,
+            "CheaperShops": self.options.CheaperShops.value,
         }

@@ -235,6 +235,12 @@ class LHP2World(World):
             self.starting_items.append((ItemName.crest_detect_unlock, self.player))
             self.starting_items.append((ItemName.gb_detect_unlock, self.player))
 
+        if self.options.StartingFastMagic.value == 1:
+            self.multiworld.push_precollected(self.create_item(ItemName.fast_magic_unlock))
+            self.multiworld.push_precollected(self.create_item(ItemName.fast_dig_unlock))
+            self.starting_items.append((ItemName.fast_magic_unlock, self.player))
+            self.starting_items.append((ItemName.fast_dig_unlock, self.player))
+
     def validate_yaml(self):
         if self.options.NumStartLevels > len(self.options.StartingLevelOptions.value) + 1:
             raise OptionError("You want to start with more levels than are in the starting pool")

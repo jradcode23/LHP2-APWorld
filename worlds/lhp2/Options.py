@@ -229,6 +229,13 @@ class StartingDetectors(DefaultOnToggle):
     display_name = "Start With Detectors"
 
 
+class StartingFastMagic(DefaultOnToggle):
+    """
+    Determines if the player starts with Fast Magic & Dig.
+    """
+    display_name = "Start With Fast Magic & Dig"
+
+
 @dataclass
 class LHP2Options(PerGameCommonOptions):
     EndGoal: EndGoal
@@ -245,3 +252,4 @@ class LHP2Options(PerGameCommonOptions):
     LowMultiplierPriceMinimum: LowMultiplierPriceMinimum
     HighMultiplierMinimum: HighMultiplierMinimum
     StartingDetectors: StartingDetectors
+    StartingFastMagic: StartingFastMagic

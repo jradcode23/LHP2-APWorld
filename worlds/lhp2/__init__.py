@@ -24,7 +24,7 @@ class LHP2Settings(settings.Group):
 
 class LHP2Web(WebWorld):
     theme = "ocean"
-    tutorial = [Tutorial(
+    tutorials = [Tutorial(
         "Multiworld Setup Guide",
         "A guide to setting up the Lego Harry Potter 5-7 Archipelago",
         "English",

@@ -68,9 +68,9 @@ def lhp2_map_to_tab_index(data: Any) -> int:
         # Hogwarts Path
         14:  8,  109: 8,  180: 8,  282: 8,
         # Greenhouse
-        15:  9,  110: 9,  181: 9, 284: 9,
+        15:  9,  110: 9,  181: 9, 283: 9,
         # Training Grounds
-        16: 10,  111: 10, 182: 10, 283: 10,
+        16: 10,  111: 10, 182: 10, 284: 10,
         # Quad
         17: 11,  112: 11, 184: 11, 285: 11,
         # Room of Requirement Corridor

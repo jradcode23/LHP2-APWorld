@@ -631,8 +631,8 @@ def set_lesson_logic(world):
     world.set_rule(world.get_location(locn.reducto_lesson), HasAll(itm.agua_lesson_e_item, itm.reducto_unlock))
     world.set_rule(world.get_location(locn.dumble_lesson), Has(itm.reducto_lesson_e_item))
     world.set_rule(world.get_location(locn.y6_story_complete), Has(itm.dumble_lesson_e_item))
-    world.set_rule(world.get_location(locn.cafe_lesson), Has(itm.y6_story_complete_e_item) |
-                   Has(itm.y5_story_complete_e_item))
+    world.set_rule(world.get_location(locn.cafe_lesson), Or(Has(itm.y6_story_complete_e_item),
+                   Has(itm.y5_story_complete_e_item)))
 
 
 def set_event_logic(world):

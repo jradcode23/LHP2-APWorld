@@ -369,6 +369,7 @@ can_get_divc_rb = Has(itm.agua_unlock)
 can_get_divc_sip = Has(itm.agua_unlock)
 can_get_div_rb = Has(itm.specs_unlock)
 can_get_ast_rb = can_use_dm_in_hub
+can_get_ast_sip = Has(itm.cafe_lesson_e_item)
 
 # Hub Token Logic
 can_get_anthony_token = HasAll(itm.delum_unlock, itm.diffindo_unlock) & ravenclaw_chars
@@ -381,6 +382,7 @@ can_get_charity = Has(itm.draught_lesson_e_item)
 can_get_charlie = Has(itm.owls_lesson_e_item)
 can_get_cho = HasAll(itm.delum_unlock, itm.cafe_lesson_e_item)
 can_get_crabbe_jumper = char_is_strong_hub
+can_get_dolohov = Has(itm.cafe_lesson_e_item)
 can_get_dolohov_work = Has(itm.cafe_lesson_e_item) & can_use_dm_in_hub
 can_get_draco = Has(itm.dada_lesson_e_item) & can_use_dm_in_hub
 can_get_dudley = Has(itm.cafe_lesson_e_item)
@@ -977,6 +979,7 @@ def set_hub_collect_logic(world):
     world.set_rule(world.get_location(locn.divc_sip), can_get_divc_sip)
     world.set_rule(world.get_location(locn.div_rb), can_get_div_rb)
     world.set_rule(world.get_location(locn.ast_rb), can_get_ast_rb)
+    world.set_rule(world.get_location(locn.ast_sip), can_get_ast_sip)
 
 
 def set_hub_token_logic(world):
@@ -990,6 +993,7 @@ def set_hub_token_logic(world):
     world.set_rule(world.get_location(locn.charlie_token), can_get_charlie)
     world.set_rule(world.get_location(locn.cho_token), can_get_cho)
     world.set_rule(world.get_location(locn.crabbe_jumper_token), can_get_crabbe_jumper)
+    world.set_rule(world.get_location(locn.dolohov_token), can_get_dolohov)
     world.set_rule(world.get_location(locn.dolohov_workman_token), can_get_dolohov_work)
     world.set_rule(world.get_location(locn.draco_token), can_get_draco)
     world.set_rule(world.get_location(locn.dudley_token), can_get_dudley)

@@ -34,7 +34,7 @@ A few important notes about time travelling:
     - That means if you are going to quit the game in the new year, to avoid inadvertently time traveling, manually save the game before quitting.
 
 ## Does this game have a map tracker?
-Yes, this game is compatible with Universal Tracker and has a map pack for tracking. It is also compatible with Universal Tracker's /explain function.
+Yes, this game is compatible with Universal Tracker's yamless generation and has a map pack created by jonnytheagent for tracking. It is also compatible with Universal Tracker's /explain function.
 
 ## How is the Wilderness Handled?
 As you may remember from the vanilla game, the tent in the wilderness changes locations after each level. I have removed the invisible walls preventing you from going over or around the barriers. However, you have to have visited the wilderness at least once before this works. After your first visit to the wilderness, return to the Character Customization Room and initiate a time travel. You don't actually have to reload your save file, just make sure the game is saved. Then you can return to the wilderness and the invisible walls should be gone

@@ -218,6 +218,12 @@ class LHP2World(World):
         "map_page_index": lhp2_map_to_tab_index,
     }
 
+    @staticmethod
+    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
+        return slot_data
+
+    ut_can_gen_without_yaml = True
+
     def generate_early(self):
         self.validate_yaml()
         self.multiworld.push_precollected(self.create_item(ItemName.dt_unlock))
@@ -240,6 +246,19 @@ class LHP2World(World):
             self.multiworld.push_precollected(self.create_item(ItemName.fast_dig_unlock))
             self.starting_items.append((ItemName.fast_magic_unlock, self.player))
             self.starting_items.append((ItemName.fast_dig_unlock, self.player))
+
+        if hasattr(self.multiworld, "generation_is_fake"):
+            if hasattr(self.multiworld, "re_gen_passthrough"):
+                if "Lego Harry Potter 5-7" in self.multiworld.re_gen_passthrough:
+                    slot_data = self.multiworld.re_gen_passthrough["Lego Harry Potter 5-7"]
+                    self.options.EndGoal.value = slot_data["EndGoal"]
+                    self.options.NumHorcruxRequired.value = slot_data["NumHorcruxRequired"]
+                    self.options.ShuffleJokeSpells.value = slot_data["ShuffleJokeSpells"]
+                    self.options.ShuffleGoldBrickPurchases.value = slot_data["ShuffleGoldBrickPurchases"]
+                    self.options.CheaperShops.value = slot_data["CheaperShops"]
+                    self.options.HardPurchases.value = slot_data["HardPurchases"]
+                    self.options.LowMultiplierPriceMinimum.value = slot_data["LowMultiplierPriceMinimum"]
+                    self.options.HighMultiplierMinimum.value = slot_data["HighMultiplierMinimum"]
 
     def validate_yaml(self):
         if self.options.NumStartLevels > len(self.options.StartingLevelOptions.value) + 1:
@@ -331,4 +350,7 @@ class LHP2World(World):
             "ShuffleJokeSpells": self.options.ShuffleJokeSpells.value,
             "ShuffleGoldBrickPurchases": self.options.ShuffleGoldBrickPurchases.value,
             "CheaperShops": self.options.CheaperShops.value,
+            "HardPurchases": self.options.HardPurchases.value,
+            "LowMultiplierPriceMinimum": self.options.LowMultiplierPriceMinimum.value,
+            "HighMultiplierMinimum": self.options.HighMultiplierMinimum.value,
         }

@@ -182,7 +182,7 @@ class ShuffleGoldBrickPurchases(DefaultOnToggle):
 
 class CheaperShops(Range):
     """
-    Determines how many times cheaper purchases are from vanilla game. This does not affect joke shop purchases.
+    Determines how many times cheaper purchases are from vanilla game.
     1 is no change and 10 is 10x cheaper.
     This is taken into account for stud multiplier logic
     """

@@ -258,11 +258,13 @@ class LHP2World(World):
                     self.options.CheaperShops.value = slot_data["CheaperShops"]
                     self.options.HardPurchases.value = slot_data["HardPurchases"]
                     self.options.LowMultiplierPriceMinimum.value = slot_data["LowMultiplierPriceMinimum"]
-                    self.options.HighMultiplierMinimum.value = slot_data["HighMultiplierMinimum"]
+                    self.options.HighMultiplierPriceMinimum.value = slot_data["HighMultiplierPriceMinimum"]
 
     def validate_yaml(self):
         if self.options.NumStartLevels > len(self.options.StartingLevelOptions.value) + 1:
             raise OptionError("You want to start with more levels than are in the starting pool")
+        if self.options.HighMultiplierPriceMinimum.value < self.options.LowMultiplierPriceMinimum.value:
+            raise OptionError("The High Multiplier must be larger than the Low Multiplier")
 
     def create_regions(self):
         self.seed_location_table = setup_locations(self.options)
@@ -352,5 +354,5 @@ class LHP2World(World):
             "CheaperShops": self.options.CheaperShops.value,
             "HardPurchases": self.options.HardPurchases.value,
             "LowMultiplierPriceMinimum": self.options.LowMultiplierPriceMinimum.value,
-            "HighMultiplierMinimum": self.options.HighMultiplierMinimum.value,
+            "HighMultiplierPriceMinimum": self.options.HighMultiplierPriceMinimum.value,
         }

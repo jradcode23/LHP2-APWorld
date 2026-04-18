@@ -209,7 +209,7 @@ class LowMultiplierPriceMinimum(Range):
     default = 50000
 
 
-class HighMultiplierMinimum(Range):
+class HighMultiplierPriceMinimum(Range):
     """
     Determines the starting price for a high multiplier.
     Must be larger than Low Multiplier Price.
@@ -249,6 +249,6 @@ class LHP2Options(PerGameCommonOptions):
     CheaperShops: CheaperShops
     HardPurchases: HardPurchases
     LowMultiplierPriceMinimum: LowMultiplierPriceMinimum
-    HighMultiplierMinimum: HighMultiplierMinimum
+    HighMultiplierPriceMinimum: HighMultiplierPriceMinimum
     StartingDetectors: StartingDetectors
     StartingFastMagic: StartingFastMagic

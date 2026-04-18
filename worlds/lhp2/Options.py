@@ -9,7 +9,6 @@ class EndGoal(Choice):
     Determine the goal for the seed
 
     Defeat Voldemort: Collect the 7 Horcruxes and defeat Voldemort in The Flaw in the Plan
-    The Collector: Collect items from throughout the multiworld to win
     """
     display_name = "Goal"
     option_defeat_voldemort = 0

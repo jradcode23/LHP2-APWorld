@@ -4,13 +4,13 @@ import dataclasses
 
 from Options import Option
 from rule_builder.options import OptionFilter, Operator
-from rule_builder.rules import Rule, Has, HasAll, True_, And, Or, CanReachLocation, HasAnyCount
+from rule_builder.rules import Rule, Has, HasAll, True_, And, Or, CanReachLocation
 
 if TYPE_CHECKING:
     from . import LHP2World
 
 from .Names import LocationName, ItemName, RegionName
-from .Options import LHP2Options, EndGoal, HardPurchases, NumHorcruxesRequired
+from .Options import EndGoal, HardPurchases
 from .Locations import all_location_table
 
 itm = ItemName
@@ -489,7 +489,7 @@ class HasMultiplier(Rule, game="Lego Harry Potter 5-7"):
 
         # Get Multiplier Requirements
         low = world.options.LowMultiplierPriceMinimum
-        high = world.options.HighMultiplierMinimum
+        high = world.options.HighMultiplierPriceMinimum
 
         # Compare and Return
         if price < low:

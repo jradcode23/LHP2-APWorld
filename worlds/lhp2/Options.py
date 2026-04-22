@@ -1,7 +1,5 @@
 from dataclasses import dataclass
-from typing import List
-from Options import DefaultOnToggle, Toggle, Range, Choice, PerGameCommonOptions, OptionList, OptionDict
-from .Names import ItemName
+from Options import DefaultOnToggle, Toggle, Range, Choice, PerGameCommonOptions, OptionList
 
 
 class EndGoal(Choice):

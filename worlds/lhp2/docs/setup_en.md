@@ -2,10 +2,12 @@
 - --
 ## Required software
 - An unmodified copy of the Steam or GOG release of Lego Harry Potter 5-7
-  - Note this must be the original version, not the remastered version
+  - Note this must be the original version, not the Collection version
 - A copy of the APWorld (requires Archipelago version 0.6.7 or higher)
 - Reloaded II Mod Loader [Link](https://reloaded-project.github.io/Reloaded-II/QuickStart)
-
+  - Requires .NET 9.0 or higher
+- The Lego Harry Potter 5-7 Archipelago Mod [Link](https://github.com/jradcode23/LHP2-Mod/releases)
+- --
 ## Optional Software
 - DXWnd [Link](https://sourceforge.net/projects/dxwnd/)
 - --

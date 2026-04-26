@@ -226,8 +226,6 @@ class LHP2World(World):
 
     def generate_early(self):
         self.validate_yaml()
-        self.multiworld.push_precollected(self.create_item(ItemName.dt_unlock))
-        self.starting_items.append((ItemName.dt_unlock, self.player))
         self.choose_starting_levels()
         self.choose_starting_spells()
 

@@ -72,17 +72,17 @@ class NumStartLevels(Range):
     Determine the number of starting levels.
     """
     display_name = "Number of Starting Levels"
-    range_start = 1
+    range_start = 0
     range_end = 24
-    default = 1
+    default = 0
 
 
 class StartingLevelOptions(OptionList):
     """
     Determines which levels you start with.
-    Please note due to technical limitations, you will always start with Dark Times.
 
     Valid Keys:
+    "Dark Times"
     "Dumbledore's Army"
     "Focus!"
     "Kreacher Discomforts"
@@ -111,6 +111,7 @@ class StartingLevelOptions(OptionList):
     display_name = "Starting Level Options"
 
     valid_keys = {
+        "Dark Times",
         "Dumbledore's Army",
         "Focus!",
         "Kreacher Discomforts",
@@ -137,6 +138,7 @@ class StartingLevelOptions(OptionList):
     }
 
     default = [
+        "Dark Times",
         "Dumbledore's Army",
         "Focus!",
         "Kreacher Discomforts",

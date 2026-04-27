@@ -353,4 +353,5 @@ class LHP2World(World):
             "HardPurchases": self.options.HardPurchases.value,
             "LowMultiplierPriceMinimum": self.options.LowMultiplierPriceMinimum.value,
             "HighMultiplierPriceMinimum": self.options.HighMultiplierPriceMinimum.value,
+            "FasterDuels": self.options.FasterDuels.value,
         }

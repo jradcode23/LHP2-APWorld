@@ -235,6 +235,13 @@ class StartingFastMagic(DefaultOnToggle):
     display_name = "Start With Fast Magic & Dig"
 
 
+class FasterDuels(DefaultOnToggle):
+    """
+    Turning this on means that all enemies and players only have 1 HP in duels
+    """
+    display_name = "Faster Duels"
+
+
 @dataclass
 class LHP2Options(PerGameCommonOptions):
     EndGoal: EndGoal
@@ -252,3 +259,4 @@ class LHP2Options(PerGameCommonOptions):
     HighMultiplierPriceMinimum: HighMultiplierPriceMinimum
     StartingDetectors: StartingDetectors
     StartingFastMagic: StartingFastMagic
+    FasterDuels: FasterDuels

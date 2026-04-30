@@ -887,4 +887,19 @@ item_name_groups = {
     "WWW Boxes Unlocked": {
         ItemName.www_box_unlock: spell_and_ability_table[ItemName.www_box_unlock]
     },
+    "Deluminator Unlocked": {
+        ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]
+    },
+    "Polyjuice Potion Unlocked": {
+        ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]
+    },
+    "Delum Unlocked": {
+        ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]
+    },
+    "Poly Unlocked": {
+        ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]
+    },
+    "Herm Bag Unlocked": {
+        ItemName.herm_bag_unlock: spell_and_ability_table[ItemName.herm_bag_unlock]
+    }
 }

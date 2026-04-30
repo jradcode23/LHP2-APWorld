@@ -454,7 +454,6 @@ character_token_item_table: Dict[str, LHP2ItemData] = {
     ItemName.skeleton_token: LHP2ItemData(base_item_id + 425, ItemClassification.progression),
 }
 
-
 # 440 - 446
 horcrux_item_table: Dict[str, LHP2ItemData] = {
     ItemName.tr_diary: LHP2ItemData(base_item_id + 440, ItemClassification.progression),
@@ -787,7 +786,6 @@ joke_spell_table: Dict[str, LHP2ItemData] = {
     ItemName.immob_unlock: LHP2ItemData(base_item_id + 994),
 }
 
-
 spell_item_table: Dict[str, LHP2ItemData] = {
     # ItemName.pets_unlock: LHP2ItemData(base_item_id + 995),
     # ItemName.invis_unlock: LHP2ItemData(base_item_id + 996),
@@ -886,4 +884,7 @@ item_name_groups = {
     "Red Brick Purchasable": {name: data for name, data in red_brick_purchasable_table.items()},
     "Red Brick Unlocked": {name: data for name, data in red_brick_unlock_table.items()},
     "Horcrux": {name: data for name, data in horcrux_item_table.items()},
+    "WWW Boxes Unlocked": {
+        ItemName.www_box_unlock: spell_and_ability_table[ItemName.www_box_unlock]
+    },
 }

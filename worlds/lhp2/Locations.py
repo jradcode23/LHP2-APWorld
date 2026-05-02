@@ -683,7 +683,7 @@ true_wizard_loc_table: Dict[str, LocationData] = {
     LocationName.bb_tw: LocationData(base_location_id + 695, RegionName.bbf),
     LocationName.fiend_tw: LocationData(base_location_id + 696, RegionName.fiendf),
     LocationName.st_tw: LocationData(base_location_id + 697, RegionName.stf),
-    LocationName.tfitp_tw: LocationData(base_location_id + 698, RegionName.tfitp),
+    LocationName.tfitp_tw: LocationData(base_location_id + 698, RegionName.tfitpf),
 }
 
 # 700 - 715

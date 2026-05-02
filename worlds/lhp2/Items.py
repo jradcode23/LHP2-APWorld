@@ -873,6 +873,7 @@ progression_spells = [
     if data.classification == ItemClassification.progression
 ]
 
+# TODO: Add Dark Magic, Strong, and Key
 item_name_groups = {
     "Token": {name: data for name, data in character_token_item_table.items()},
     "Character": {name: data for name, data in character_item_table.items()},

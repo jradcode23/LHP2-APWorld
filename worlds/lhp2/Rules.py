@@ -297,7 +297,7 @@ can_access_slytherin_common = HasAll(itm.delum_unlock, itm.herm_bag_unlock, itm.
 can_access_hufflepuff_common = HasAll(itm.delum_unlock, itm.y5_hogwarts_e_item) & can_use_dm_in_hub
 can_access_ravenclaw_tower = HasAll(itm.y6_hogwarts_e_item, itm.agua_unlock)
 can_access_hogsmeade = Has(itm.y6_hogwarts_e_item)
-can_access_cafe = Has(itm.y6_story_complete_e_item)
+can_access_cafe = Has(itm.y6_story_complete_e_item) | Has(itm.y5_story_complete_e_item)
 can_access_y5c = Has(itm.diffindo_unlock)
 can_access_y6c = Has(itm.agua_unlock)
 
@@ -368,7 +368,7 @@ can_get_divc_gb = Has(itm.specs_unlock)
 can_get_divc_rb = Has(itm.agua_unlock)
 can_get_divc_sip = Has(itm.agua_unlock)
 can_get_div_rb = Has(itm.specs_unlock)
-can_get_ast_rb = can_use_dm_in_hub
+can_get_ast_rb = can_use_dm_in_hub & Has(itm.cafe_lesson_e_item)
 can_get_ast_sip = Has(itm.cafe_lesson_e_item)
 
 # Hub Token Logic
@@ -633,8 +633,6 @@ def set_lesson_logic(world):
     world.set_rule(world.get_location(locn.reducto_lesson), HasAll(itm.agua_lesson_e_item, itm.reducto_unlock))
     world.set_rule(world.get_location(locn.dumble_lesson), Has(itm.reducto_lesson_e_item))
     world.set_rule(world.get_location(locn.y6_story_complete), Has(itm.dumble_lesson_e_item))
-    world.set_rule(world.get_location(locn.cafe_lesson), Or(Has(itm.y6_story_complete_e_item),
-                   Has(itm.y5_story_complete_e_item)))
 
 
 def set_event_logic(world):

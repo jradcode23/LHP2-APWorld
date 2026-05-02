@@ -49,6 +49,7 @@ ravenclaw_chars = (Has(itm.cho_play) | Has(itm.cho_winter_play) | Has(itm.luna_p
                    Has(itm.penelope_play))
 
 # Dark Times Logic
+can_beat_dt = Has(itm.reducto_unlock)
 can_get_dt_sc = Has(itm.diffindo_unlock)
 can_get_dt_hc = Has(itm.www_box_unlock)
 can_get_dt_sip = can_use_dark_mag
@@ -667,6 +668,8 @@ def set_win_con(world):
 
 
 def set_dt_logic(world):
+    world.set_rule(world.get_location(locn.dt_beat), can_beat_dt)
+    world.set_rule(world.get_location(locn.dt_tw), can_beat_dt)
     world.set_rule(world.get_location(locn.dt_sc), can_get_dt_sc)
     world.set_rule(world.get_location(locn.dt_hc), can_get_dt_hc)
     world.set_rule(world.get_location(locn.dt_sip), can_get_dt_sip)

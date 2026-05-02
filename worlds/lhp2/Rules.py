@@ -48,6 +48,10 @@ ravenclaw_chars = (Has(itm.cho_play) | Has(itm.cho_winter_play) | Has(itm.luna_p
                    Has(itm.luna_yellow_dress_play) | Has(itm.belby_play) | Has(itm.padma_patil_play) |
                    Has(itm.penelope_play))
 
+has_high_multi = (Has(itm.score_x6_unlock) | Has(itm.score_x8_unlock) | Has(itm.score_x10_unlock) |
+                  HasAll(itm.score_x2_unlock, itm.score_x4_unlock))
+has_low_multi = Has(itm.score_x2_unlock) | Has(itm.score_x4_unlock) | has_high_multi
+
 # Dark Times Logic
 can_beat_dt = Has(itm.reducto_unlock)
 can_get_dt_sc = Has(itm.diffindo_unlock)
@@ -75,6 +79,7 @@ can_get_molly_apron = Has(itm.reducto_unlock) & char_is_strong_level
 can_get_snape_under = Has(itm.www_box_unlock)
 
 # Kreacher Discomforts
+can_get_kd_tw = Has(itm.reducto_unlock) | has_low_multi
 can_get_kd_gc = Has(itm.apparition_unlock) & char_is_strong_level
 can_get_kd_sc = HasAll(itm.reducto_unlock, itm.delum_unlock, itm.diffindo_unlock) & can_use_dark_mag
 can_get_kd_hc = HasAll(itm.reducto_unlock, itm.diffindo_unlock)
@@ -449,12 +454,8 @@ can_get_vernon = Has(itm.cafe_lesson_e_item)
 can_get_waitress_luchino = Has(itm.cafe_lesson_e_item)
 can_get_yaxley = can_use_dm_in_hub
 
+
 # Shop Logic
-has_high_multi = (Has(itm.score_x6_unlock) | Has(itm.score_x8_unlock) | Has(itm.score_x10_unlock) |
-                  HasAll(itm.score_x2_unlock, itm.score_x4_unlock))
-has_low_multi = Has(itm.score_x2_unlock) | Has(itm.score_x4_unlock) | has_high_multi
-
-
 def from_option(option: type[Option], value: Any, operator: Operator = "eq") -> Rule:
     return True_(options=[OptionFilter(option, value, operator)])
 
@@ -699,6 +700,7 @@ def set_foc_logic(world):
 
 
 def set_kd_logic(world):
+    world.set_rule(world.get_location(locn.kd_tw), can_get_kd_tw)
     world.set_rule(world.get_location(locn.kd_gc), can_get_kd_gc)
     world.set_rule(world.get_location(locn.kd_sc), can_get_kd_sc)
     world.set_rule(world.get_location(locn.kd_hc), can_get_kd_hc)

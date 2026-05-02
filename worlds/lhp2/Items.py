@@ -29,7 +29,7 @@ character_item_table: Dict[str, LHP2ItemData] = {
     ItemName.madam_malk_play: LHP2ItemData(base_item_id + 4),
     ItemName.dobby_play: LHP2ItemData(base_item_id + 5),
     ItemName.kreacher_play: LHP2ItemData(base_item_id + 6),
-    ItemName.tr_orphanage_play: LHP2ItemData(base_item_id + 7, ItmClasDeprioSkip),
+    ItemName.tr_orphanage_play: LHP2ItemData(base_item_id + 7),
     ItemName.bogrod_play: LHP2ItemData(base_item_id + 8, ItmClasDeprioSkip),
     ItemName.mund_fletch_play: LHP2ItemData(base_item_id + 9),
     ItemName.griphook_play: LHP2ItemData(base_item_id + 10, ItmClasDeprioSkip),

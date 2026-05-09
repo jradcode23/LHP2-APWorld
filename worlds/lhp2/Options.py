@@ -7,10 +7,13 @@ class EndGoal(Choice):
     Determine the goal for the seed
 
     Defeat Voldemort: Collect the 7 Horcruxes and defeat Voldemort in The Flaw in the Plan
+
+    Levels Beaten: Beat X number of levels to win
     """
     display_name = "Goal"
     option_defeat_voldemort = 0
     # option_the_collector = 1
+    option_levels_beaten = 2
     default = 0
 
 
@@ -55,6 +58,16 @@ class NumHorcruxesRequired(Range):
     range_start = 1
     range_end = 7
     default = 4
+
+
+class NumLevelsRequired(Range):
+    """
+    Determine the required number of Horcruxes to beat the game.
+    """
+    display_name = "Number of Horcruxes"
+    range_start = 1
+    range_end = 24
+    default = 12
 
 
 class NumStartSpells(Range):
@@ -248,6 +261,7 @@ class LHP2Options(PerGameCommonOptions):
     # CollectibleQuantity: CollectibleQuantity
     # FlawInThePlanCondition: FlawInThePlanCondition
     NumHorcruxRequired: NumHorcruxesRequired
+    NumLevelsRequired: NumLevelsRequired
     NumStartSpells: NumStartSpells
     NumStartLevels: NumStartLevels
     StartingLevelOptions: StartingLevelOptions

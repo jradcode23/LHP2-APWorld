@@ -1,6 +1,8 @@
 from BaseClasses import MultiWorld, Region, Entrance, Location, ItemClassification
-from .Locations import LHP2Location, event_loc_table
+from . import LHP2Options
+from .Locations import LHP2Location, hub_event_loc_table, level_beaten_loc_table
 from .Items import LHP2Item
+from .Options import EndGoal
 from .Names import RegionName
 
 
@@ -109,7 +111,7 @@ lhp2_all_regions = [
 ]
 
 
-def create_regions(world: MultiWorld, player: int, seed_locs):
+def create_regions(world: MultiWorld, options: LHP2Options, player: int, seed_locs):
     menu = Region("Menu", player, world)
     world.regions.append(menu)
 
@@ -188,9 +190,15 @@ def create_regions(world: MultiWorld, player: int, seed_locs):
     connect_regions(world, player, RegionName.st, RegionName.stf)
     connect_regions(world, player, RegionName.tfitp, RegionName.tfitpf)
 
+    diag_region = world.get_region(RegionName.diag, player)
     tfitpf_region = world.get_region(RegionName.tfitpf, player)
-    create_events(world, player)
-    create_event("Defeat Voldemort", "Voldemort Defeated", tfitpf_region, player)
+    create_events(world, options, player)
+    if options.EndGoal == EndGoal.option_defeat_voldemort:
+        event: Location = create_event("Defeat Voldemort", "Voldemort Defeated", tfitpf_region, player)
+        event.show_in_spoiler = True
+    if options.EndGoal == EndGoal.option_levels_beaten:
+        event: Location = create_event("All Required Levels Beaten", "All Required Levels Beaten", diag_region, player)
+        event.show_in_spoiler = True
 
 
 def connect_regions(world: MultiWorld, player: int, source: str, target: str) -> Entrance:
@@ -211,12 +219,19 @@ def create_regions_and_locations(name: str, player: int, world: MultiWorld, seed
     return region
 
 
-def create_events(world: MultiWorld, player: int):
+def create_events(world: MultiWorld, options: LHP2Options, player: int):
 
-    for (name, data) in event_loc_table.items():
+    for (name, data) in hub_event_loc_table.items():
         item_name = name + " Cleared"
         event: Location = create_event(name, item_name, world.get_region(data.region, player), player)
         event.show_in_spoiler = True
+
+    if options.EndGoal == EndGoal.option_levels_beaten:
+        for (name, data) in level_beaten_loc_table.items():
+            location_name = name + " Token"
+            item_name = "Level Beaten"
+            event: Location = create_event(location_name, item_name, world.get_region(data.region, player), player)
+            event.show_in_spoiler = True
 
 
 def create_event(name: str, item_name: str, region: Region, player: int) -> Location:

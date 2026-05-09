@@ -267,7 +267,7 @@ class LHP2World(World):
 
     def create_regions(self):
         self.seed_location_table = setup_locations(self.options)
-        create_regions(self.multiworld, self.player, self.seed_location_table)
+        create_regions(self.multiworld, self.options, self.player, self.seed_location_table)
 
     def create_item(self, name: str) -> Item:
         data = item_data_table[name]

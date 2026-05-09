@@ -883,7 +883,7 @@ hub_progress_loc_table: Dict[str, LocationData] = {
     LocationName.cafe_lesson: LocationData(base_location_id + 1027, RegionName.cafe),
 }
 
-event_loc_table: Dict[str, LocationData] = {
+hub_event_loc_table: Dict[str, LocationData] = {
     LocationName.y5_hogwarts_event: LocationData(0, RegionName.hogwpath),
     LocationName.dada_lesson_event: LocationData(0, RegionName.dada),
     LocationName.thestral_lesson_event: LocationData(0, RegionName.thest),

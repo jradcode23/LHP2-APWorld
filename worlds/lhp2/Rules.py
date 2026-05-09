@@ -3,6 +3,7 @@ from typing_extensions import override
 import dataclasses
 
 from Options import Option
+from BaseClasses import Location
 from rule_builder.options import OptionFilter, Operator
 from rule_builder.rules import Rule, Has, HasAll, True_, And, Or, CanReachLocation
 
@@ -11,7 +12,7 @@ if TYPE_CHECKING:
 
 from .Names import LocationName, ItemName, RegionName
 from .Options import EndGoal, HardPurchases
-from .Locations import all_location_table
+from .Locations import all_location_table, level_beaten_loc_table
 
 itm = ItemName
 locn = LocationName
@@ -657,8 +658,16 @@ def set_event_logic(world):
     world.set_rule(world.get_location(locn.dumble_lesson_event), CanReachLocation(locn.dumble_lesson))
     world.set_rule(world.get_location(locn.y6_story_complete_event), CanReachLocation(locn.y6_story_complete))
     world.set_rule(world.get_location(locn.cafe_lesson_event), CanReachLocation(locn.cafe_lesson))
-    world.set_rule(world.get_location("Defeat Voldemort"), Has("UNIQUE_HORCRUX", world.options.NumHorcruxRequired.value)
-                   & can_beat_tfitp)
+    if world.options.EndGoal == EndGoal.option_defeat_voldemort:
+        world.set_rule(world.get_location("Defeat Voldemort"),
+                       Has("UNIQUE_HORCRUX", world.options.NumHorcruxRequired.value) & can_beat_tfitp)
+    if world.options.EndGoal == EndGoal.option_levels_beaten:
+        world.set_rule(world.get_location("All Required Levels Beaten"),
+                       Has("Level Beaten", world.options.NumLevelsRequired.value))
+        for (name, data) in level_beaten_loc_table.items():
+            event_name = name + " Token"
+            event: Location = world.get_location(event_name)
+            world.set_rule(event, CanReachLocation(name))
 
 
 def set_win_con(world):
@@ -666,6 +675,8 @@ def set_win_con(world):
         world.set_completion_rule(defeat_voldemort)
     # if options.EndGoal == EndGoal.option_the_collector:
     #     world.completion_condition[player] =
+    if world.options.EndGoal == EndGoal.option_levels_beaten:
+        world.set_completion_rule(Has("All Required Levels Beaten"))
 
 
 def set_dt_logic(world):

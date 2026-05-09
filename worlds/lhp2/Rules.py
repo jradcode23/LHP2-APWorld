@@ -99,7 +99,7 @@ can_get_prof_umbridge = can_use_dark_mag
 
 # A Veiled Threat Logic
 can_beat_avt = Has(itm.diffindo_unlock)
-can_get_avt_rc = Has(itm.agua_unlock)
+can_get_avt_rc = HasAll(itm.agua_unlock, itm.diffindo_unlock)
 can_get_avt_hc = can_use_dark_mag
 can_get_fudge_wizen = Has(itm.diffindo_unlock)
 can_get_herm_jumper = Has(itm.agua_unlock)

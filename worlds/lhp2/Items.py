@@ -851,7 +851,8 @@ def setup_items(options: LHP2Options):
     temp_item_table.update(red_brick_unlock_table)
     temp_item_table.update(ability_item_table)
     temp_item_table.update(purp_stud_item_table)
-    temp_item_table.update(horcrux_item_table)
+    if options.EndGoal.value == 0:
+        temp_item_table.update(horcrux_item_table)
     return temp_item_table
 
 

@@ -200,7 +200,8 @@ can_get_herm_gray_coat = HasAll(itm.herm_bag_unlock, itm.specs_unlock)
 
 # Lovegood's Lunacy Logic
 can_access_ll_free = HasAll(itm.agua_unlock, itm.herm_bag_unlock)
-can_access_lunas_room = Or(char_is_strong_level, HasAll(itm.specs_unlock, itm.diffindo_unlock, itm.reducto_unlock))
+can_access_second_floor = Has(itm.diffindo_unlock)
+can_access_lunas_room = Or(char_is_strong_level, HasAll(itm.specs_unlock, itm.reducto_unlock)) & can_access_second_floor
 can_beat_ll = can_access_lunas_room & Has(itm.reducto_unlock)
 can_get_ll_rc = can_access_lunas_room & Has(itm.delum_unlock)
 can_get_ll_hc = can_use_spanner
@@ -380,7 +381,7 @@ can_get_ast_sip = Has(itm.cafe_lesson_e_item)
 # Hub Token Logic
 can_get_anthony_token = HasAll(itm.delum_unlock, itm.diffindo_unlock) & ravenclaw_chars
 can_get_filch_token = Has(itm.owls_lesson_e_item)
-can_get_arthur_cardigan = Has(itm.herm_bag_unlock)
+can_get_arthur_cardigan = HasAll(itm.herm_bag_unlock, itm.diffindo_unlock)
 can_get_arthur_torn_suit = Has(itm.owls_lesson_e_item)
 can_get_bella_azka = HasAll(itm.herm_bag_unlock, itm.y6_story_complete_e_item)
 can_get_blaise = HasAll(itm.y5_story_complete_e_item, itm.herm_bag_unlock) & can_use_dm_in_hub

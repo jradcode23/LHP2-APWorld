@@ -247,6 +247,9 @@ class LHP2World(World):
             self.starting_items.append((ItemName.fast_magic_unlock, self.player))
             self.starting_items.append((ItemName.fast_dig_unlock, self.player))
 
+        for name in self.options.start_inventory:
+            self.starting_items.append((name, self.player))
+
         if hasattr(self.multiworld, "generation_is_fake"):
             if hasattr(self.multiworld, "re_gen_passthrough"):
                 if "Lego Harry Potter 5-7" in self.multiworld.re_gen_passthrough:

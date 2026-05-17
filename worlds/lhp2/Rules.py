@@ -99,7 +99,7 @@ can_get_prof_umbridge = can_use_dark_mag
 
 # A Veiled Threat Logic
 can_beat_avt = Has(itm.diffindo_unlock)
-can_get_avt_rc = Has(itm.agua_unlock)
+can_get_avt_rc = HasAll(itm.agua_unlock, itm.diffindo_unlock)
 can_get_avt_hc = can_use_dark_mag
 can_get_fudge_wizen = Has(itm.diffindo_unlock)
 can_get_herm_jumper = Has(itm.agua_unlock)
@@ -386,7 +386,7 @@ can_get_bella_azka = HasAll(itm.herm_bag_unlock, itm.y6_story_complete_e_item)
 can_get_blaise = HasAll(itm.y5_story_complete_e_item, itm.herm_bag_unlock) & can_use_dm_in_hub
 can_get_charity = Has(itm.draught_lesson_e_item)
 can_get_charlie = Has(itm.owls_lesson_e_item)
-can_get_cho = HasAll(itm.delum_unlock, itm.cafe_lesson_e_item)
+can_get_cho = HasAll(itm.delum_unlock, itm.agua_lesson_e_item)
 can_get_crabbe_jumper = char_is_strong_hub
 can_get_dolohov = Has(itm.cafe_lesson_e_item)
 can_get_dolohov_work = Has(itm.cafe_lesson_e_item) & can_use_dm_in_hub

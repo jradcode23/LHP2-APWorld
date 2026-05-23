@@ -3,7 +3,7 @@ import settings
 from typing import Dict, ClassVar, Any, Union
 from settings import FilePath
 
-from BaseClasses import Item, Tutorial
+from BaseClasses import Item, Tutorial, ItemClassification
 from Options import OptionError
 from .Items import LHP2Item, item_data_table, horcrux_names_set, progression_spells, item_name_groups, setup_items
 from .Locations import all_location_table, LocationData, setup_locations, location_name_groups
@@ -263,10 +263,17 @@ class LHP2World(World):
                     self.options.HighMultiplierPriceMinimum.value = slot_data["HighMultiplierPriceMinimum"]
 
     def validate_yaml(self):
-        if self.options.NumStartLevels > len(self.options.StartingLevelOptions.value) + 1:
+        if (self.options.NumStartLevels >
+                (len(self.options.StartingLevelOptions.value) - len(self.options.DisabledLevels.value))):
             raise OptionError("You want to start with more levels than are in the starting pool")
         if self.options.HighMultiplierPriceMinimum.value < self.options.LowMultiplierPriceMinimum.value:
             raise OptionError("The High Multiplier must be larger than the Low Multiplier")
+        if self.options.EndGoal.value == 0:
+            if "The Flaw in the Plan" in self.options.DisabledLevels.value:
+                raise OptionError("You can't disable The Flaw in the Plan in Voldemort Wincon.")
+        if self.options.EndGoal.value == 2:
+            if self.options.NumLevelsRequired.value > (24 - len(self.options.DisabledLevels.value)):
+                raise OptionError("You want more levels to win than are enabled.")
 
     def create_regions(self):
         self.seed_location_table = setup_locations(self.options)
@@ -297,9 +304,18 @@ class LHP2World(World):
 
         # Fill extra locations
         extra_locations = len(self.seed_location_table) - len(itempool)
-        while extra_locations > 0:
-            itempool.append(self.create_item("Purple Stud"))
-            extra_locations -= 1
+        print(f"{self.player_name} has {extra_locations} extra locations")
+        if extra_locations > 0:
+            while extra_locations > 0:
+                itempool.append(self.create_item("Purple Stud"))
+                extra_locations -= 1
+
+        # Remove Playable Characters if extra locations is negative
+        if extra_locations < 0:
+            needed = -extra_locations
+            removable = [i for i in itempool if i.code < 400212 and i.classification is ItemClassification.filler]
+            for i in removable[:needed]:
+                itempool.remove(i)
 
         self.multiworld.itempool.extend(itempool)
 
@@ -307,7 +323,11 @@ class LHP2World(World):
         set_rules(self)
 
     def choose_starting_levels(self):
-        levels_pushed: int = 1
+        levels_pushed: int = 0
+
+        for name in self.options.DisabledLevels.value:
+            self.options.StartingLevelOptions.value.remove(name)
+
         while levels_pushed < self.options.NumStartLevels.value:
             starting_level = self.random.choice(self.options.StartingLevelOptions.value)
             self.options.StartingLevelOptions.value.remove(starting_level)

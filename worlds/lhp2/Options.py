@@ -62,9 +62,9 @@ class NumHorcruxesRequired(Range):
 
 class NumLevelsRequired(Range):
     """
-    Determine the required number of Horcruxes to beat the game.
+    Determine the required number of Levels Required to beat the game.
     """
-    display_name = "Number of Horcruxes"
+    display_name = "Number of Levels Required"
     range_start = 1
     range_end = 24
     default = 12
@@ -178,6 +178,71 @@ class StartingLevelOptions(OptionList):
     ]
 
 
+class DisabledLevels(OptionList):
+    """
+    Determines which levels won't have any checks.
+    Each level disabled removes 3 purple studs from the pool (6 in the case of The Seven Harrys).
+    If there are no purple studs remaining, Gold bricks will then be removed.
+
+    Valid Keys:
+    "Dark Times"
+    "Dumbledore's Army"
+    "Focus!"
+    "Kreacher Discomforts"
+    "A Giant Virtuoso"
+    "A Veiled Threat"
+    "Out of Retirement"
+    "Just Desserts"
+    "A Not So Merry Christmas"
+    "Love Hurts"
+    "Felix Felicis"
+    "The Horcrux and the Hand"
+    "The Seven Harry's"
+    "Magic is Might"
+    "In Grave Danger"
+    "Sword and Locket"
+    "Lovegood's Lunacy"
+    "DOBBY!"
+    "The Thief's Downfall"
+    "Back to School"
+    "Burning Bridges"
+    "Fiendfyre Frenzy"
+    "Snape's Tears"
+    "The Flaw in the Plan"
+    """
+
+    display_name = "Disabled Levels"
+
+    valid_keys = {
+        "Dark Times",
+        "Dumbledore's Army",
+        "Focus!",
+        "Kreacher Discomforts",
+        "A Giant Virtuoso",
+        "A Veiled Threat",
+        "Out of Retirement",
+        "Just Desserts",
+        "A Not So Merry Christmas",
+        "Love Hurts",
+        "Felix Felicis",
+        "The Horcrux and the Hand",
+        "The Seven Harrys",
+        "Magic is Might",
+        "In Grave Danger",
+        "Sword and Locket",
+        "Lovegood's Lunacy",
+        "DOBBY!",
+        "The Thief's Downfall",
+        "Back to School",
+        "Burning Bridges",
+        "Fiendfyre Frenzy",
+        "Snape's Tears",
+        "The Flaw in the Plan",
+    }
+
+    default = []
+
+
 class ShuffleJokeSpells(DefaultOnToggle):
     """
     Turning this on makes it so Joke Shop purchases are shuffled
@@ -188,6 +253,7 @@ class ShuffleJokeSpells(DefaultOnToggle):
 class ShuffleGoldBrickPurchases(DefaultOnToggle):
     """
     Turning this on makes it so Gold Brick purchases are shuffled
+    Removes Purples studs from the pool first and then removes Gold Bricks
     """
     display_name = "Shuffle Gold Brick Purchases"
 
@@ -265,6 +331,7 @@ class LHP2Options(PerGameCommonOptions):
     NumStartSpells: NumStartSpells
     NumStartLevels: NumStartLevels
     StartingLevelOptions: StartingLevelOptions
+    DisabledLevels: DisabledLevels
     ShuffleJokeSpells: ShuffleJokeSpells
     ShuffleGoldBrickPurchases: ShuffleGoldBrickPurchases
     CheaperShops: CheaperShops

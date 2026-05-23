@@ -227,7 +227,10 @@ def create_events(world: MultiWorld, options: LHP2Options, player: int):
         event.show_in_spoiler = True
 
     if options.EndGoal == EndGoal.option_levels_beaten:
+        disabled = set(options.DisabledLevels.value)
         for (name, data) in level_beaten_loc_table.items():
+            if data.region in disabled or data.region.endswith(" Freeplay") and data.region[:-9] in disabled:
+                continue
             location_name = name + " Token"
             item_name = "Level Beaten"
             event: Location = create_event(location_name, item_name, world.get_region(data.region, player), player)

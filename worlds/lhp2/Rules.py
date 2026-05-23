@@ -504,51 +504,6 @@ class HasMultiplier(Rule, game="Lego Harry Potter 5-7"):
             return has_high_multi.resolve(world)
 
 
-def set_rules(world: "LHP2World"):
-    set_entrance_rules(world)
-    set_lesson_logic(world)
-    set_event_logic(world)
-    set_win_con(world)
-    # Y5
-    set_dt_logic(world)
-    set_da_logic(world)
-    set_foc_logic(world)
-    set_kd_logic(world)
-    set_agv_logic(world)
-    set_avt_logic(world)
-    # Y6
-    set_oor_logic(world)
-    set_jd_logic(world)
-    set_ansmc_logic(world)
-    set_lh_logic(world)
-    set_ff_logic(world)
-    set_thath_logic(world)
-    # Y7
-    set_tsh_logic(world)
-    set_mim_logic(world)
-    set_igd_logic(world)
-    set_sal_logic(world)
-    set_ll_logic(world)
-    set_dob_logic(world)
-    # Y8
-    set_ttd_logic(world)
-    set_bts_logic(world)
-    set_bb_logic(world)
-    set_fiend_logic(world)
-    set_st_logic(world)
-    set_tfitp_logic(world)
-    # Hub Logic
-    set_hub_collect_logic(world)
-    set_hub_token_logic(world)
-    # Shop Logic
-    set_char_purch_logic(world)
-    if world.options.ShuffleJokeSpells == 1:
-        set_joke_purch_logic(world)
-    if world.options.ShuffleGoldBrickPurchases == 1:
-        set_gold_brick_purch_logic(world)
-    set_red_brick_purch_logic(world)
-
-
 def set_entrance_rules(world):
     # Level Entrance Rules
     world.set_rule(world.get_entrance(regn.leaky + " -> " + regn.dt), Has(itm.dt_unlock))
@@ -665,7 +620,10 @@ def set_event_logic(world):
     if world.options.EndGoal == EndGoal.option_levels_beaten:
         world.set_rule(world.get_location("All Required Levels Beaten"),
                        Has("Level Beaten", world.options.NumLevelsRequired.value))
+        disabled = set(world.options.DisabledLevels.value)
         for (name, data) in level_beaten_loc_table.items():
+            if data.region in disabled or data.region.endswith(" Freeplay") and data.region[:-9] in disabled:
+                continue
             event_name = name + " Token"
             event: Location = world.get_location(event_name)
             world.set_rule(event, CanReachLocation(name))
@@ -1343,3 +1301,62 @@ def set_red_brick_purch_logic(world):
     world.set_rule(world.get_location(locn.ghost_studs_purch), can_purch_red_brick(locn.ghost_studs_purch))
     world.set_rule(world.get_location(locn.fast_magic_purch), can_purch_red_brick(locn.fast_magic_purch))
     world.set_rule(world.get_location(locn.fast_dig_purch), can_purch_red_brick(locn.fast_dig_purch))
+
+
+LEVEL_LOGIC_FUNCS = {
+    # Y5
+    regn.dt: set_dt_logic,
+    regn.da: set_da_logic,
+    regn.foc: set_foc_logic,
+    regn.kd: set_kd_logic,
+    regn.agv: set_agv_logic,
+    regn.avt: set_avt_logic,
+
+    # Y6
+    regn.oor: set_oor_logic,
+    regn.jd: set_jd_logic,
+    regn.ansmc: set_ansmc_logic,
+    regn.lh: set_lh_logic,
+    regn.ff: set_ff_logic,
+    regn.thath: set_thath_logic,
+
+    # Y7
+    regn.tsh: set_tsh_logic,
+    regn.mim: set_mim_logic,
+    regn.igd: set_igd_logic,
+    regn.sal: set_sal_logic,
+    regn.ll: set_ll_logic,
+    regn.dob: set_dob_logic,
+
+    # Y8
+    regn.ttd: set_ttd_logic,
+    regn.bts: set_bts_logic,
+    regn.bb: set_bb_logic,
+    regn.fiend: set_fiend_logic,
+    regn.st: set_st_logic,
+    regn.tfitp: set_tfitp_logic,
+}
+
+
+def set_rules(world: "LHP2World"):
+    set_entrance_rules(world)
+    set_lesson_logic(world)
+    set_event_logic(world)
+    set_win_con(world)
+
+    disabled = set(world.options.DisabledLevels.value)
+
+    for level_name, func in LEVEL_LOGIC_FUNCS.items():
+        if level_name not in disabled:
+            func(world)
+
+    # Hub Logic
+    set_hub_collect_logic(world)
+    set_hub_token_logic(world)
+    # Shop Logic
+    set_char_purch_logic(world)
+    if world.options.ShuffleJokeSpells == 1:
+        set_joke_purch_logic(world)
+    if world.options.ShuffleGoldBrickPurchases == 1:
+        set_gold_brick_purch_logic(world)
+    set_red_brick_purch_logic(world)

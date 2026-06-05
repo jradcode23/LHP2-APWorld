@@ -26,14 +26,14 @@ can_use_dark_mag = (Has(itm.alecto_play) | Has(itm.amycus_play) | Has(itm.doloho
                     Has(itm.black_play) | Has(itm.pius_play) | Has(itm.scabior_play) | Has(itm.snatcher_play) |
                     Has(itm.rowle_play) | Has(itm.tom_riddle_play) | Has(itm.wormtail_play) | Has(itm.yaxley_play))
 
-can_use_dm_in_hub = Has(ItemName.delum_unlock) & can_use_dark_mag
+can_use_dm_in_hub = Has(ItemName.poly_unlock) & can_use_dark_mag
 
 can_use_spanner = (Has(itm.arthur_play) | Has(itm.arthur_suit_play) | Has(itm.arthur_cardigan_play) |
                    Has(itm.arthur_torn_suit_play))
 
 can_use_key = Has(itm.bogrod_play) | Has(itm.cole_play) | Has(itm.griphook_play)
 
-can_use_key_in_hub = can_use_key & Has(itm.delum_unlock)
+can_use_key_in_hub = can_use_key & Has(itm.poly_unlock)
 
 strong_chars = (Has(itm.dudley_play) | Has(itm.dudley_grey_play) | Has(itm.dudley_shirt_play) | Has(itm.fenrir_play) |
                 Has(itm.fang_play) | Has(itm.hagrid_play) | Has(itm.hagrid_wed_play) | Has(itm.muggle_orphan_play) |
@@ -42,7 +42,7 @@ strong_chars = (Has(itm.dudley_play) | Has(itm.dudley_grey_play) | Has(itm.dudle
 
 char_is_strong_level = strong_chars | Has(itm.super_strength_unlock)
 
-char_is_strong_hub = (strong_chars & Has(itm.delum_unlock)) | Has(itm.super_strength_unlock)
+char_is_strong_hub = (strong_chars & Has(itm.poly_unlock)) | Has(itm.super_strength_unlock)
 
 ravenclaw_chars = (Has(itm.cho_play) | Has(itm.cho_winter_play) | Has(itm.luna_play) | Has(itm.luna_blue_jumper_play) |
                    Has(itm.luna_overalls_play) | Has(itm.luna_pink_dress_play) | Has(itm.luna_purple_coat_play) |

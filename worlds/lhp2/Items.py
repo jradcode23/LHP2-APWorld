@@ -797,7 +797,8 @@ spell_item_table: Dict[str, LHP2ItemData] = {
     # ItemName.avada_unlock: LHP2ItemData(base_item_id + 997),
     ItemName.diffindo_unlock: LHP2ItemData(base_item_id + 998, ItemClassification.progression),
     # ItemName.lumos_unlock: LHP2ItemData(base_item_id + 999),
-    # lumos has 2 bits
+    # lumos has 2 bits using second bit for polyjuice potion in the dictionary
+    ItemName.poly_unlock: LHP2ItemData(base_item_id + 1000, ItemClassification.progression),
     ItemName.delum_unlock: LHP2ItemData(base_item_id + 1001, ItemClassification.progression),
     ItemName.agua_unlock: LHP2ItemData(base_item_id + 1002, ItemClassification.progression),
     ItemName.focus_unlock: LHP2ItemData(base_item_id + 1003, ItemClassification.progression),
@@ -906,14 +907,8 @@ item_name_groups = {
     "Deluminator Unlocked": {
         ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]
     },
-    "Polyjuice Potion Unlocked": {
-        ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]
-    },
-    "Delum Unlocked": {
-        ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]
-    },
-    "Poly Unlocked": {
-        ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]
+    "Polyjuice Unlocked": {
+        ItemName.poly_unlock: spell_and_ability_table[ItemName.poly_unlock]
     },
     "Herm Bag Unlocked": {
         ItemName.herm_bag_unlock: spell_and_ability_table[ItemName.herm_bag_unlock]

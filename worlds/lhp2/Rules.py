@@ -26,14 +26,14 @@ can_use_dark_mag = (Has(itm.alecto_play) | Has(itm.amycus_play) | Has(itm.doloho
                     Has(itm.black_play) | Has(itm.pius_play) | Has(itm.scabior_play) | Has(itm.snatcher_play) |
                     Has(itm.rowle_play) | Has(itm.tom_riddle_play) | Has(itm.wormtail_play) | Has(itm.yaxley_play))
 
-can_use_dm_in_hub = Has(ItemName.delum_unlock) & can_use_dark_mag
+can_use_dm_in_hub = Has(ItemName.poly_unlock) & can_use_dark_mag
 
 can_use_spanner = (Has(itm.arthur_play) | Has(itm.arthur_suit_play) | Has(itm.arthur_cardigan_play) |
                    Has(itm.arthur_torn_suit_play))
 
 can_use_key = Has(itm.bogrod_play) | Has(itm.cole_play) | Has(itm.griphook_play)
 
-can_use_key_in_hub = can_use_key & Has(itm.delum_unlock)
+can_use_key_in_hub = can_use_key & Has(itm.poly_unlock)
 
 strong_chars = (Has(itm.dudley_play) | Has(itm.dudley_grey_play) | Has(itm.dudley_shirt_play) | Has(itm.fenrir_play) |
                 Has(itm.fang_play) | Has(itm.hagrid_play) | Has(itm.hagrid_wed_play) | Has(itm.muggle_orphan_play) |
@@ -42,7 +42,7 @@ strong_chars = (Has(itm.dudley_play) | Has(itm.dudley_grey_play) | Has(itm.dudle
 
 char_is_strong_level = strong_chars | Has(itm.super_strength_unlock)
 
-char_is_strong_hub = (strong_chars & Has(itm.delum_unlock)) | Has(itm.super_strength_unlock)
+char_is_strong_hub = (strong_chars & Has(itm.poly_unlock)) | Has(itm.super_strength_unlock)
 
 ravenclaw_chars = (Has(itm.cho_play) | Has(itm.cho_winter_play) | Has(itm.luna_play) | Has(itm.luna_blue_jumper_play) |
                    Has(itm.luna_overalls_play) | Has(itm.luna_pink_dress_play) | Has(itm.luna_purple_coat_play) |
@@ -169,6 +169,7 @@ can_get_tr_orphan = can_use_dark_mag
 # The Seven Harry's Logic
 can_access_tsh_free = HasAll(itm.reducto_unlock, itm.agua_unlock, itm.herm_bag_unlock, itm.delum_unlock)
 can_get_delum = HasAll(itm.reducto_unlock, itm.agua_unlock, itm.delum_unlock)
+can_get_polyjuice = Has(itm.reducto_unlock)
 can_get_tsh_sc = Has(itm.reducto_unlock)
 can_get_mad_eye = HasAll(itm.reducto_unlock, itm.agua_unlock) & can_use_dark_mag
 can_get_ron_wed = HasAll(itm.apparition_unlock, itm.specs_unlock)
@@ -301,8 +302,8 @@ can_access_weasley_courtyard = HasAll(itm.focus_lesson_e_item, itm.www_box_unloc
 can_access_mid_grand_stair = HasAll(itm.y6_hogwarts_e_item, itm.diffindo_unlock)
 can_access_dumb_office = Has(itm.www_box_unlock)
 can_access_upper_grand_stair = HasAll(itm.thestral_lesson_e_item, itm.agua_unlock)
-can_access_slytherin_common = HasAll(itm.delum_unlock, itm.herm_bag_unlock, itm.y5_hogwarts_e_item) & can_use_dm_in_hub
-can_access_hufflepuff_common = HasAll(itm.delum_unlock, itm.y5_hogwarts_e_item) & can_use_dm_in_hub
+can_access_slytherin_common = HasAll(itm.herm_bag_unlock, itm.y5_hogwarts_e_item) & can_use_dm_in_hub
+can_access_hufflepuff_common = Has(itm.y5_hogwarts_e_item) & can_use_dm_in_hub
 can_access_ravenclaw_tower = HasAll(itm.y6_hogwarts_e_item, itm.agua_unlock)
 can_access_hogsmeade = Has(itm.y6_hogwarts_e_item)
 can_access_cafe = Has(itm.y6_story_complete_e_item) | Has(itm.y5_story_complete_e_item)
@@ -348,7 +349,7 @@ can_get_dorm_lobby_sip = Has(itm.y5_hogwarts_e_item)
 can_get_gryf_common_gb = HasAll(itm.dada_lesson_e_item, itm.reducto_unlock)
 can_get_gryf_common_sip = HasAll(itm.dada_lesson_e_item, itm.agua_unlock)
 can_get_raven_tower_sip = can_use_dm_in_hub
-can_get_lib_rb = HasAll(itm.delum_unlock, itm.diffindo_unlock) & ravenclaw_chars
+can_get_lib_rb = HasAll(itm.poly_unlock, itm.diffindo_unlock) & ravenclaw_chars
 can_get_lib_sip = Has(itm.herm_bag_unlock)
 can_get_ghl_gb = Has(itm.focus_unlock)
 can_get_ghl_rb = can_use_dm_in_hub
@@ -380,7 +381,7 @@ can_get_ast_rb = can_use_dm_in_hub & Has(itm.cafe_lesson_e_item)
 can_get_ast_sip = Has(itm.cafe_lesson_e_item)
 
 # Hub Token Logic
-can_get_anthony_token = HasAll(itm.delum_unlock, itm.diffindo_unlock) & ravenclaw_chars
+can_get_anthony_token = HasAll(itm.poly_unlock, itm.diffindo_unlock) & ravenclaw_chars
 can_get_filch_token = Has(itm.owls_lesson_e_item)
 can_get_arthur_cardigan = HasAll(itm.herm_bag_unlock, itm.diffindo_unlock)
 can_get_arthur_torn_suit = Has(itm.owls_lesson_e_item)
@@ -766,6 +767,7 @@ def set_thath_logic(world):
 
 def set_tsh_logic(world):
     world.set_rule(world.get_location(locn.delum_lesson), can_get_delum)
+    world.set_rule(world.get_location(locn.poly_purch), can_get_polyjuice)
     world.set_rule(world.get_location(locn.tsh_sc), can_get_tsh_sc)
     world.set_rule(world.get_location(locn.madeye_token), can_get_mad_eye)
     world.set_rule(world.get_location(locn.ron_wedding_token), can_get_ron_wed)

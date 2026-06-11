@@ -255,6 +255,7 @@ class LHP2World(World):
                     self.options.EndGoal.value = slot_data["EndGoal"]
                     self.options.NumHorcruxRequired.value = slot_data["NumHorcruxRequired"]
                     self.options.NumLevelsRequired.value = slot_data["NumLevelsRequired"]
+                    self.options.ShuffleRedBricks.value = slot_data["ShuffleRedBricks"]
                     self.options.ShuffleJokeSpells.value = slot_data["ShuffleJokeSpells"]
                     self.options.ShuffleGoldBrickPurchases.value = slot_data["ShuffleGoldBrickPurchases"]
                     self.options.CheaperShops.value = slot_data["CheaperShops"]
@@ -372,6 +373,7 @@ class LHP2World(World):
             # "FlawInThePlanCondition": self.options.FlawInThePlanCondition.value,
             "NumHorcruxRequired": self.options.NumHorcruxRequired.value,
             "NumLevelsRequired": self.options.NumLevelsRequired.value,
+            "ShuffleRedBricks": self.options.ShuffleRedBricks.value,
             "ShuffleJokeSpells": self.options.ShuffleJokeSpells.value,
             "ShuffleGoldBrickPurchases": self.options.ShuffleGoldBrickPurchases.value,
             "CheaperShops": self.options.CheaperShops.value,

@@ -243,6 +243,21 @@ class DisabledLevels(OptionList):
     default = []
 
 
+class ShuffleRedBricks(Choice):
+    """
+    Determines how Red Bricks are shuffled in the Multiworld.
+
+    Bricks & Purchases means the red bricks collected in the hub and purchases and unlocks are items and location (2 separate items & 2 separate locations).
+    Bricks only means that red bricks collected in the hub are locations and extras unlocks are items (1 item & 1 location).
+    Purchases only means that purchases are locations and extras unlocks are items (1 item & 1 location). In this setting you, you have to collect the red brick in the hub before you can purchase it.
+    """
+    display_name = "Red Brick Shuffle"
+    option_bricks_and_purchases = 0
+    option_bricks_only = 1
+    option_purchases_only = 2
+    default = 0
+
+
 class ShuffleJokeSpells(DefaultOnToggle):
     """
     Turning this on makes it so Joke Shop purchases are shuffled
@@ -332,6 +347,7 @@ class LHP2Options(PerGameCommonOptions):
     NumStartLevels: NumStartLevels
     StartingLevelOptions: StartingLevelOptions
     DisabledLevels: DisabledLevels
+    ShuffleRedBricks: ShuffleRedBricks
     ShuffleJokeSpells: ShuffleJokeSpells
     ShuffleGoldBrickPurchases: ShuffleGoldBrickPurchases
     CheaperShops: CheaperShops

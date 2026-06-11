@@ -849,11 +849,13 @@ def setup_items(options: LHP2Options):
         **house_crest_item_table,
         **true_wizard_item_table,
         **gold_brick_item_table,
-        **red_brick_purchasable_table,
         **red_brick_unlock_table,
         **ability_item_table,
         **purp_stud_item_table,
     }
+
+    if options.ShuffleRedBricks == 0:
+        temp_item_table.update(red_brick_purchasable_table)
 
     if options.ShuffleJokeSpells == 1:
         temp_item_table.update(joke_spell_table)

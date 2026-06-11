@@ -5,13 +5,13 @@ import dataclasses
 from Options import Option
 from BaseClasses import Location
 from rule_builder.options import OptionFilter, Operator
-from rule_builder.rules import Rule, Has, HasAll, True_, And, Or, CanReachLocation
+from rule_builder.rules import Rule, Has, HasAll, True_, And, Or, CanReachLocation, CanReachRegion
 
 if TYPE_CHECKING:
     from . import LHP2World
 
 from .Names import LocationName, ItemName, RegionName
-from .Options import EndGoal, HardPurchases
+from .Options import EndGoal, HardPurchases, ShuffleRedBricks
 from .Locations import all_location_table, level_beaten_loc_table
 
 itm = ItemName
@@ -317,8 +317,8 @@ can_get_cafe_gb = char_is_strong_hub & Has(itm.cafe_lesson_e_item)
 can_get_cafe_sip = Has(itm.cafe_lesson_e_item)
 can_get_tent_gb = can_use_dm_in_hub
 can_get_tent_sip = Has(itm.delum_unlock)
-can_get_kc_gb = Has(itm.dada_lesson_e_item)
-can_get_kc_rb = HasAll(itm.dada_lesson_e_item, itm.diffindo_unlock)
+can_get_kcs_gb = Has(itm.dada_lesson_e_item)
+can_get_kcs_rb = HasAll(itm.dada_lesson_e_item, itm.diffindo_unlock)
 can_get_hogstat_rb = can_use_dm_in_hub
 can_get_hogstat_sip = HasAll(itm.herm_bag_unlock, itm.reducto_unlock, itm.y6_story_complete_e_item)
 can_get_hogspath_gb = char_is_strong_hub
@@ -458,6 +458,27 @@ can_get_waitress_luchino = Has(itm.cafe_lesson_e_item)
 can_get_yaxley = can_use_dm_in_hub
 
 
+red_brick_rule_table = {
+    locn.score_x4_purch:          can_get_kcs_rb,
+    locn.red_brick_detect_purch:  can_get_hogstat_rb,
+    locn.score_x8_purch:          can_get_hogwpath_rb,
+    locn.score_x6_purch:          can_get_hogspath_rb,
+    locn.ghost_studs_purch:       can_get_quad_rb,
+    locn.fast_dig_purch:          can_get_grounds_rb,
+    locn.regen_hearts_purch:      can_get_thest_rb,
+    locn.score_x10_purch:         can_get_lake_rb,
+    locn.fall_rescue_purch:       can_get_lib_rb,
+    locn.crest_detect_purch:      can_get_ghl_rb,
+    locn.super_strength_purch:    can_get_wc_rb,
+    locn.char_studs_purch:        can_get_gh_rb,
+    locn.stud_mag_purch:          can_get_ror_rb,
+    locn.extra_hears_purch:       can_get_dada_rb,
+    locn.invincibility_purch:     can_get_divc_rb,
+    locn.char_token_detect_purch: can_get_div_rb,
+    locn.fast_magic_purch:        can_get_ast_rb,
+}
+
+
 # Shop Logic
 def from_option(option: type[Option], value: Any, operator: Operator = "eq") -> Rule:
     return True_(options=[OptionFilter(option, value, operator)])
@@ -465,7 +486,25 @@ def from_option(option: type[Option], value: Any, operator: Operator = "eq") -> 
 
 def can_purch_red_brick(location_name: str) -> Rule:
     red_brick = location_name.replace("sed", "sable")
-    return And(Has(red_brick), has_needed_multi(location_name))
+
+    # Verify that they have the Red Brick (if the options require it) and the required multiplier
+    has_red_brick = Has(red_brick) | from_option(ShuffleRedBricks, 0, "ne")
+    has_multi = has_needed_multi(location_name)
+
+    # Verify they have the moves to do the Red Brick Check (if the options require it)
+    can_get_red_brick = (
+        from_option(ShuffleRedBricks, 2, "ne")
+        | red_brick_rule_table.get(location_name, True_())
+    )
+
+    # Verify they have the moves to access the Red Brick Region (if the options require it)
+    loc_data = all_location_table.get(location_name)
+    if loc_data and loc_data.token_region:
+        can_access_token_region = CanReachRegion(loc_data.token_region)
+    else:
+        can_access_token_region = True_()
+
+    return And(has_red_brick, has_multi, can_get_red_brick, can_access_token_region)
 
 
 def can_purch_char(location_name: str) -> Rule:
@@ -893,28 +932,20 @@ def set_hub_collect_logic(world):
     world.set_rule(world.get_location(locn.cafe_sip), can_get_cafe_sip)
     world.set_rule(world.get_location(locn.tent_gb), can_get_tent_gb)
     world.set_rule(world.get_location(locn.tent_sip), can_get_tent_sip)
-    world.set_rule(world.get_location(locn.kcs_gb), can_get_kc_gb)
-    world.set_rule(world.get_location(locn.kcs_rb), can_get_kc_rb)
-    world.set_rule(world.get_location(locn.hogstat_rb), can_get_hogstat_rb)
+    world.set_rule(world.get_location(locn.kcs_gb), can_get_kcs_gb)
     world.set_rule(world.get_location(locn.hogstat_sip), can_get_hogstat_sip)
     world.set_rule(world.get_location(locn.hogspath_gb), can_get_hogspath_gb)
-    world.set_rule(world.get_location(locn.hogspath_rb), can_get_hogspath_rb)
     world.set_rule(world.get_location(locn.hogspath_sip), can_get_hogspath_sip)
     world.set_rule(world.get_location(locn.hogs_gb), can_get_hogs_gb)
     world.set_rule(world.get_location(locn.hogs_sip), can_get_hogs_sip)
     world.set_rule(world.get_location(locn.hogwpath_gb), can_get_hogwpath_gb)
-    world.set_rule(world.get_location(locn.hogwpath_rb), can_get_hogwpath_rb)
     world.set_rule(world.get_location(locn.hogwpath_sip), can_get_hogwpath_sip)
     world.set_rule(world.get_location(locn.quad_gb), can_get_quad_gb)
-    world.set_rule(world.get_location(locn.quad_rb), can_get_quad_rb)
     world.set_rule(world.get_location(locn.quad_sip), can_get_quad_sip)
     world.set_rule(world.get_location(locn.tg_gb), can_get_tg_gb)
     world.set_rule(world.get_location(locn.herb_gb), can_get_herb_gb)
-    world.set_rule(world.get_location(locn.ground_rb), can_get_grounds_rb)
     world.set_rule(world.get_location(locn.thest_gb), can_get_thest_gb)
-    world.set_rule(world.get_location(locn.thest_rb), can_get_thest_rb)
     world.set_rule(world.get_location(locn.thest_sip), can_get_thest_sip)
-    world.set_rule(world.get_location(locn.lake_rb), can_get_lake_rb)
     world.set_rule(world.get_location(locn.lake_sip), can_get_lake_sip)
     world.set_rule(world.get_location(locn.foyer_gb), can_get_foyer_gb)
     world.set_rule(world.get_location(locn.foyer_sip), can_get_foyer_sip)
@@ -925,19 +956,14 @@ def set_hub_collect_logic(world):
     world.set_rule(world.get_location(locn.gryf_gb), can_get_gryf_common_gb)
     world.set_rule(world.get_location(locn.gryf_sip), can_get_gryf_common_sip)
     world.set_rule(world.get_location(locn.raven_sip), can_get_raven_tower_sip)
-    world.set_rule(world.get_location(locn.lib_rb), can_get_lib_rb)
     world.set_rule(world.get_location(locn.lib_sip), can_get_lib_sip)
     world.set_rule(world.get_location(locn.ghl_gb), can_get_ghl_gb)
-    world.set_rule(world.get_location(locn.ghl_rb), can_get_ghl_rb)
     world.set_rule(world.get_location(locn.ghl_sip), can_get_ghl_sip)
     world.set_rule(world.get_location(locn.wc_gb), can_get_wc_gb)
-    world.set_rule(world.get_location(locn.wc_rb), can_get_wc_rb)
     world.set_rule(world.get_location(locn.wc_sip), can_get_wc_sip)
     world.set_rule(world.get_location(locn.wcs_sip), can_get_wcs_sip)
-    world.set_rule(world.get_location(locn.gh_rb), can_get_gh_rb)
     world.set_rule(world.get_location(locn.gh_sip), can_get_gh_sip)
     world.set_rule(world.get_location(locn.ror_gb), can_get_ror_gb)
-    world.set_rule(world.get_location(locn.ror_rb), can_get_ror_rb)
     world.set_rule(world.get_location(locn.cl_gb), can_get_cl_gb)
     world.set_rule(world.get_location(locn.cl_sip), can_get_cl_sip)
     world.set_rule(world.get_location(locn.y5c_gb), can_get_y5c_gb)
@@ -945,16 +971,32 @@ def set_hub_collect_logic(world):
     world.set_rule(world.get_location(locn.y6c_gb), can_get_y6c_gb)
     world.set_rule(world.get_location(locn.y6c_sip), can_get_y6c_sip)
     world.set_rule(world.get_location(locn.dada_gb), can_get_dada_gb)
-    world.set_rule(world.get_location(locn.dada_rb), can_get_dada_rb)
     world.set_rule(world.get_location(locn.dada_sip), can_get_dada_sip)
     world.set_rule(world.get_location(locn.pot_gb), can_get_pot_gb)
     world.set_rule(world.get_location(locn.pot_sip), can_get_pot_sip)
     world.set_rule(world.get_location(locn.divc_gb), can_get_divc_gb)
-    world.set_rule(world.get_location(locn.divc_rb), can_get_divc_rb)
     world.set_rule(world.get_location(locn.divc_sip), can_get_divc_sip)
+    world.set_rule(world.get_location(locn.ast_sip), can_get_ast_sip)
+
+
+def set_hub_rb_logic(world):
+    world.set_rule(world.get_location(locn.kcs_rb), can_get_kcs_rb)
+    world.set_rule(world.get_location(locn.hogstat_rb), can_get_hogstat_rb)
+    world.set_rule(world.get_location(locn.hogspath_rb), can_get_hogspath_rb)
+    world.set_rule(world.get_location(locn.hogwpath_rb), can_get_hogwpath_rb)
+    world.set_rule(world.get_location(locn.quad_rb), can_get_quad_rb)
+    world.set_rule(world.get_location(locn.ground_rb), can_get_grounds_rb)
+    world.set_rule(world.get_location(locn.thest_rb), can_get_thest_rb)
+    world.set_rule(world.get_location(locn.lake_rb), can_get_lake_rb)
+    world.set_rule(world.get_location(locn.lib_rb), can_get_lib_rb)
+    world.set_rule(world.get_location(locn.ghl_rb), can_get_ghl_rb)
+    world.set_rule(world.get_location(locn.wc_rb), can_get_wc_rb)
+    world.set_rule(world.get_location(locn.gh_rb), can_get_gh_rb)
+    world.set_rule(world.get_location(locn.ror_rb), can_get_ror_rb)
+    world.set_rule(world.get_location(locn.dada_rb), can_get_dada_rb)
+    world.set_rule(world.get_location(locn.divc_rb), can_get_divc_rb)
     world.set_rule(world.get_location(locn.div_rb), can_get_div_rb)
     world.set_rule(world.get_location(locn.ast_rb), can_get_ast_rb)
-    world.set_rule(world.get_location(locn.ast_sip), can_get_ast_sip)
 
 
 def set_hub_token_logic(world):
@@ -1355,10 +1397,13 @@ def set_rules(world: "LHP2World"):
     # Hub Logic
     set_hub_collect_logic(world)
     set_hub_token_logic(world)
+    if world.options.ShuffleRedBricks == 0 or world.options.ShuffleRedBricks == 1:
+        set_hub_rb_logic(world)
     # Shop Logic
     set_char_purch_logic(world)
     if world.options.ShuffleJokeSpells == 1:
         set_joke_purch_logic(world)
     if world.options.ShuffleGoldBrickPurchases == 1:
         set_gold_brick_purch_logic(world)
-    set_red_brick_purch_logic(world)
+    if world.options.ShuffleRedBricks == 0 or world.options.ShuffleRedBricks == 2:
+        set_red_brick_purch_logic(world)

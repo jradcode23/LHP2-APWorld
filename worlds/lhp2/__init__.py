@@ -7,7 +7,7 @@ from BaseClasses import Item, Tutorial, ItemClassification
 from Options import OptionError
 from .Items import LHP2Item, item_data_table, horcrux_names_set, progression_spells, item_name_groups, setup_items
 from .Locations import all_location_table, LocationData, setup_locations, location_name_groups
-from .Names import ItemName, RegionName
+from .Data import ItemName, RegionName
 from .Options import LHP2Options
 from .Regions import create_regions, connect_regions
 from .Rules import set_rules
@@ -255,6 +255,7 @@ class LHP2World(World):
                     self.options.EndGoal.value = slot_data["EndGoal"]
                     self.options.NumHorcruxRequired.value = slot_data["NumHorcruxRequired"]
                     self.options.NumLevelsRequired.value = slot_data["NumLevelsRequired"]
+                    self.options.ShuffleCharacterTokens.value = slot_data["ShuffleCharacterTokens"]
                     self.options.ShuffleRedBricks.value = slot_data["ShuffleRedBricks"]
                     self.options.ShuffleJokeSpells.value = slot_data["ShuffleJokeSpells"]
                     self.options.ShuffleGoldBrickPurchases.value = slot_data["ShuffleGoldBrickPurchases"]
@@ -275,6 +276,9 @@ class LHP2World(World):
         if self.options.EndGoal.value == 2:
             if self.options.NumLevelsRequired.value > (24 - len(self.options.DisabledLevels.value)):
                 raise OptionError("You want more levels to win than are enabled.")
+        if self.options.ShuffleCharacterTokens.value == 2:
+            if len(self.options.DisabledLevels.value) > 0:
+                raise OptionError("Disabled Levels is incompatible with Character Tokens requiring Purchase Only.")
 
     def create_regions(self):
         self.seed_location_table = setup_locations(self.options)
@@ -373,6 +377,7 @@ class LHP2World(World):
             # "FlawInThePlanCondition": self.options.FlawInThePlanCondition.value,
             "NumHorcruxRequired": self.options.NumHorcruxRequired.value,
             "NumLevelsRequired": self.options.NumLevelsRequired.value,
+            "ShuffleCharacterTokens": self.options.ShuffleCharacterTokens.value,
             "ShuffleRedBricks": self.options.ShuffleRedBricks.value,
             "ShuffleJokeSpells": self.options.ShuffleJokeSpells.value,
             "ShuffleGoldBrickPurchases": self.options.ShuffleGoldBrickPurchases.value,

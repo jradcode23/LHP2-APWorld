@@ -243,6 +243,23 @@ class DisabledLevels(OptionList):
     default = []
 
 
+class ShuffleCharacterTokens(Choice):
+    """
+    Determines how Character Tokens are shuffled in the Multiworld.
+
+    Tokens & Purchases means the tokens collected and purchases and unlocks are items and location (2 separate items & 2 separate locations).
+    Tokens only means that tokens collected are locations and extras unlocks are items (1 item & 1 location).
+    Purchases only means that purchases are locations and extras unlocks are items (1 item & 1 location). In this setting you, you have to collect the token before you can purchase it.
+
+    Please note that Purchases only and Disabled Levels are incompatible settings
+    """
+    display_name = "Character Token Shuffle"
+    option_tokens_and_purchases = 0
+    option_tokens_only = 1
+    option_purchases_only = 2
+    default = 0
+
+
 class ShuffleRedBricks(Choice):
     """
     Determines how Red Bricks are shuffled in the Multiworld.
@@ -347,6 +364,7 @@ class LHP2Options(PerGameCommonOptions):
     NumStartLevels: NumStartLevels
     StartingLevelOptions: StartingLevelOptions
     DisabledLevels: DisabledLevels
+    ShuffleCharacterTokens: ShuffleCharacterTokens
     ShuffleRedBricks: ShuffleRedBricks
     ShuffleJokeSpells: ShuffleJokeSpells
     ShuffleGoldBrickPurchases: ShuffleGoldBrickPurchases

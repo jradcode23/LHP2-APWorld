@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Optional, Dict
 
 from BaseClasses import Item, ItemClassification
-from .Names import ItemName, RegionName
+from .Data import ItemName, RegionName
 from .Options import LHP2Options
 
 
@@ -841,7 +841,6 @@ item_data_table = {
 def setup_items(options: LHP2Options):
     temp_item_table = {
         **character_item_table,
-        **character_token_item_table,
         **spell_item_table,
         **level_unlock_item_table,
         **level_sip_item_table,
@@ -853,6 +852,9 @@ def setup_items(options: LHP2Options):
         **ability_item_table,
         **purp_stud_item_table,
     }
+
+    if options.ShuffleCharacterTokens == 0:
+        temp_item_table.update(character_token_item_table)
 
     if options.ShuffleRedBricks == 0:
         temp_item_table.update(red_brick_purchasable_table)

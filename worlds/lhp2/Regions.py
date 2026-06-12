@@ -3,7 +3,7 @@ from . import LHP2Options
 from .Locations import LHP2Location, hub_event_loc_table, level_beaten_loc_table
 from .Items import LHP2Item
 from .Options import EndGoal
-from .Names import RegionName
+from .Data import RegionName
 
 
 level_regions = [

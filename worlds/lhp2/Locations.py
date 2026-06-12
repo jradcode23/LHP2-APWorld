@@ -2,7 +2,7 @@ from typing import Dict, NamedTuple
 
 from BaseClasses import Location
 from .Options import LHP2Options
-from .Names import LocationName, RegionName
+from .Data import LocationName, RegionName
 
 
 class LHP2Location(Location):
@@ -929,8 +929,6 @@ all_location_table = {
 
 def setup_locations(options: LHP2Options):
     temp_location_table: Dict[str, LocationData] = {
-        **character_location_table,
-        **character_token_location_table,
         **level_beaten_loc_table,
         **leve_sip_loc_table,
         **hub_sip_loc_table,
@@ -939,6 +937,16 @@ def setup_locations(options: LHP2Options):
         **hub_gb_loc_table,
         **hub_progress_loc_table,
     }
+
+    if options.ShuffleCharacterTokens == 0:
+        temp_location_table.update(character_location_table)
+        temp_location_table.update(character_token_location_table)
+
+    if options.ShuffleCharacterTokens == 1:
+        temp_location_table.update(character_token_location_table)
+
+    if options.ShuffleCharacterTokens == 2:
+        temp_location_table.update(character_location_table)
 
     if options.ShuffleRedBricks == 0:
         temp_location_table.update(red_brick_loc_table)

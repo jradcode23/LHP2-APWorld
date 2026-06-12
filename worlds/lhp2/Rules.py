@@ -1390,9 +1390,9 @@ def set_rules(world: "LHP2World"):
 
     # Hub Logic
     set_hub_collect_logic(world)
-    if world.options.ShuffleCharacterTokens == 0:
+    if world.options.ShuffleCharacterTokens != 2:
         set_hub_token_logic(world)
-    if world.options.ShuffleRedBricks == 0 or world.options.ShuffleRedBricks == 1:
+    if world.options.ShuffleRedBricks != 2:
         set_hub_rb_logic(world)
     # Shop Logic
     if world.options.ShuffleCharacterTokens != 1:
@@ -1401,5 +1401,5 @@ def set_rules(world: "LHP2World"):
         set_joke_purch_logic(world)
     if world.options.ShuffleGoldBrickPurchases == 1:
         set_gold_brick_purch_logic(world)
-    if world.options.ShuffleRedBricks == 0 or world.options.ShuffleRedBricks == 2:
+    if world.options.ShuffleRedBricks != 1:
         set_red_brick_purch_logic(world)

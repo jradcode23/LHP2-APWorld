@@ -852,7 +852,7 @@ spell_loc_table: Dict[str, LocationData] = {
     # LocationName.diffindo_purch: LocationData(base_location_id + 998, regn.y5c),
     # # LocationName.lumos_purch: LocationData(base_location_id + 999, regn.www),
     # lumos has 2 bits using second bit for polyjuice potion in the Dictionary
-    LocationName.poly_purch: LocationData(base_location_id + 1000, regn.tshf)
+    LocationName.poly_purch: LocationData(base_location_id + 1000, regn.tsh)
     # LocationName.agua_purch: LocationData(base_location_id + 1002, regn.y6c),
     # LocationName.focus_purch: LocationData(base_location_id + 1003, regn.cl),
     # LocationName.expecto_purch: LocationData(base_location_id + 1004, regn.ror),

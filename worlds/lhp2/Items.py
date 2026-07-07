@@ -893,7 +893,53 @@ progression_spells = [
     if data.classification == ItemClassification.progression
 ]
 
-# TODO: Add Dark Magic, Strong, and Key
+dark_magic_names = [
+    ItemName.alecto_play,
+    ItemName.amycus_play,
+    ItemName.dolohov_play,
+    ItemName.bellatrix_play,
+    ItemName.bellatrix_azka_play,
+    ItemName.death_eater_play,
+    ItemName.dolohov_workman_play,
+    ItemName.fenrir_play,
+    ItemName.grindel_old_play,
+    ItemName.grindel_young_play,
+    ItemName.lord_voldemort_play,
+    ItemName.lucius_play,
+    ItemName.lucius_death_eater_play,
+    ItemName.black_play,
+    ItemName.pius_play,
+    ItemName.scabior_play,
+    ItemName.snatcher_play,
+    ItemName.rowle_play,
+    ItemName.tom_riddle_play,
+    ItemName.wormtail_play,
+    ItemName.yaxley_play,
+]
+
+key_names = [
+    ItemName.bogrod_play,
+    ItemName.cole_play,
+    ItemName.griphook_play,
+    ItemName.ministry_guard_play,
+]
+
+strong_ability_names = [
+    ItemName.dudley_play,
+    ItemName.dudley_grey_play,
+    ItemName.dudley_shirt_play,
+    ItemName.fenrir_play,
+    ItemName.fang_play,
+    ItemName.hagrid_play,
+    ItemName.hagrid_wed_play,
+    ItemName.muggle_orphan_play,
+    ItemName.remus_lupin_play,
+    ItemName.sirius_black_play,
+    ItemName.sirius_azkaban_play,
+    ItemName.vernon_play,
+    ItemName.super_strength_unlock,
+]
+
 item_name_groups = {
     "Token": {name: data for name, data in character_token_item_table.items()},
     "Character": {name: data for name, data in character_item_table.items()},
@@ -905,16 +951,11 @@ item_name_groups = {
     "Red Brick Purchasable": {name: data for name, data in red_brick_purchasable_table.items()},
     "Red Brick Unlocked": {name: data for name, data in red_brick_unlock_table.items()},
     "Horcrux": {name: data for name, data in horcrux_item_table.items()},
-    "WWW Boxes Unlocked": {
-        ItemName.www_box_unlock: spell_and_ability_table[ItemName.www_box_unlock]
-    },
-    "Deluminator Unlocked": {
-        ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]
-    },
-    "Polyjuice Unlocked": {
-        ItemName.poly_unlock: spell_and_ability_table[ItemName.poly_unlock]
-    },
-    "Herm Bag Unlocked": {
-        ItemName.herm_bag_unlock: spell_and_ability_table[ItemName.herm_bag_unlock]
-    }
+    "WWW Boxes": {ItemName.www_box_unlock: spell_and_ability_table[ItemName.www_box_unlock]},
+    "Deluminator": {ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]},
+    "Polyjuice": {ItemName.poly_unlock: spell_and_ability_table[ItemName.poly_unlock]},
+    "Herm Bag": {ItemName.herm_bag_unlock: spell_and_ability_table[ItemName.herm_bag_unlock]},
+    "Dark Magic": {name: character_item_table[name] for name in dark_magic_names},
+    "Key": {name: character_item_table[name] for name in key_names},
+    "Strength": {name: item_data_table[name] for name in strong_ability_names},
 }

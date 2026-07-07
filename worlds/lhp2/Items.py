@@ -129,7 +129,7 @@ character_item_table: Dict[str, LHP2ItemData] = {
     ItemName.milk_man_play: LHP2ItemData(base_item_id + 102),
     ItemName.twin_2_play: LHP2ItemData(base_item_id + 103),
     ItemName.herm_mafalda_play: LHP2ItemData(base_item_id + 104),
-    ItemName.ministry_guard_play: LHP2ItemData(base_item_id + 105),
+    ItemName.ministry_guard_play: LHP2ItemData(base_item_id + 105, ItmClasDeprioSkip),
     ItemName.harry_winter_play: LHP2ItemData(base_item_id + 106),
     ItemName.arthur_torn_suit_play: LHP2ItemData(base_item_id + 107, ItmClasDeprioSkip),
     ItemName.fred_winter_play: LHP2ItemData(base_item_id + 108),

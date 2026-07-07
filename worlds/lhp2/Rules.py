@@ -31,7 +31,7 @@ can_use_dm_in_hub = Has(ItemName.poly_unlock) & can_use_dark_mag
 can_use_spanner = (Has(itm.arthur_play) | Has(itm.arthur_suit_play) | Has(itm.arthur_cardigan_play) |
                    Has(itm.arthur_torn_suit_play))
 
-can_use_key = Has(itm.bogrod_play) | Has(itm.cole_play) | Has(itm.griphook_play)
+can_use_key = Has(itm.bogrod_play) | Has(itm.cole_play) | Has(itm.griphook_play) | Has(itm.ministry_guard_play)
 
 can_use_key_in_hub = can_use_key & Has(itm.poly_unlock)
 

@@ -3,11 +3,11 @@ import settings
 from typing import Dict, ClassVar, Any, Union
 from settings import FilePath
 
-from BaseClasses import Item, Tutorial
+from BaseClasses import Item, Tutorial, ItemClassification
 from Options import OptionError
 from .Items import LHP2Item, item_data_table, horcrux_names_set, progression_spells, item_name_groups, setup_items
 from .Locations import all_location_table, LocationData, setup_locations, location_name_groups
-from .Names import ItemName, RegionName
+from .Data import ItemName, RegionName
 from .Options import LHP2Options
 from .Regions import create_regions, connect_regions
 from .Rules import set_rules
@@ -201,7 +201,7 @@ class LHP2World(World):
     item_name_groups = item_name_groups
     location_name_groups = location_name_groups
 
-    data_version = 1
+    data_version = 1.1
     web = LHP2Web()
 
     # Settings
@@ -226,8 +226,6 @@ class LHP2World(World):
 
     def generate_early(self):
         self.validate_yaml()
-        self.multiworld.push_precollected(self.create_item(ItemName.dt_unlock))
-        self.starting_items.append((ItemName.dt_unlock, self.player))
         self.choose_starting_levels()
         self.choose_starting_spells()
 
@@ -256,6 +254,9 @@ class LHP2World(World):
                     slot_data = self.multiworld.re_gen_passthrough["Lego Harry Potter 5-7"]
                     self.options.EndGoal.value = slot_data["EndGoal"]
                     self.options.NumHorcruxRequired.value = slot_data["NumHorcruxRequired"]
+                    self.options.NumLevelsRequired.value = slot_data["NumLevelsRequired"]
+                    self.options.ShuffleCharacterTokens.value = slot_data["ShuffleCharacterTokens"]
+                    self.options.ShuffleRedBricks.value = slot_data["ShuffleRedBricks"]
                     self.options.ShuffleJokeSpells.value = slot_data["ShuffleJokeSpells"]
                     self.options.ShuffleGoldBrickPurchases.value = slot_data["ShuffleGoldBrickPurchases"]
                     self.options.CheaperShops.value = slot_data["CheaperShops"]
@@ -264,14 +265,24 @@ class LHP2World(World):
                     self.options.HighMultiplierPriceMinimum.value = slot_data["HighMultiplierPriceMinimum"]
 
     def validate_yaml(self):
-        if self.options.NumStartLevels > len(self.options.StartingLevelOptions.value) + 1:
+        if (self.options.NumStartLevels >
+                (len(self.options.StartingLevelOptions.value) - len(self.options.DisabledLevels.value))):
             raise OptionError("You want to start with more levels than are in the starting pool")
         if self.options.HighMultiplierPriceMinimum.value < self.options.LowMultiplierPriceMinimum.value:
             raise OptionError("The High Multiplier must be larger than the Low Multiplier")
+        if self.options.EndGoal.value == 0:
+            if "The Flaw in the Plan" in self.options.DisabledLevels.value:
+                raise OptionError("You can't disable The Flaw in the Plan in Voldemort Wincon.")
+        if self.options.EndGoal.value == 2:
+            if self.options.NumLevelsRequired.value > (24 - len(self.options.DisabledLevels.value)):
+                raise OptionError("You want more levels to win than are enabled.")
+        if self.options.ShuffleCharacterTokens.value == 2:
+            if len(self.options.DisabledLevels.value) > 0:
+                raise OptionError("Disabled Levels is incompatible with Character Tokens requiring Purchase Only.")
 
     def create_regions(self):
         self.seed_location_table = setup_locations(self.options)
-        create_regions(self.multiworld, self.player, self.seed_location_table)
+        create_regions(self.multiworld, self.options, self.player, self.seed_location_table)
 
     def create_item(self, name: str) -> Item:
         data = item_data_table[name]
@@ -298,9 +309,18 @@ class LHP2World(World):
 
         # Fill extra locations
         extra_locations = len(self.seed_location_table) - len(itempool)
-        while extra_locations > 0:
-            itempool.append(self.create_item("Purple Stud"))
-            extra_locations -= 1
+        print(f"{self.player_name} has {extra_locations} extra locations")
+        if extra_locations > 0:
+            while extra_locations > 0:
+                itempool.append(self.create_item("Purple Stud"))
+                extra_locations -= 1
+
+        # Remove Playable Characters if extra locations is negative
+        if extra_locations < 0:
+            needed = -extra_locations
+            removable = [i for i in itempool if i.code < 400212 and i.classification is ItemClassification.filler]
+            for i in removable[:needed]:
+                itempool.remove(i)
 
         self.multiworld.itempool.extend(itempool)
 
@@ -308,7 +328,11 @@ class LHP2World(World):
         set_rules(self)
 
     def choose_starting_levels(self):
-        levels_pushed: int = 1
+        levels_pushed: int = 0
+
+        for name in self.options.DisabledLevels.value:
+            self.options.StartingLevelOptions.value.remove(name)
+
         while levels_pushed < self.options.NumStartLevels.value:
             starting_level = self.random.choice(self.options.StartingLevelOptions.value)
             self.options.StartingLevelOptions.value.remove(starting_level)
@@ -352,10 +376,14 @@ class LHP2World(World):
             # "CollectiblesRequired": self.options.CollectibleQuantity.value,
             # "FlawInThePlanCondition": self.options.FlawInThePlanCondition.value,
             "NumHorcruxRequired": self.options.NumHorcruxRequired.value,
+            "NumLevelsRequired": self.options.NumLevelsRequired.value,
+            "ShuffleCharacterTokens": self.options.ShuffleCharacterTokens.value,
+            "ShuffleRedBricks": self.options.ShuffleRedBricks.value,
             "ShuffleJokeSpells": self.options.ShuffleJokeSpells.value,
             "ShuffleGoldBrickPurchases": self.options.ShuffleGoldBrickPurchases.value,
             "CheaperShops": self.options.CheaperShops.value,
             "HardPurchases": self.options.HardPurchases.value,
             "LowMultiplierPriceMinimum": self.options.LowMultiplierPriceMinimum.value,
             "HighMultiplierPriceMinimum": self.options.HighMultiplierPriceMinimum.value,
+            "FasterDuels": self.options.FasterDuels.value,
         }

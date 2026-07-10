@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Optional, Dict
 
 from BaseClasses import Item, ItemClassification
-from .Names import ItemName
+from .Data import ItemName, RegionName
 from .Options import LHP2Options
 
 
@@ -15,10 +15,12 @@ class LHP2ItemData:
     code: Optional[int] = None
     classification: ItemClassification = ItemClassification.filler
     qty: int = 1
+    region: str = ""
 
 
 base_item_id = 400000
 ItmClasDeprioSkip = ItemClassification.progression_deprioritized_skip_balancing
+regn = RegionName
 
 # 0 - 212
 character_item_table: Dict[str, LHP2ItemData] = {
@@ -127,7 +129,7 @@ character_item_table: Dict[str, LHP2ItemData] = {
     ItemName.milk_man_play: LHP2ItemData(base_item_id + 102),
     ItemName.twin_2_play: LHP2ItemData(base_item_id + 103),
     ItemName.herm_mafalda_play: LHP2ItemData(base_item_id + 104),
-    ItemName.ministry_guard_play: LHP2ItemData(base_item_id + 105),
+    ItemName.ministry_guard_play: LHP2ItemData(base_item_id + 105, ItmClasDeprioSkip),
     ItemName.harry_winter_play: LHP2ItemData(base_item_id + 106),
     ItemName.arthur_torn_suit_play: LHP2ItemData(base_item_id + 107, ItmClasDeprioSkip),
     ItemName.fred_winter_play: LHP2ItemData(base_item_id + 108),
@@ -454,7 +456,6 @@ character_token_item_table: Dict[str, LHP2ItemData] = {
     ItemName.skeleton_token: LHP2ItemData(base_item_id + 425, ItemClassification.progression),
 }
 
-
 # 440 - 446
 horcrux_item_table: Dict[str, LHP2ItemData] = {
     ItemName.tr_diary: LHP2ItemData(base_item_id + 440, ItemClassification.progression),
@@ -468,58 +469,58 @@ horcrux_item_table: Dict[str, LHP2ItemData] = {
 
 # 450 - 473
 level_unlock_item_table: Dict[str, LHP2ItemData] = {
-    ItemName.dt_unlock: LHP2ItemData(base_item_id + 450, ItemClassification.progression),
-    ItemName.da_unlock: LHP2ItemData(base_item_id + 451, ItemClassification.progression),
-    ItemName.foc_unlock: LHP2ItemData(base_item_id + 452, ItemClassification.progression),
-    ItemName.kd_unlock: LHP2ItemData(base_item_id + 453, ItemClassification.progression),
-    ItemName.agv_unlock: LHP2ItemData(base_item_id + 454, ItemClassification.progression),
-    ItemName.avt_unlock: LHP2ItemData(base_item_id + 455, ItemClassification.progression),
-    ItemName.oor_unlock: LHP2ItemData(base_item_id + 456, ItemClassification.progression),
-    ItemName.jd_unlock: LHP2ItemData(base_item_id + 457, ItemClassification.progression),
-    ItemName.ansmc_unlock: LHP2ItemData(base_item_id + 458, ItemClassification.progression),
-    ItemName.lh_unlock: LHP2ItemData(base_item_id + 459, ItemClassification.progression),
-    ItemName.ff_unlock: LHP2ItemData(base_item_id + 460, ItemClassification.progression),
-    ItemName.thath_unlock: LHP2ItemData(base_item_id + 461, ItemClassification.progression),
-    ItemName.tsh_unlock: LHP2ItemData(base_item_id + 462, ItemClassification.progression),
-    ItemName.mim_unlock: LHP2ItemData(base_item_id + 463, ItemClassification.progression),
-    ItemName.igd_unlock: LHP2ItemData(base_item_id + 464, ItemClassification.progression),
-    ItemName.sal_unlock: LHP2ItemData(base_item_id + 465, ItemClassification.progression),
-    ItemName.ll_unlock: LHP2ItemData(base_item_id + 466, ItemClassification.progression),
-    ItemName.dob_unlock: LHP2ItemData(base_item_id + 467, ItemClassification.progression),
-    ItemName.ttd_unlock: LHP2ItemData(base_item_id + 468, ItemClassification.progression),
-    ItemName.bts_unlock: LHP2ItemData(base_item_id + 469, ItemClassification.progression),
-    ItemName.bb_unlock: LHP2ItemData(base_item_id + 470, ItemClassification.progression),
-    ItemName.fiend_unlock: LHP2ItemData(base_item_id + 471, ItemClassification.progression),
-    ItemName.st_unlock: LHP2ItemData(base_item_id + 472, ItemClassification.progression),
-    ItemName.tfitp_unlock: LHP2ItemData(base_item_id + 473, ItemClassification.progression),
+    ItemName.dt_unlock: LHP2ItemData(base_item_id + 450, ItemClassification.progression, region=regn.dt),
+    ItemName.da_unlock: LHP2ItemData(base_item_id + 451, ItemClassification.progression, region=regn.da),
+    ItemName.foc_unlock: LHP2ItemData(base_item_id + 452, ItemClassification.progression, region=regn.foc),
+    ItemName.kd_unlock: LHP2ItemData(base_item_id + 453, ItemClassification.progression, region=regn.kd),
+    ItemName.agv_unlock: LHP2ItemData(base_item_id + 454, ItemClassification.progression, region=regn.agv),
+    ItemName.avt_unlock: LHP2ItemData(base_item_id + 455, ItemClassification.progression, region=regn.avt),
+    ItemName.oor_unlock: LHP2ItemData(base_item_id + 456, ItemClassification.progression, region=regn.oor),
+    ItemName.jd_unlock: LHP2ItemData(base_item_id + 457, ItemClassification.progression, region=regn.jd),
+    ItemName.ansmc_unlock: LHP2ItemData(base_item_id + 458, ItemClassification.progression, region=regn.ansmc),
+    ItemName.lh_unlock: LHP2ItemData(base_item_id + 459, ItemClassification.progression, region=regn.lh),
+    ItemName.ff_unlock: LHP2ItemData(base_item_id + 460, ItemClassification.progression, region=regn.ff),
+    ItemName.thath_unlock: LHP2ItemData(base_item_id + 461, ItemClassification.progression, region=regn.thath),
+    ItemName.tsh_unlock: LHP2ItemData(base_item_id + 462, ItemClassification.progression, region=regn.tsh),
+    ItemName.mim_unlock: LHP2ItemData(base_item_id + 463, ItemClassification.progression, region=regn.mim),
+    ItemName.igd_unlock: LHP2ItemData(base_item_id + 464, ItemClassification.progression, region=regn.igd),
+    ItemName.sal_unlock: LHP2ItemData(base_item_id + 465, ItemClassification.progression, region=regn.sal),
+    ItemName.ll_unlock: LHP2ItemData(base_item_id + 466, ItemClassification.progression, region=regn.ll),
+    ItemName.dob_unlock: LHP2ItemData(base_item_id + 467, ItemClassification.progression, region=regn.dob),
+    ItemName.ttd_unlock: LHP2ItemData(base_item_id + 468, ItemClassification.progression, region=regn.ttd),
+    ItemName.bts_unlock: LHP2ItemData(base_item_id + 469, ItemClassification.progression, region=regn.bts),
+    ItemName.bb_unlock: LHP2ItemData(base_item_id + 470, ItemClassification.progression, region=regn.bb),
+    ItemName.fiend_unlock: LHP2ItemData(base_item_id + 471, ItemClassification.progression, region=regn.fiend),
+    ItemName.st_unlock: LHP2ItemData(base_item_id + 472, ItemClassification.progression, region=regn.st),
+    ItemName.tfitp_unlock: LHP2ItemData(base_item_id + 473, ItemClassification.progression, region=regn.tfitp),
 }
 
 # 475 - 498
 level_sip_item_table: Dict[str, LHP2ItemData] = {
-    ItemName.dt_sip: LHP2ItemData(base_item_id + 475),
-    ItemName.da_sip: LHP2ItemData(base_item_id + 476),
-    ItemName.foc_sip: LHP2ItemData(base_item_id + 477),
-    ItemName.kd_sip: LHP2ItemData(base_item_id + 478),
-    ItemName.agv_sip: LHP2ItemData(base_item_id + 479),
-    ItemName.avt_sip: LHP2ItemData(base_item_id + 480),
-    ItemName.oor_sip: LHP2ItemData(base_item_id + 481),
-    ItemName.jd_sip: LHP2ItemData(base_item_id + 482),
-    ItemName.ansmc_sip: LHP2ItemData(base_item_id + 483),
-    ItemName.lh_sip: LHP2ItemData(base_item_id + 484),
-    ItemName.ff_sip: LHP2ItemData(base_item_id + 485),
-    ItemName.thath_sip: LHP2ItemData(base_item_id + 486),
-    ItemName.tsh_sip: LHP2ItemData(base_item_id + 487),
-    ItemName.mim_sip: LHP2ItemData(base_item_id + 488),
-    ItemName.igd_sip: LHP2ItemData(base_item_id + 489),
-    ItemName.sal_sip: LHP2ItemData(base_item_id + 490),
-    ItemName.ll_sip: LHP2ItemData(base_item_id + 491),
-    ItemName.dob_sip: LHP2ItemData(base_item_id + 492),
-    ItemName.ttd_sip: LHP2ItemData(base_item_id + 493),
-    ItemName.bts_sip: LHP2ItemData(base_item_id + 494),
-    ItemName.bb_sip: LHP2ItemData(base_item_id + 495),
-    ItemName.fiend_sip: LHP2ItemData(base_item_id + 496),
-    ItemName.st_sip: LHP2ItemData(base_item_id + 497),
-    ItemName.tfitp_sip: LHP2ItemData(base_item_id + 498),
+    ItemName.dt_sip: LHP2ItemData(base_item_id + 475, region=regn.dt),
+    ItemName.da_sip: LHP2ItemData(base_item_id + 476, region=regn.da),
+    ItemName.foc_sip: LHP2ItemData(base_item_id + 477, region=regn.foc),
+    ItemName.kd_sip: LHP2ItemData(base_item_id + 478, region=regn.kd),
+    ItemName.agv_sip: LHP2ItemData(base_item_id + 479, region=regn.agv),
+    ItemName.avt_sip: LHP2ItemData(base_item_id + 480, region=regn.avt),
+    ItemName.oor_sip: LHP2ItemData(base_item_id + 481, region=regn.oor),
+    ItemName.jd_sip: LHP2ItemData(base_item_id + 482, region=regn.jd),
+    ItemName.ansmc_sip: LHP2ItemData(base_item_id + 483, region=regn.ansmc),
+    ItemName.lh_sip: LHP2ItemData(base_item_id + 484, region=regn.lh),
+    ItemName.ff_sip: LHP2ItemData(base_item_id + 485, region=regn.ff),
+    ItemName.thath_sip: LHP2ItemData(base_item_id + 486, region=regn.thath),
+    ItemName.tsh_sip: LHP2ItemData(base_item_id + 487, region=regn.tsh),
+    ItemName.mim_sip: LHP2ItemData(base_item_id + 488, region=regn.mim),
+    ItemName.igd_sip: LHP2ItemData(base_item_id + 489, region=regn.igd),
+    ItemName.sal_sip: LHP2ItemData(base_item_id + 490, region=regn.sal),
+    ItemName.ll_sip: LHP2ItemData(base_item_id + 491, region=regn.ll),
+    ItemName.dob_sip: LHP2ItemData(base_item_id + 492, region=regn.dob),
+    ItemName.ttd_sip: LHP2ItemData(base_item_id + 493, region=regn.ttd),
+    ItemName.bts_sip: LHP2ItemData(base_item_id + 494, region=regn.bts),
+    ItemName.bb_sip: LHP2ItemData(base_item_id + 495, region=regn.bb),
+    ItemName.fiend_sip: LHP2ItemData(base_item_id + 496, region=regn.fiend),
+    ItemName.st_sip: LHP2ItemData(base_item_id + 497, region=regn.st),
+    ItemName.tfitp_sip: LHP2ItemData(base_item_id + 498, region=regn.tfitp),
 }
 
 # 499 - 538
@@ -568,106 +569,109 @@ hub_sip_item_table: Dict[str, LHP2ItemData] = {
 
 # 550 - 575
 house_crest_item_table: Dict[str, LHP2ItemData] = {
-    # Gryff Crests
-    ItemName.dt_gc: LHP2ItemData(base_item_id + 550),
-    ItemName.da_gc: LHP2ItemData(base_item_id + 551),
-    ItemName.foc_gc: LHP2ItemData(base_item_id + 552),
-    ItemName.kd_gc: LHP2ItemData(base_item_id + 553),
-    ItemName.agv_gc: LHP2ItemData(base_item_id + 554),
-    ItemName.avt_gc: LHP2ItemData(base_item_id + 555),
-    ItemName.oor_gc: LHP2ItemData(base_item_id + 556),
-    ItemName.jd_gc: LHP2ItemData(base_item_id + 557),
-    ItemName.ansmc_gc: LHP2ItemData(base_item_id + 558),
-    ItemName.lh_gc: LHP2ItemData(base_item_id + 559),
-    ItemName.ff_gc: LHP2ItemData(base_item_id + 560),
-    ItemName.thath_gc: LHP2ItemData(base_item_id + 561),
-    ItemName.tsh_gc: LHP2ItemData(base_item_id + 562),
-    ItemName.mim_gc: LHP2ItemData(base_item_id + 563),
-    ItemName.igd_gc: LHP2ItemData(base_item_id + 564),
-    ItemName.sal_gc: LHP2ItemData(base_item_id + 565),
-    ItemName.ll_gc: LHP2ItemData(base_item_id + 566),
-    ItemName.dob_gc: LHP2ItemData(base_item_id + 567),
-    ItemName.ttd_gc: LHP2ItemData(base_item_id + 568),
-    ItemName.bts_gc: LHP2ItemData(base_item_id + 569),
-    ItemName.bb_gc: LHP2ItemData(base_item_id + 570),
-    ItemName.fiend_gc: LHP2ItemData(base_item_id + 571),
-    ItemName.st_gc: LHP2ItemData(base_item_id + 572),
-    ItemName.tfitp_gc: LHP2ItemData(base_item_id + 573),
+    # Gryf Crests
+    ItemName.dt_gc: LHP2ItemData(base_item_id + 550, region=regn.dt),
+    ItemName.da_gc: LHP2ItemData(base_item_id + 551, region=regn.da),
+    ItemName.foc_gc: LHP2ItemData(base_item_id + 552, region=regn.foc),
+    ItemName.kd_gc: LHP2ItemData(base_item_id + 553, region=regn.kd),
+    ItemName.agv_gc: LHP2ItemData(base_item_id + 554, region=regn.agv),
+    ItemName.avt_gc: LHP2ItemData(base_item_id + 555, region=regn.avt),
+    ItemName.oor_gc: LHP2ItemData(base_item_id + 556, region=regn.oor),
+    ItemName.jd_gc: LHP2ItemData(base_item_id + 557, region=regn.jd),
+    ItemName.ansmc_gc: LHP2ItemData(base_item_id + 558, region=regn.ansmc),
+    ItemName.lh_gc: LHP2ItemData(base_item_id + 559, region=regn.lh),
+    ItemName.ff_gc: LHP2ItemData(base_item_id + 560, region=regn.ff),
+    ItemName.thath_gc: LHP2ItemData(base_item_id + 561, region=regn.thath),
+    ItemName.tsh_gc: LHP2ItemData(base_item_id + 562, region=regn.tsh),
+    ItemName.mim_gc: LHP2ItemData(base_item_id + 563, region=regn.mim),
+    ItemName.igd_gc: LHP2ItemData(base_item_id + 564, region=regn.igd),
+    ItemName.sal_gc: LHP2ItemData(base_item_id + 565, region=regn.sal),
+    ItemName.ll_gc: LHP2ItemData(base_item_id + 566, region=regn.ll),
+    ItemName.dob_gc: LHP2ItemData(base_item_id + 567, region=regn.dob),
+    ItemName.ttd_gc: LHP2ItemData(base_item_id + 568, region=regn.ttd),
+    ItemName.bts_gc: LHP2ItemData(base_item_id + 569, region=regn.bts),
+    ItemName.bb_gc: LHP2ItemData(base_item_id + 570, region=regn.bb),
+    ItemName.fiend_gc: LHP2ItemData(base_item_id + 571, region=regn.fiend),
+    ItemName.st_gc: LHP2ItemData(base_item_id + 572, region=regn.st),
+    ItemName.tfitp_gc: LHP2ItemData(base_item_id + 573, region=regn.tfitp),
+
     # Slyth Crests
-    ItemName.dt_sc: LHP2ItemData(base_item_id + 574),
-    ItemName.da_sc: LHP2ItemData(base_item_id + 575),
-    ItemName.foc_sc: LHP2ItemData(base_item_id + 576),
-    ItemName.kd_sc: LHP2ItemData(base_item_id + 577),
-    ItemName.agv_sc: LHP2ItemData(base_item_id + 578),
-    ItemName.avt_sc: LHP2ItemData(base_item_id + 579),
-    ItemName.oor_sc: LHP2ItemData(base_item_id + 580),
-    ItemName.jd_sc: LHP2ItemData(base_item_id + 581),
-    ItemName.ansmc_sc: LHP2ItemData(base_item_id + 582),
-    ItemName.lh_sc: LHP2ItemData(base_item_id + 583),
-    ItemName.ff_sc: LHP2ItemData(base_item_id + 584),
-    ItemName.thath_sc: LHP2ItemData(base_item_id + 585),
-    ItemName.tsh_sc: LHP2ItemData(base_item_id + 586),
-    ItemName.mim_sc: LHP2ItemData(base_item_id + 587),
-    ItemName.igd_sc: LHP2ItemData(base_item_id + 588),
-    ItemName.sal_sc: LHP2ItemData(base_item_id + 589),
-    ItemName.ll_sc: LHP2ItemData(base_item_id + 590),
-    ItemName.dob_sc: LHP2ItemData(base_item_id + 591),
-    ItemName.ttd_sc: LHP2ItemData(base_item_id + 592),
-    ItemName.bts_sc: LHP2ItemData(base_item_id + 593),
-    ItemName.bb_sc: LHP2ItemData(base_item_id + 594),
-    ItemName.fiend_sc: LHP2ItemData(base_item_id + 595),
-    ItemName.st_sc: LHP2ItemData(base_item_id + 596),
-    ItemName.tfitp_sc: LHP2ItemData(base_item_id + 597),
+    ItemName.dt_sc: LHP2ItemData(base_item_id + 574, region=regn.dt),
+    ItemName.da_sc: LHP2ItemData(base_item_id + 575, region=regn.da),
+    ItemName.foc_sc: LHP2ItemData(base_item_id + 576, region=regn.foc),
+    ItemName.kd_sc: LHP2ItemData(base_item_id + 577, region=regn.kd),
+    ItemName.agv_sc: LHP2ItemData(base_item_id + 578, region=regn.agv),
+    ItemName.avt_sc: LHP2ItemData(base_item_id + 579, region=regn.avt),
+    ItemName.oor_sc: LHP2ItemData(base_item_id + 580, region=regn.oor),
+    ItemName.jd_sc: LHP2ItemData(base_item_id + 581, region=regn.jd),
+    ItemName.ansmc_sc: LHP2ItemData(base_item_id + 582, region=regn.ansmc),
+    ItemName.lh_sc: LHP2ItemData(base_item_id + 583, region=regn.lh),
+    ItemName.ff_sc: LHP2ItemData(base_item_id + 584, region=regn.ff),
+    ItemName.thath_sc: LHP2ItemData(base_item_id + 585, region=regn.thath),
+    ItemName.tsh_sc: LHP2ItemData(base_item_id + 586, region=regn.tsh),
+    ItemName.mim_sc: LHP2ItemData(base_item_id + 587, region=regn.mim),
+    ItemName.igd_sc: LHP2ItemData(base_item_id + 588, region=regn.igd),
+    ItemName.sal_sc: LHP2ItemData(base_item_id + 589, region=regn.sal),
+    ItemName.ll_sc: LHP2ItemData(base_item_id + 590, region=regn.ll),
+    ItemName.dob_sc: LHP2ItemData(base_item_id + 591, region=regn.dob),
+    ItemName.ttd_sc: LHP2ItemData(base_item_id + 592, region=regn.ttd),
+    ItemName.bts_sc: LHP2ItemData(base_item_id + 593, region=regn.bts),
+    ItemName.bb_sc: LHP2ItemData(base_item_id + 594, region=regn.bb),
+    ItemName.fiend_sc: LHP2ItemData(base_item_id + 595, region=regn.fiend),
+    ItemName.st_sc: LHP2ItemData(base_item_id + 596, region=regn.st),
+    ItemName.tfitp_sc: LHP2ItemData(base_item_id + 597, region=regn.tfitp),
+
     # Raven Crests
-    ItemName.dt_rc: LHP2ItemData(base_item_id + 598),
-    ItemName.da_rc: LHP2ItemData(base_item_id + 599),
-    ItemName.foc_rc: LHP2ItemData(base_item_id + 600),
-    ItemName.kd_rc: LHP2ItemData(base_item_id + 601),
-    ItemName.agv_rc: LHP2ItemData(base_item_id + 602),
-    ItemName.avt_rc: LHP2ItemData(base_item_id + 603),
-    ItemName.oor_rc: LHP2ItemData(base_item_id + 604),
-    ItemName.jd_rc: LHP2ItemData(base_item_id + 605),
-    ItemName.ansmc_rc: LHP2ItemData(base_item_id + 606),
-    ItemName.lh_rc: LHP2ItemData(base_item_id + 607),
-    ItemName.ff_rc: LHP2ItemData(base_item_id + 608),
-    ItemName.thath_rc: LHP2ItemData(base_item_id + 609),
-    ItemName.tsh_rc: LHP2ItemData(base_item_id + 610),
-    ItemName.mim_rc: LHP2ItemData(base_item_id + 611),
-    ItemName.igd_rc: LHP2ItemData(base_item_id + 612),
-    ItemName.sal_rc: LHP2ItemData(base_item_id + 613),
-    ItemName.ll_rc: LHP2ItemData(base_item_id + 614),
-    ItemName.dob_rc: LHP2ItemData(base_item_id + 615),
-    ItemName.ttd_rc: LHP2ItemData(base_item_id + 616),
-    ItemName.bts_rc: LHP2ItemData(base_item_id + 617),
-    ItemName.bb_rc: LHP2ItemData(base_item_id + 618),
-    ItemName.fiend_rc: LHP2ItemData(base_item_id + 619),
-    ItemName.st_rc: LHP2ItemData(base_item_id + 620),
-    ItemName.tfitp_rc: LHP2ItemData(base_item_id + 621),
+    ItemName.dt_rc: LHP2ItemData(base_item_id + 598, region=regn.dt),
+    ItemName.da_rc: LHP2ItemData(base_item_id + 599, region=regn.da),
+    ItemName.foc_rc: LHP2ItemData(base_item_id + 600, region=regn.foc),
+    ItemName.kd_rc: LHP2ItemData(base_item_id + 601, region=regn.kd),
+    ItemName.agv_rc: LHP2ItemData(base_item_id + 602, region=regn.agv),
+    ItemName.avt_rc: LHP2ItemData(base_item_id + 603, region=regn.avt),
+    ItemName.oor_rc: LHP2ItemData(base_item_id + 604, region=regn.oor),
+    ItemName.jd_rc: LHP2ItemData(base_item_id + 605, region=regn.jd),
+    ItemName.ansmc_rc: LHP2ItemData(base_item_id + 606, region=regn.ansmc),
+    ItemName.lh_rc: LHP2ItemData(base_item_id + 607, region=regn.lh),
+    ItemName.ff_rc: LHP2ItemData(base_item_id + 608, region=regn.ff),
+    ItemName.thath_rc: LHP2ItemData(base_item_id + 609, region=regn.thath),
+    ItemName.tsh_rc: LHP2ItemData(base_item_id + 610, region=regn.tsh),
+    ItemName.mim_rc: LHP2ItemData(base_item_id + 611, region=regn.mim),
+    ItemName.igd_rc: LHP2ItemData(base_item_id + 612, region=regn.igd),
+    ItemName.sal_rc: LHP2ItemData(base_item_id + 613, region=regn.sal),
+    ItemName.ll_rc: LHP2ItemData(base_item_id + 614, region=regn.ll),
+    ItemName.dob_rc: LHP2ItemData(base_item_id + 615, region=regn.dob),
+    ItemName.ttd_rc: LHP2ItemData(base_item_id + 616, region=regn.ttd),
+    ItemName.bts_rc: LHP2ItemData(base_item_id + 617, region=regn.bts),
+    ItemName.bb_rc: LHP2ItemData(base_item_id + 618, region=regn.bb),
+    ItemName.fiend_rc: LHP2ItemData(base_item_id + 619, region=regn.fiend),
+    ItemName.st_rc: LHP2ItemData(base_item_id + 620, region=regn.st),
+    ItemName.tfitp_rc: LHP2ItemData(base_item_id + 621, region=regn.tfitp),
+
     # Huffle Crests
-    ItemName.dt_hc: LHP2ItemData(base_item_id + 622),
-    ItemName.da_hc: LHP2ItemData(base_item_id + 623),
-    ItemName.foc_hc: LHP2ItemData(base_item_id + 624),
-    ItemName.kd_hc: LHP2ItemData(base_item_id + 625),
-    ItemName.agv_hc: LHP2ItemData(base_item_id + 626),
-    ItemName.avt_hc: LHP2ItemData(base_item_id + 627),
-    ItemName.oor_hc: LHP2ItemData(base_item_id + 628),
-    ItemName.jd_hc: LHP2ItemData(base_item_id + 629),
-    ItemName.ansmc_hc: LHP2ItemData(base_item_id + 630),
-    ItemName.lh_hc: LHP2ItemData(base_item_id + 631),
-    ItemName.ff_hc: LHP2ItemData(base_item_id + 632),
-    ItemName.thath_hc: LHP2ItemData(base_item_id + 633),
-    ItemName.tsh_hc: LHP2ItemData(base_item_id + 634),
-    ItemName.mim_hc: LHP2ItemData(base_item_id + 635),
-    ItemName.igd_hc: LHP2ItemData(base_item_id + 636),
-    ItemName.sal_hc: LHP2ItemData(base_item_id + 637),
-    ItemName.ll_hc: LHP2ItemData(base_item_id + 638),
-    ItemName.dob_hc: LHP2ItemData(base_item_id + 639),
-    ItemName.ttd_hc: LHP2ItemData(base_item_id + 640),
-    ItemName.bts_hc: LHP2ItemData(base_item_id + 641),
-    ItemName.bb_hc: LHP2ItemData(base_item_id + 642),
-    ItemName.fiend_hc: LHP2ItemData(base_item_id + 643),
-    ItemName.st_hc: LHP2ItemData(base_item_id + 644),
-    ItemName.tfitp_hc: LHP2ItemData(base_item_id + 645),
+    ItemName.dt_hc: LHP2ItemData(base_item_id + 622, region=regn.dt),
+    ItemName.da_hc: LHP2ItemData(base_item_id + 623, region=regn.da),
+    ItemName.foc_hc: LHP2ItemData(base_item_id + 624, region=regn.foc),
+    ItemName.kd_hc: LHP2ItemData(base_item_id + 625, region=regn.kd),
+    ItemName.agv_hc: LHP2ItemData(base_item_id + 626, region=regn.agv),
+    ItemName.avt_hc: LHP2ItemData(base_item_id + 627, region=regn.avt),
+    ItemName.oor_hc: LHP2ItemData(base_item_id + 628, region=regn.oor),
+    ItemName.jd_hc: LHP2ItemData(base_item_id + 629, region=regn.jd),
+    ItemName.ansmc_hc: LHP2ItemData(base_item_id + 630, region=regn.ansmc),
+    ItemName.lh_hc: LHP2ItemData(base_item_id + 631, region=regn.lh),
+    ItemName.ff_hc: LHP2ItemData(base_item_id + 632, region=regn.ff),
+    ItemName.thath_hc: LHP2ItemData(base_item_id + 633, region=regn.thath),
+    ItemName.tsh_hc: LHP2ItemData(base_item_id + 634, region=regn.tsh),
+    ItemName.mim_hc: LHP2ItemData(base_item_id + 635, region=regn.mim),
+    ItemName.igd_hc: LHP2ItemData(base_item_id + 636, region=regn.igd),
+    ItemName.sal_hc: LHP2ItemData(base_item_id + 637, region=regn.sal),
+    ItemName.ll_hc: LHP2ItemData(base_item_id + 638, region=regn.ll),
+    ItemName.dob_hc: LHP2ItemData(base_item_id + 639, region=regn.dob),
+    ItemName.ttd_hc: LHP2ItemData(base_item_id + 640, region=regn.ttd),
+    ItemName.bts_hc: LHP2ItemData(base_item_id + 641, region=regn.bts),
+    ItemName.bb_hc: LHP2ItemData(base_item_id + 642, region=regn.bb),
+    ItemName.fiend_hc: LHP2ItemData(base_item_id + 643, region=regn.fiend),
+    ItemName.st_hc: LHP2ItemData(base_item_id + 644, region=regn.st),
+    ItemName.tfitp_hc: LHP2ItemData(base_item_id + 645, region=regn.tfitp),
 }
 
 # 650 - 673
@@ -675,30 +679,30 @@ house_crest_item_table: Dict[str, LHP2ItemData] = {
 
 # 675 - 698
 true_wizard_item_table: Dict[str, LHP2ItemData] = {
-    ItemName.dt_tw: LHP2ItemData(base_item_id + 675),
-    ItemName.da_tw: LHP2ItemData(base_item_id + 676),
-    ItemName.foc_tw: LHP2ItemData(base_item_id + 677),
-    ItemName.kd_tw: LHP2ItemData(base_item_id + 678),
-    ItemName.agv_tw: LHP2ItemData(base_item_id + 679),
-    ItemName.avt_tw: LHP2ItemData(base_item_id + 680),
-    ItemName.oor_tw: LHP2ItemData(base_item_id + 681),
-    ItemName.jd_tw: LHP2ItemData(base_item_id + 682),
-    ItemName.ansmc_tw: LHP2ItemData(base_item_id + 683),
-    ItemName.lh_tw: LHP2ItemData(base_item_id + 684),
-    ItemName.ff_tw: LHP2ItemData(base_item_id + 685),
-    ItemName.thath_tw: LHP2ItemData(base_item_id + 686),
-    ItemName.tsh_tw: LHP2ItemData(base_item_id + 687),
-    ItemName.mim_tw: LHP2ItemData(base_item_id + 688),
-    ItemName.igd_tw: LHP2ItemData(base_item_id + 689),
-    ItemName.sal_tw: LHP2ItemData(base_item_id + 690),
-    ItemName.ll_tw: LHP2ItemData(base_item_id + 691),
-    ItemName.dob_tw: LHP2ItemData(base_item_id + 692),
-    ItemName.ttd_tw: LHP2ItemData(base_item_id + 693),
-    ItemName.bts_tw: LHP2ItemData(base_item_id + 694),
-    ItemName.bb_tw: LHP2ItemData(base_item_id + 695),
-    ItemName.fiend_tw: LHP2ItemData(base_item_id + 696),
-    ItemName.st_tw: LHP2ItemData(base_item_id + 697),
-    ItemName.tfitp_tw: LHP2ItemData(base_item_id + 698),
+    ItemName.dt_tw: LHP2ItemData(base_item_id + 675, region=regn.dt),
+    ItemName.da_tw: LHP2ItemData(base_item_id + 676, region=regn.da),
+    ItemName.foc_tw: LHP2ItemData(base_item_id + 677, region=regn.foc),
+    ItemName.kd_tw: LHP2ItemData(base_item_id + 678, region=regn.kd),
+    ItemName.agv_tw: LHP2ItemData(base_item_id + 679, region=regn.agv),
+    ItemName.avt_tw: LHP2ItemData(base_item_id + 680, region=regn.avt),
+    ItemName.oor_tw: LHP2ItemData(base_item_id + 681, region=regn.oor),
+    ItemName.jd_tw: LHP2ItemData(base_item_id + 682, region=regn.jd),
+    ItemName.ansmc_tw: LHP2ItemData(base_item_id + 683, region=regn.ansmc),
+    ItemName.lh_tw: LHP2ItemData(base_item_id + 684, region=regn.lh),
+    ItemName.ff_tw: LHP2ItemData(base_item_id + 685, region=regn.ff),
+    ItemName.thath_tw: LHP2ItemData(base_item_id + 686, region=regn.thath),
+    ItemName.tsh_tw: LHP2ItemData(base_item_id + 687, region=regn.tsh),
+    ItemName.mim_tw: LHP2ItemData(base_item_id + 688, region=regn.mim),
+    ItemName.igd_tw: LHP2ItemData(base_item_id + 689, region=regn.igd),
+    ItemName.sal_tw: LHP2ItemData(base_item_id + 690, region=regn.sal),
+    ItemName.ll_tw: LHP2ItemData(base_item_id + 691, region=regn.ll),
+    ItemName.dob_tw: LHP2ItemData(base_item_id + 692, region=regn.dob),
+    ItemName.ttd_tw: LHP2ItemData(base_item_id + 693, region=regn.ttd),
+    ItemName.bts_tw: LHP2ItemData(base_item_id + 694, region=regn.bts),
+    ItemName.bb_tw: LHP2ItemData(base_item_id + 695, region=regn.bb),
+    ItemName.fiend_tw: LHP2ItemData(base_item_id + 696, region=regn.fiend),
+    ItemName.st_tw: LHP2ItemData(base_item_id + 697, region=regn.st),
+    ItemName.tfitp_tw: LHP2ItemData(base_item_id + 698, region=regn.tfitp),
 }
 
 purp_stud_item_table: Dict[str, LHP2ItemData] = {
@@ -787,14 +791,14 @@ joke_spell_table: Dict[str, LHP2ItemData] = {
     ItemName.immob_unlock: LHP2ItemData(base_item_id + 994),
 }
 
-
 spell_item_table: Dict[str, LHP2ItemData] = {
     # ItemName.pets_unlock: LHP2ItemData(base_item_id + 995),
     # ItemName.invis_unlock: LHP2ItemData(base_item_id + 996),
     # ItemName.avada_unlock: LHP2ItemData(base_item_id + 997),
     ItemName.diffindo_unlock: LHP2ItemData(base_item_id + 998, ItemClassification.progression),
     # ItemName.lumos_unlock: LHP2ItemData(base_item_id + 999),
-    # lumos has 2 bits
+    # lumos has 2 bits using second bit for polyjuice potion in the dictionary
+    ItemName.poly_unlock: LHP2ItemData(base_item_id + 1000, ItemClassification.progression),
     ItemName.delum_unlock: LHP2ItemData(base_item_id + 1001, ItemClassification.progression),
     ItemName.agua_unlock: LHP2ItemData(base_item_id + 1002, ItemClassification.progression),
     ItemName.focus_unlock: LHP2ItemData(base_item_id + 1003, ItemClassification.progression),
@@ -835,25 +839,39 @@ item_data_table = {
 
 
 def setup_items(options: LHP2Options):
-    temp_item_table = {}
-    temp_item_table.update(character_item_table)
-    temp_item_table.update(character_token_item_table)
+    temp_item_table = {
+        **character_item_table,
+        **spell_item_table,
+        **level_unlock_item_table,
+        **level_sip_item_table,
+        **hub_sip_item_table,
+        **house_crest_item_table,
+        **true_wizard_item_table,
+        **gold_brick_item_table,
+        **red_brick_unlock_table,
+        **ability_item_table,
+        **purp_stud_item_table,
+    }
+
+    if options.ShuffleCharacterTokens == 0:
+        temp_item_table.update(character_token_item_table)
+
+    if options.ShuffleRedBricks == 0:
+        temp_item_table.update(red_brick_purchasable_table)
+
     if options.ShuffleJokeSpells == 1:
         temp_item_table.update(joke_spell_table)
-    temp_item_table.update(spell_item_table)
-    temp_item_table.update(level_unlock_item_table)
-    temp_item_table.update(level_sip_item_table)
-    temp_item_table.update(hub_sip_item_table)
-    temp_item_table.update(house_crest_item_table)
-    temp_item_table.update(true_wizard_item_table)
-    temp_item_table.update(gold_brick_item_table)
-    if options.ShuffleGoldBrickPurchases == 0:
-        temp_item_table[ItemName.gb5].qty = 24
-    temp_item_table.update(red_brick_purchasable_table)
-    temp_item_table.update(red_brick_unlock_table)
-    temp_item_table.update(ability_item_table)
-    temp_item_table.update(purp_stud_item_table)
-    temp_item_table.update(horcrux_item_table)
+
+    if options.EndGoal.value == 0:
+        temp_item_table.update(horcrux_item_table)
+
+    disabled = set(options.DisabledLevels.value)
+
+    for item, data in list(temp_item_table.items()):
+        region = data.region
+        if region in disabled:
+            del temp_item_table[item]
+
     return temp_item_table
 
 
@@ -875,6 +893,53 @@ progression_spells = [
     if data.classification == ItemClassification.progression
 ]
 
+dark_magic_names = [
+    ItemName.alecto_play,
+    ItemName.amycus_play,
+    ItemName.dolohov_play,
+    ItemName.bellatrix_play,
+    ItemName.bellatrix_azka_play,
+    ItemName.death_eater_play,
+    ItemName.dolohov_workman_play,
+    ItemName.fenrir_play,
+    ItemName.grindel_old_play,
+    ItemName.grindel_young_play,
+    ItemName.lord_voldemort_play,
+    ItemName.lucius_play,
+    ItemName.lucius_death_eater_play,
+    ItemName.black_play,
+    ItemName.pius_play,
+    ItemName.scabior_play,
+    ItemName.snatcher_play,
+    ItemName.rowle_play,
+    ItemName.tom_riddle_play,
+    ItemName.wormtail_play,
+    ItemName.yaxley_play,
+]
+
+key_names = [
+    ItemName.bogrod_play,
+    ItemName.cole_play,
+    ItemName.griphook_play,
+    ItemName.ministry_guard_play,
+]
+
+strong_ability_names = [
+    ItemName.dudley_play,
+    ItemName.dudley_grey_play,
+    ItemName.dudley_shirt_play,
+    ItemName.fenrir_play,
+    ItemName.fang_play,
+    ItemName.hagrid_play,
+    ItemName.hagrid_wed_play,
+    ItemName.muggle_orphan_play,
+    ItemName.remus_lupin_play,
+    ItemName.sirius_black_play,
+    ItemName.sirius_azkaban_play,
+    ItemName.vernon_play,
+    ItemName.super_strength_unlock,
+]
+
 item_name_groups = {
     "Token": {name: data for name, data in character_token_item_table.items()},
     "Character": {name: data for name, data in character_item_table.items()},
@@ -886,4 +951,11 @@ item_name_groups = {
     "Red Brick Purchasable": {name: data for name, data in red_brick_purchasable_table.items()},
     "Red Brick Unlocked": {name: data for name, data in red_brick_unlock_table.items()},
     "Horcrux": {name: data for name, data in horcrux_item_table.items()},
+    "WWW Boxes": {ItemName.www_box_unlock: spell_and_ability_table[ItemName.www_box_unlock]},
+    "Deluminator": {ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]},
+    "Polyjuice": {ItemName.poly_unlock: spell_and_ability_table[ItemName.poly_unlock]},
+    "Herm Bag": {ItemName.herm_bag_unlock: spell_and_ability_table[ItemName.herm_bag_unlock]},
+    "Dark Magic": {name: character_item_table[name] for name in dark_magic_names},
+    "Key": {name: character_item_table[name] for name in key_names},
+    "Strength": {name: item_data_table[name] for name in strong_ability_names},
 }

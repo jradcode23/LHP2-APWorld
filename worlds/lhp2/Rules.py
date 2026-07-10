@@ -3,15 +3,16 @@ from typing_extensions import override
 import dataclasses
 
 from Options import Option
+from BaseClasses import Location
 from rule_builder.options import OptionFilter, Operator
-from rule_builder.rules import Rule, Has, HasAll, True_, And, Or, CanReachLocation
+from rule_builder.rules import Rule, Has, HasAll, True_, And, Or, CanReachLocation, CanReachRegion
 
 if TYPE_CHECKING:
     from . import LHP2World
 
-from .Names import LocationName, ItemName, RegionName
-from .Options import EndGoal, HardPurchases
-from .Locations import all_location_table
+from .Data import LocationName, ItemName, RegionName
+from .Options import EndGoal, HardPurchases, ShuffleRedBricks, ShuffleCharacterTokens
+from .Locations import all_location_table, level_beaten_loc_table
 
 itm = ItemName
 locn = LocationName
@@ -25,14 +26,14 @@ can_use_dark_mag = (Has(itm.alecto_play) | Has(itm.amycus_play) | Has(itm.doloho
                     Has(itm.black_play) | Has(itm.pius_play) | Has(itm.scabior_play) | Has(itm.snatcher_play) |
                     Has(itm.rowle_play) | Has(itm.tom_riddle_play) | Has(itm.wormtail_play) | Has(itm.yaxley_play))
 
-can_use_dm_in_hub = Has(ItemName.delum_unlock) & can_use_dark_mag
+can_use_dm_in_hub = Has(ItemName.poly_unlock) & can_use_dark_mag
 
 can_use_spanner = (Has(itm.arthur_play) | Has(itm.arthur_suit_play) | Has(itm.arthur_cardigan_play) |
                    Has(itm.arthur_torn_suit_play))
 
-can_use_key = Has(itm.bogrod_play) | Has(itm.cole_play) | Has(itm.griphook_play)
+can_use_key = Has(itm.bogrod_play) | Has(itm.cole_play) | Has(itm.griphook_play) | Has(itm.ministry_guard_play)
 
-can_use_key_in_hub = can_use_key & Has(itm.delum_unlock)
+can_use_key_in_hub = can_use_key & Has(itm.poly_unlock)
 
 strong_chars = (Has(itm.dudley_play) | Has(itm.dudley_grey_play) | Has(itm.dudley_shirt_play) | Has(itm.fenrir_play) |
                 Has(itm.fang_play) | Has(itm.hagrid_play) | Has(itm.hagrid_wed_play) | Has(itm.muggle_orphan_play) |
@@ -41,7 +42,7 @@ strong_chars = (Has(itm.dudley_play) | Has(itm.dudley_grey_play) | Has(itm.dudle
 
 char_is_strong_level = strong_chars | Has(itm.super_strength_unlock)
 
-char_is_strong_hub = (strong_chars & Has(itm.delum_unlock)) | Has(itm.super_strength_unlock)
+char_is_strong_hub = (strong_chars & Has(itm.poly_unlock)) | Has(itm.super_strength_unlock)
 
 ravenclaw_chars = (Has(itm.cho_play) | Has(itm.cho_winter_play) | Has(itm.luna_play) | Has(itm.luna_blue_jumper_play) |
                    Has(itm.luna_overalls_play) | Has(itm.luna_pink_dress_play) | Has(itm.luna_purple_coat_play) |
@@ -99,7 +100,7 @@ can_get_prof_umbridge = can_use_dark_mag
 
 # A Veiled Threat Logic
 can_beat_avt = Has(itm.diffindo_unlock)
-can_get_avt_rc = HasAll(itm.agua_unlock, itm.diffindo_unlock)
+can_get_avt_rc = Has(itm.agua_unlock) & Has(itm.diffindo_unlock)
 can_get_avt_hc = can_use_dark_mag
 can_get_fudge_wizen = Has(itm.diffindo_unlock)
 can_get_herm_jumper = Has(itm.agua_unlock)
@@ -168,6 +169,7 @@ can_get_tr_orphan = can_use_dark_mag
 # The Seven Harry's Logic
 can_access_tsh_free = HasAll(itm.reducto_unlock, itm.agua_unlock, itm.herm_bag_unlock, itm.delum_unlock)
 can_get_delum = HasAll(itm.reducto_unlock, itm.agua_unlock, itm.delum_unlock)
+can_get_polyjuice = Has(itm.reducto_unlock)
 can_get_tsh_sc = Has(itm.reducto_unlock)
 can_get_mad_eye = HasAll(itm.reducto_unlock, itm.agua_unlock) & can_use_dark_mag
 can_get_ron_wed = HasAll(itm.apparition_unlock, itm.specs_unlock)
@@ -288,22 +290,22 @@ defeat_voldemort = Has("Voldemort Defeated")
 can_access_knockturn = HasAll(itm.diffindo_unlock, itm.dada_lesson_e_item)
 can_access_tent = HasAll(itm.herm_bag_unlock, itm.apparition_unlock, itm.cafe_lesson_e_item)
 can_access_train_grounds = HasAll(itm.agua_unlock, itm.dada_lesson_e_item)
-can_access_library = HasAll(itm.agua_unlock, itm.y6_hogwarts_e_item)
+can_access_library = Has(itm.agua_unlock) & (Has(itm.cafe_lesson_e_item) | Has(itm.y6_hogwarts_e_item))
 can_access_hog_grounds = Has(itm.dada_lesson_e_item)
 can_access_lake = HasAll(itm.herm_bag_unlock, itm.cafe_lesson_e_item)
 can_access_quid = HasAll(itm.delum_unlock, itm.cafe_lesson_e_item)
 can_access_potions = Has(itm.y6_hogwarts_e_item)
 can_access_div_court = HasAll(itm.diffindo_unlock, itm.dada_lesson_e_item)
-can_access_astron = HasAll(itm.herm_bag_unlock, itm.y6_hogwarts_e_item)
+can_access_astron = Has(itm.herm_bag_unlock) & (Has(itm.cafe_lesson_e_item) | Has(itm.y6_hogwarts_e_item))
 can_access_great_hall = Has(itm.thestral_lesson_e_item)
 can_access_weasley_courtyard = HasAll(itm.focus_lesson_e_item, itm.www_box_unlock)
 can_access_mid_grand_stair = HasAll(itm.y6_hogwarts_e_item, itm.diffindo_unlock)
 can_access_dumb_office = Has(itm.www_box_unlock)
 can_access_upper_grand_stair = HasAll(itm.thestral_lesson_e_item, itm.agua_unlock)
-can_access_slytherin_common = HasAll(itm.delum_unlock, itm.herm_bag_unlock, itm.y5_hogwarts_e_item) & can_use_dm_in_hub
-can_access_hufflepuff_common = HasAll(itm.delum_unlock, itm.y5_hogwarts_e_item) & can_use_dm_in_hub
-can_access_ravenclaw_tower = HasAll(itm.y6_hogwarts_e_item, itm.agua_unlock)
-can_access_hogsmeade = Has(itm.y6_hogwarts_e_item)
+can_access_slytherin_common = HasAll(itm.herm_bag_unlock, itm.y5_hogwarts_e_item) & can_use_dm_in_hub
+can_access_hufflepuff_common = Has(itm.y5_hogwarts_e_item) & can_use_dm_in_hub
+can_access_ravenclaw_tower = Has(itm.agua_unlock) & (Has(itm.cafe_lesson_e_item) | Has(itm.y6_hogwarts_e_item))
+can_access_hogsmeade = Has(itm.y6_hogwarts_e_item) & (Has(itm.cafe_lesson_e_item) | Has(itm.y6_hogwarts_e_item))
 can_access_cafe = Has(itm.y6_story_complete_e_item) | Has(itm.y5_story_complete_e_item)
 can_access_y5c = Has(itm.diffindo_unlock)
 can_access_y6c = Has(itm.agua_unlock)
@@ -315,8 +317,8 @@ can_get_cafe_gb = char_is_strong_hub & Has(itm.cafe_lesson_e_item)
 can_get_cafe_sip = Has(itm.cafe_lesson_e_item)
 can_get_tent_gb = can_use_dm_in_hub
 can_get_tent_sip = Has(itm.delum_unlock)
-can_get_kc_gb = Has(itm.dada_lesson_e_item)
-can_get_kc_rb = HasAll(itm.dada_lesson_e_item, itm.diffindo_unlock)
+can_get_kcs_gb = Has(itm.dada_lesson_e_item)
+can_get_kcs_rb = HasAll(itm.dada_lesson_e_item, itm.diffindo_unlock)
 can_get_hogstat_rb = can_use_dm_in_hub
 can_get_hogstat_sip = HasAll(itm.herm_bag_unlock, itm.reducto_unlock, itm.y6_story_complete_e_item)
 can_get_hogspath_gb = char_is_strong_hub
@@ -347,7 +349,7 @@ can_get_dorm_lobby_sip = Has(itm.y5_hogwarts_e_item)
 can_get_gryf_common_gb = HasAll(itm.dada_lesson_e_item, itm.reducto_unlock)
 can_get_gryf_common_sip = HasAll(itm.dada_lesson_e_item, itm.agua_unlock)
 can_get_raven_tower_sip = can_use_dm_in_hub
-can_get_lib_rb = HasAll(itm.delum_unlock, itm.diffindo_unlock) & ravenclaw_chars
+can_get_lib_rb = HasAll(itm.poly_unlock, itm.diffindo_unlock) & ravenclaw_chars
 can_get_lib_sip = Has(itm.herm_bag_unlock)
 can_get_ghl_gb = Has(itm.focus_unlock)
 can_get_ghl_rb = can_use_dm_in_hub
@@ -379,7 +381,7 @@ can_get_ast_rb = can_use_dm_in_hub & Has(itm.cafe_lesson_e_item)
 can_get_ast_sip = Has(itm.cafe_lesson_e_item)
 
 # Hub Token Logic
-can_get_anthony_token = HasAll(itm.delum_unlock, itm.diffindo_unlock) & ravenclaw_chars
+can_get_anthony_token = HasAll(itm.poly_unlock, itm.diffindo_unlock) & ravenclaw_chars
 can_get_filch_token = Has(itm.owls_lesson_e_item)
 can_get_arthur_cardigan = HasAll(itm.herm_bag_unlock, itm.diffindo_unlock)
 can_get_arthur_torn_suit = Has(itm.owls_lesson_e_item)
@@ -437,7 +439,7 @@ can_get_pius = can_use_dm_in_hub
 can_get_prof_binns = can_use_key_in_hub
 can_get_prof_flitwick = HasAll(itm.agua_unlock, itm.diffindo_lesson_e_item)
 can_get_prof_grub = Has(itm.agua_unlock)
-can_get_prof_mcgonagall = can_use_key_in_hub
+can_get_prof_mcgonagall = can_use_key_in_hub & Has(itm.delum_unlock)
 can_get_prof_trelawney = Has(itm.agua_unlock)
 can_get_reg_catter = Has(itm.agua_unlock)
 can_get_regulus = Has(itm.agua_unlock)
@@ -463,12 +465,55 @@ def from_option(option: type[Option], value: Any, operator: Operator = "eq") -> 
 
 def can_purch_red_brick(location_name: str) -> Rule:
     red_brick = location_name.replace("sed", "sable")
-    return And(Has(red_brick), has_needed_multi(location_name))
+
+    # Verify they have the Red Brick (if the options require it) and the required multiplier
+    has_red_brick = Has(red_brick) | from_option(ShuffleRedBricks, 0, "ne")
+    has_multi = has_needed_multi(location_name)
+
+    # Verify they have the moves to do the Red Brick Check (if the options require it)
+    from .Data import RuleMapping
+    can_get_red_brick = (
+            from_option(ShuffleRedBricks, 2, "ne")
+            | RuleMapping.red_brick_rule_table.get(location_name, True_())
+    )
+
+    # Verify they have the moves to access the Red Brick Region (if the options require it)
+    loc_data = all_location_table.get(location_name)
+    if loc_data and loc_data.token_region:
+        can_access_token_region = CanReachRegion(loc_data.token_region) | from_option(ShuffleRedBricks, 2, "ne")
+    else:
+        can_access_token_region = True_()
+
+    return And(has_red_brick, has_multi, can_get_red_brick, can_access_token_region)
 
 
 def can_purch_char(location_name: str) -> Rule:
     token = location_name.replace(" Purchased", " Token")
-    return And(Has(token), has_needed_multi(location_name))
+
+    # Verify they have the Token (if the options require it) and the required multiplier
+    has_token = Has(token) | from_option(ShuffleCharacterTokens, 0, "ne")
+    has_multi = has_needed_multi(location_name)
+
+    # Verify they have the moves to do the Token Check (if the options require it)
+    from .Data import RuleMapping
+    can_get_token = (
+            from_option(ShuffleCharacterTokens, 2, "ne")
+            | RuleMapping.token_rule_table.get(location_name, True_())
+    )
+
+    # Verify that they have the moves to access the Token Region (if the options require it)
+    token_location = token + " Collected"
+    loc_data = all_location_table.get(token_location)
+
+    if loc_data and loc_data.region:
+        can_access_token_region = (
+            CanReachRegion(loc_data.region)
+            | from_option(ShuffleCharacterTokens, 2, "ne")
+        )
+    else:
+        can_access_token_region = True_()
+
+    return And(has_token, has_multi, can_get_token, can_access_token_region)
 
 
 def can_purch_joke(location_name: str) -> Rule:
@@ -501,51 +546,6 @@ class HasMultiplier(Rule, game="Lego Harry Potter 5-7"):
             return has_low_multi.resolve(world)
         else:
             return has_high_multi.resolve(world)
-
-
-def set_rules(world: "LHP2World"):
-    set_entrance_rules(world)
-    set_lesson_logic(world)
-    set_event_logic(world)
-    set_win_con(world)
-    # Y5
-    set_dt_logic(world)
-    set_da_logic(world)
-    set_foc_logic(world)
-    set_kd_logic(world)
-    set_agv_logic(world)
-    set_avt_logic(world)
-    # Y6
-    set_oor_logic(world)
-    set_jd_logic(world)
-    set_ansmc_logic(world)
-    set_lh_logic(world)
-    set_ff_logic(world)
-    set_thath_logic(world)
-    # Y7
-    set_tsh_logic(world)
-    set_mim_logic(world)
-    set_igd_logic(world)
-    set_sal_logic(world)
-    set_ll_logic(world)
-    set_dob_logic(world)
-    # Y8
-    set_ttd_logic(world)
-    set_bts_logic(world)
-    set_bb_logic(world)
-    set_fiend_logic(world)
-    set_st_logic(world)
-    set_tfitp_logic(world)
-    # Hub Logic
-    set_hub_collect_logic(world)
-    set_hub_token_logic(world)
-    # Shop Logic
-    set_char_purch_logic(world)
-    if world.options.ShuffleJokeSpells == 1:
-        set_joke_purch_logic(world)
-    if world.options.ShuffleGoldBrickPurchases == 1:
-        set_gold_brick_purch_logic(world)
-    set_red_brick_purch_logic(world)
 
 
 def set_entrance_rules(world):
@@ -658,8 +658,19 @@ def set_event_logic(world):
     world.set_rule(world.get_location(locn.dumble_lesson_event), CanReachLocation(locn.dumble_lesson))
     world.set_rule(world.get_location(locn.y6_story_complete_event), CanReachLocation(locn.y6_story_complete))
     world.set_rule(world.get_location(locn.cafe_lesson_event), CanReachLocation(locn.cafe_lesson))
-    world.set_rule(world.get_location("Defeat Voldemort"), Has("UNIQUE_HORCRUX", world.options.NumHorcruxRequired.value)
-                   & can_beat_tfitp)
+    if world.options.EndGoal == EndGoal.option_defeat_voldemort:
+        world.set_rule(world.get_location("Defeat Voldemort"),
+                       Has("UNIQUE_HORCRUX", world.options.NumHorcruxRequired.value) & can_beat_tfitp)
+    if world.options.EndGoal == EndGoal.option_levels_beaten:
+        world.set_rule(world.get_location("All Required Levels Beaten"),
+                       Has("Level Beaten", world.options.NumLevelsRequired.value))
+        disabled = set(world.options.DisabledLevels.value)
+        for (name, data) in level_beaten_loc_table.items():
+            if data.region in disabled or data.region.endswith(" Freeplay") and data.region[:-9] in disabled:
+                continue
+            event_name = name + " Token"
+            event: Location = world.get_location(event_name)
+            world.set_rule(event, CanReachLocation(name))
 
 
 def set_win_con(world):
@@ -667,15 +678,19 @@ def set_win_con(world):
         world.set_completion_rule(defeat_voldemort)
     # if options.EndGoal == EndGoal.option_the_collector:
     #     world.completion_condition[player] =
+    if world.options.EndGoal == EndGoal.option_levels_beaten:
+        world.set_completion_rule(Has("All Required Levels Beaten"))
 
 
 def set_dt_logic(world):
+    world.set_rule(world.get_location(locn.dt_beat), can_beat_dt)
     world.set_rule(world.get_location(locn.dt_tw), can_beat_dt)
     world.set_rule(world.get_location(locn.dt_sc), can_get_dt_sc)
     world.set_rule(world.get_location(locn.dt_hc), can_get_dt_hc)
     world.set_rule(world.get_location(locn.dt_sip), can_get_dt_sip)
-    world.set_rule(world.get_location(locn.arthur_suit_token), can_get_arthur_suit)
-    world.set_rule(world.get_location(locn.elphias_token), can_get_elphias)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.arthur_suit_token), can_get_arthur_suit)
+        world.set_rule(world.get_location(locn.elphias_token), can_get_elphias)
 
 
 def set_da_logic(world):
@@ -686,17 +701,19 @@ def set_da_logic(world):
     world.set_rule(world.get_location(locn.da_rc), can_get_da_rc)
     world.set_rule(world.get_location(locn.da_hc), can_get_da_hc)
     world.set_rule(world.get_location(locn.da_sip), can_get_da_sip)
-    world.set_rule(world.get_location(locn.cho_winter_token), can_get_cho_winter)
-    world.set_rule(world.get_location(locn.herm_scarf_token), can_get_herm_scarf)
-    world.set_rule(world.get_location(locn.neville_winter_token), can_get_neville_winter)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.cho_winter_token), can_get_cho_winter)
+        world.set_rule(world.get_location(locn.herm_scarf_token), can_get_herm_scarf)
+        world.set_rule(world.get_location(locn.neville_winter_token), can_get_neville_winter)
 
 
 def set_foc_logic(world):
     world.set_rule(world.get_location(locn.foc_gc), can_get_foc_gc)
     world.set_rule(world.get_location(locn.foc_hc), can_get_foc_hc)
     world.set_rule(world.get_location(locn.foc_sip), can_get_foc_sip)
-    world.set_rule(world.get_location(locn.molly_apron_token), can_get_molly_apron)
-    world.set_rule(world.get_location(locn.snape_underwear_token), can_get_snape_under)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.molly_apron_token), can_get_molly_apron)
+        world.set_rule(world.get_location(locn.snape_underwear_token), can_get_snape_under)
 
 
 def set_kd_logic(world):
@@ -705,8 +722,9 @@ def set_kd_logic(world):
     world.set_rule(world.get_location(locn.kd_sc), can_get_kd_sc)
     world.set_rule(world.get_location(locn.kd_hc), can_get_kd_hc)
     world.set_rule(world.get_location(locn.kd_sip), can_get_kd_sip)
-    world.set_rule(world.get_location(locn.kreacher_token), can_get_kreacher)
-    world.set_rule(world.get_location(locn.sirius_black_token), can_get_sirius)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.kreacher_token), can_get_kreacher)
+        world.set_rule(world.get_location(locn.sirius_black_token), can_get_sirius)
 
 
 def set_agv_logic(world):
@@ -715,9 +733,10 @@ def set_agv_logic(world):
     world.set_rule(world.get_location(locn.agv_rc), can_get_agv_rc)
     world.set_rule(world.get_location(locn.agv_hc), can_get_agv_hc)
     world.set_rule(world.get_location(locn.agv_sip), can_get_agv_sip)
-    world.set_rule(world.get_location(locn.emmeline_token), can_get_emmeline)
-    world.set_rule(world.get_location(locn.neville_token), can_get_neville)
-    world.set_rule(world.get_location(locn.prof_umbridge_token), can_get_prof_umbridge)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.emmeline_token), can_get_emmeline)
+        world.set_rule(world.get_location(locn.neville_token), can_get_neville)
+        world.set_rule(world.get_location(locn.prof_umbridge_token), can_get_prof_umbridge)
 
 
 def set_avt_logic(world):
@@ -725,9 +744,10 @@ def set_avt_logic(world):
     world.set_rule(world.get_location(locn.avt_tw), can_beat_avt)
     world.set_rule(world.get_location(locn.avt_rc), can_get_avt_rc)
     world.set_rule(world.get_location(locn.avt_hc), can_get_avt_hc)
-    world.set_rule(world.get_location(locn.fudge_wizengamot_token), can_get_fudge_wizen)
-    world.set_rule(world.get_location(locn.herm_jumper_token), can_get_herm_jumper)
-    world.set_rule(world.get_location(locn.lucius_death_eater_token), can_get_lucius_death)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.fudge_wizengamot_token), can_get_fudge_wizen)
+        world.set_rule(world.get_location(locn.herm_jumper_token), can_get_herm_jumper)
+        world.set_rule(world.get_location(locn.lucius_death_eater_token), can_get_lucius_death)
 
 
 def set_oor_logic(world):
@@ -738,24 +758,27 @@ def set_oor_logic(world):
     world.set_rule(world.get_location(locn.oor_rc), can_get_oor_rc)
     world.set_rule(world.get_location(locn.oor_hc), can_get_oor_hc)
     world.set_rule(world.get_location(locn.oor_sip), can_get_oor_sip)
-    world.set_rule(world.get_location(locn.dumble_cursed_token), can_get_dumble_cursed)
-    world.set_rule(world.get_location(locn.milk_man_token), can_get_milk_man)
-    world.set_rule(world.get_location(locn.slughorn_pyjamas_token), can_get_slug_pajamas)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.dumble_cursed_token), can_get_dumble_cursed)
+        world.set_rule(world.get_location(locn.milk_man_token), can_get_milk_man)
+        world.set_rule(world.get_location(locn.slughorn_pyjamas_token), can_get_slug_pajamas)
 
 
 def set_jd_logic(world):
     world.set_rule(world.get_location(locn.jd_sc), can_get_jd_sc)
     world.set_rule(world.get_location(locn.jd_rc), can_get_jd_rc)
     world.set_rule(world.get_location(locn.jd_hc), can_get_jd_hc)
-    world.set_rule(world.get_location(locn.cormac_suit_token), can_get_cormac_suit)
-    world.set_rule(world.get_location(locn.harry_christmas_token), can_get_harry_christ)
-    world.set_rule(world.get_location(locn.madam_rosmerta_token), can_get_madam_rosmerta)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.cormac_suit_token), can_get_cormac_suit)
+        world.set_rule(world.get_location(locn.harry_christmas_token), can_get_harry_christ)
+        world.set_rule(world.get_location(locn.madam_rosmerta_token), can_get_madam_rosmerta)
 
 
 def set_ansmc_logic(world):
     world.set_rule(world.get_location(locn.ansmc_gc), can_get_ansmc_gc)
     world.set_rule(world.get_location(locn.ansmc_sc), can_get_ansmc_sc)
-    world.set_rule(world.get_location(locn.bill_wedding_token), can_get_bill_wedding)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.bill_wedding_token), can_get_bill_wedding)
 
 
 def set_lh_logic(world):
@@ -766,9 +789,10 @@ def set_lh_logic(world):
     world.set_rule(world.get_location(locn.lh_rc), can_get_lh_rc)
     world.set_rule(world.get_location(locn.lh_hc), can_get_lh_hc)
     world.set_rule(world.get_location(locn.lh_sip), can_get_lh_sip)
-    world.set_rule(world.get_location(locn.draco_suit_token), can_get_draco_suit)
-    world.set_rule(world.get_location(locn.ginny_token), can_get_ginny)
-    world.set_rule(world.get_location(locn.prof_slughorn_token), can_get_prof_slug)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.draco_suit_token), can_get_draco_suit)
+        world.set_rule(world.get_location(locn.ginny_token), can_get_ginny)
+        world.set_rule(world.get_location(locn.prof_slughorn_token), can_get_prof_slug)
 
 
 def set_ff_logic(world):
@@ -778,8 +802,9 @@ def set_ff_logic(world):
     world.set_rule(world.get_location(locn.ff_rc), can_get_ff_rc)
     world.set_rule(world.get_location(locn.ff_hc), can_get_ff_hc)
     world.set_rule(world.get_location(locn.ff_sip), can_get_ff_sip)
-    world.set_rule(world.get_location(locn.hagrid_token), can_get_hagrid)
-    world.set_rule(world.get_location(locn.prof_sprout_token), can_get_prof_sprout)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.hagrid_token), can_get_hagrid)
+        world.set_rule(world.get_location(locn.prof_sprout_token), can_get_prof_sprout)
 
 
 def set_thath_logic(world):
@@ -789,23 +814,27 @@ def set_thath_logic(world):
     world.set_rule(world.get_location(locn.thath_rc), can_get_thath_rc)
     world.set_rule(world.get_location(locn.thath_hc), can_get_thath_hc)
     world.set_rule(world.get_location(locn.thath_sip), can_get_thath_sip)
-    world.set_rule(world.get_location(locn.hagrid_wed_token), can_get_hagrid_wed)
-    world.set_rule(world.get_location(locn.prof_dumble_token), can_get_prof_dumble)
-    world.set_rule(world.get_location(locn.tr_orphanage_token), can_get_tr_orphan)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.hagrid_wed_token), can_get_hagrid_wed)
+        world.set_rule(world.get_location(locn.prof_dumble_token), can_get_prof_dumble)
+        world.set_rule(world.get_location(locn.tr_orphanage_token), can_get_tr_orphan)
 
 
 def set_tsh_logic(world):
     world.set_rule(world.get_location(locn.delum_lesson), can_get_delum)
+    world.set_rule(world.get_location(locn.poly_purch), can_get_polyjuice)
     world.set_rule(world.get_location(locn.tsh_sc), can_get_tsh_sc)
-    world.set_rule(world.get_location(locn.madeye_token), can_get_mad_eye)
-    world.set_rule(world.get_location(locn.ron_wedding_token), can_get_ron_wed)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.madeye_token), can_get_mad_eye)
+        world.set_rule(world.get_location(locn.ron_wedding_token), can_get_ron_wed)
 
 
 def set_mim_logic(world):
     world.set_rule(world.get_location(locn.mim_rc), can_get_mim_rc)
     world.set_rule(world.get_location(locn.mim_hc), can_get_mim_hc)
     world.set_rule(world.get_location(locn.mim_sip), can_get_mim_sip)
-    world.set_rule(world.get_location(locn.ron_reg_cattermole_token), can_get_ron_reg)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.ron_reg_cattermole_token), can_get_ron_reg)
 
 
 def set_igd_logic(world):
@@ -815,9 +844,10 @@ def set_igd_logic(world):
     world.set_rule(world.get_location(locn.igd_sc), can_get_igd_sc)
     world.set_rule(world.get_location(locn.igd_rc), can_get_igd_rc)
     world.set_rule(world.get_location(locn.igd_sip), can_get_igd_sip)
-    world.set_rule(world.get_location(locn.bathilda_snake_token), can_get_bathilda_snake)
-    world.set_rule(world.get_location(locn.harry_godric_token), can_get_harry_god_hollow)
-    world.set_rule(world.get_location(locn.lily_token), can_get_lily)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.bathilda_snake_token), can_get_bathilda_snake)
+        world.set_rule(world.get_location(locn.harry_godric_token), can_get_harry_god_hollow)
+        world.set_rule(world.get_location(locn.lily_token), can_get_lily)
 
 
 def set_sal_logic(world):
@@ -827,7 +857,8 @@ def set_sal_logic(world):
     world.set_rule(world.get_location(locn.sal_sc), can_get_sal_sc)
     world.set_rule(world.get_location(locn.sal_rc), can_get_sal_rc)
     world.set_rule(world.get_location(locn.sal_sip), can_get_sal_sip)
-    world.set_rule(world.get_location(locn.herm_grey_coat_token), can_get_herm_gray_coat)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.herm_grey_coat_token), can_get_herm_gray_coat)
 
 
 def set_ll_logic(world):
@@ -835,16 +866,18 @@ def set_ll_logic(world):
     world.set_rule(world.get_location(locn.ll_tw), can_beat_ll)
     world.set_rule(world.get_location(locn.ll_rc), can_get_ll_rc)
     world.set_rule(world.get_location(locn.ll_hc), can_get_ll_hc)
-    world.set_rule(world.get_location(locn.skeleton_token), can_get_skeleton)
-    world.set_rule(world.get_location(locn.xeno_luna_token), can_get_xeno_luna)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.skeleton_token), can_get_skeleton)
+        world.set_rule(world.get_location(locn.xeno_luna_token), can_get_xeno_luna)
 
 
 def set_dob_logic(world):
     world.set_rule(world.get_location(locn.dob_gc), can_get_dob_gc)
     world.set_rule(world.get_location(locn.dob_rc), can_get_dob_rc)
     world.set_rule(world.get_location(locn.dob_sip), can_get_dob_sip)
-    world.set_rule(world.get_location(locn.dobby_token), can_get_dobby)
-    world.set_rule(world.get_location(locn.wormtail_token), can_get_wormtail)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.dobby_token), can_get_dobby)
+        world.set_rule(world.get_location(locn.wormtail_token), can_get_wormtail)
 
 
 def set_ttd_logic(world):
@@ -855,18 +888,20 @@ def set_ttd_logic(world):
     world.set_rule(world.get_location(locn.ttd_rc), can_get_ttd_rc)
     world.set_rule(world.get_location(locn.ttd_hc), can_get_ttd_hc)
     world.set_rule(world.get_location(locn.ttd_sip), can_get_ttd_sip)
-    world.set_rule(world.get_location(locn.bogrod_token), can_get_bogrod)
-    world.set_rule(world.get_location(locn.griphook_token), can_get_griphook)
-    world.set_rule(world.get_location(locn.herm_gringotts_token), can_get_herm_gringotts)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.bogrod_token), can_get_bogrod)
+        world.set_rule(world.get_location(locn.griphook_token), can_get_griphook)
+        world.set_rule(world.get_location(locn.herm_gringotts_token), can_get_herm_gringotts)
 
 
 def set_bts_logic(world):
     world.set_rule(world.get_location(locn.bts_sc), can_get_bts_sc)
     world.set_rule(world.get_location(locn.bts_hc), can_get_bts_hc)
     world.set_rule(world.get_location(locn.bts_sip), can_get_bts_sip)
-    world.set_rule(world.get_location(locn.aberforth_token), can_get_aberforth)
-    world.set_rule(world.get_location(locn.alecto_token), can_get_alecto)
-    world.set_rule(world.get_location(locn.amycus_token), can_get_amycus)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.aberforth_token), can_get_aberforth)
+        world.set_rule(world.get_location(locn.alecto_token), can_get_alecto)
+        world.set_rule(world.get_location(locn.amycus_token), can_get_amycus)
 
 
 def set_bb_logic(world):
@@ -877,8 +912,9 @@ def set_bb_logic(world):
     world.set_rule(world.get_location(locn.bb_rc), can_get_bb_rc)
     world.set_rule(world.get_location(locn.bb_hc), can_get_bb_hc)
     world.set_rule(world.get_location(locn.bb_sip), can_get_bb_sip)
-    world.set_rule(world.get_location(locn.neville_cardigan_token), can_get_neville_cardigan)
-    world.set_rule(world.get_location(locn.seamus_token), can_get_seamus)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.neville_cardigan_token), can_get_neville_cardigan)
+        world.set_rule(world.get_location(locn.seamus_token), can_get_seamus)
 
 
 def set_fiend_logic(world):
@@ -889,9 +925,10 @@ def set_fiend_logic(world):
     world.set_rule(world.get_location(locn.fiend_rc), can_get_fiend_rc)
     world.set_rule(world.get_location(locn.fiend_hc), can_get_fiend_hc)
     world.set_rule(world.get_location(locn.fiend_sip), can_get_fiend_sip)
-    world.set_rule(world.get_location(locn.goyle_token), can_get_goyle)
-    world.set_rule(world.get_location(locn.harry_brown_jacket_token), can_get_harry_brown_jacket)
-    world.set_rule(world.get_location(locn.tom_riddle_token), can_get_tom_riddle)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.goyle_token), can_get_goyle)
+        world.set_rule(world.get_location(locn.harry_brown_jacket_token), can_get_harry_brown_jacket)
+        world.set_rule(world.get_location(locn.tom_riddle_token), can_get_tom_riddle)
 
 
 def set_st_logic(world):
@@ -901,9 +938,10 @@ def set_st_logic(world):
     world.set_rule(world.get_location(locn.st_sc), can_get_st_sc)
     world.set_rule(world.get_location(locn.st_rc), can_get_st_rc)
     world.set_rule(world.get_location(locn.st_hc), can_get_st_hc)
-    world.set_rule(world.get_location(locn.death_eater_token), can_get_death_eater)
-    world.set_rule(world.get_location(locn.fenrir_token), can_get_fenrir)
-    world.set_rule(world.get_location(locn.prof_snape_token), can_get_prof_snape)
+    if world.options.ShuffleCharacterTokens != 2:
+        world.set_rule(world.get_location(locn.death_eater_token), can_get_death_eater)
+        world.set_rule(world.get_location(locn.fenrir_token), can_get_fenrir)
+        world.set_rule(world.get_location(locn.prof_snape_token), can_get_prof_snape)
 
 
 def set_tfitp_logic(world):
@@ -921,28 +959,20 @@ def set_hub_collect_logic(world):
     world.set_rule(world.get_location(locn.cafe_sip), can_get_cafe_sip)
     world.set_rule(world.get_location(locn.tent_gb), can_get_tent_gb)
     world.set_rule(world.get_location(locn.tent_sip), can_get_tent_sip)
-    world.set_rule(world.get_location(locn.kcs_gb), can_get_kc_gb)
-    world.set_rule(world.get_location(locn.kcs_rb), can_get_kc_rb)
-    world.set_rule(world.get_location(locn.hogstat_rb), can_get_hogstat_rb)
+    world.set_rule(world.get_location(locn.kcs_gb), can_get_kcs_gb)
     world.set_rule(world.get_location(locn.hogstat_sip), can_get_hogstat_sip)
     world.set_rule(world.get_location(locn.hogspath_gb), can_get_hogspath_gb)
-    world.set_rule(world.get_location(locn.hogspath_rb), can_get_hogspath_rb)
     world.set_rule(world.get_location(locn.hogspath_sip), can_get_hogspath_sip)
     world.set_rule(world.get_location(locn.hogs_gb), can_get_hogs_gb)
     world.set_rule(world.get_location(locn.hogs_sip), can_get_hogs_sip)
     world.set_rule(world.get_location(locn.hogwpath_gb), can_get_hogwpath_gb)
-    world.set_rule(world.get_location(locn.hogwpath_rb), can_get_hogwpath_rb)
     world.set_rule(world.get_location(locn.hogwpath_sip), can_get_hogwpath_sip)
     world.set_rule(world.get_location(locn.quad_gb), can_get_quad_gb)
-    world.set_rule(world.get_location(locn.quad_rb), can_get_quad_rb)
     world.set_rule(world.get_location(locn.quad_sip), can_get_quad_sip)
     world.set_rule(world.get_location(locn.tg_gb), can_get_tg_gb)
     world.set_rule(world.get_location(locn.herb_gb), can_get_herb_gb)
-    world.set_rule(world.get_location(locn.ground_rb), can_get_grounds_rb)
     world.set_rule(world.get_location(locn.thest_gb), can_get_thest_gb)
-    world.set_rule(world.get_location(locn.thest_rb), can_get_thest_rb)
     world.set_rule(world.get_location(locn.thest_sip), can_get_thest_sip)
-    world.set_rule(world.get_location(locn.lake_rb), can_get_lake_rb)
     world.set_rule(world.get_location(locn.lake_sip), can_get_lake_sip)
     world.set_rule(world.get_location(locn.foyer_gb), can_get_foyer_gb)
     world.set_rule(world.get_location(locn.foyer_sip), can_get_foyer_sip)
@@ -953,19 +983,14 @@ def set_hub_collect_logic(world):
     world.set_rule(world.get_location(locn.gryf_gb), can_get_gryf_common_gb)
     world.set_rule(world.get_location(locn.gryf_sip), can_get_gryf_common_sip)
     world.set_rule(world.get_location(locn.raven_sip), can_get_raven_tower_sip)
-    world.set_rule(world.get_location(locn.lib_rb), can_get_lib_rb)
     world.set_rule(world.get_location(locn.lib_sip), can_get_lib_sip)
     world.set_rule(world.get_location(locn.ghl_gb), can_get_ghl_gb)
-    world.set_rule(world.get_location(locn.ghl_rb), can_get_ghl_rb)
     world.set_rule(world.get_location(locn.ghl_sip), can_get_ghl_sip)
     world.set_rule(world.get_location(locn.wc_gb), can_get_wc_gb)
-    world.set_rule(world.get_location(locn.wc_rb), can_get_wc_rb)
     world.set_rule(world.get_location(locn.wc_sip), can_get_wc_sip)
     world.set_rule(world.get_location(locn.wcs_sip), can_get_wcs_sip)
-    world.set_rule(world.get_location(locn.gh_rb), can_get_gh_rb)
     world.set_rule(world.get_location(locn.gh_sip), can_get_gh_sip)
     world.set_rule(world.get_location(locn.ror_gb), can_get_ror_gb)
-    world.set_rule(world.get_location(locn.ror_rb), can_get_ror_rb)
     world.set_rule(world.get_location(locn.cl_gb), can_get_cl_gb)
     world.set_rule(world.get_location(locn.cl_sip), can_get_cl_sip)
     world.set_rule(world.get_location(locn.y5c_gb), can_get_y5c_gb)
@@ -973,16 +998,32 @@ def set_hub_collect_logic(world):
     world.set_rule(world.get_location(locn.y6c_gb), can_get_y6c_gb)
     world.set_rule(world.get_location(locn.y6c_sip), can_get_y6c_sip)
     world.set_rule(world.get_location(locn.dada_gb), can_get_dada_gb)
-    world.set_rule(world.get_location(locn.dada_rb), can_get_dada_rb)
     world.set_rule(world.get_location(locn.dada_sip), can_get_dada_sip)
     world.set_rule(world.get_location(locn.pot_gb), can_get_pot_gb)
     world.set_rule(world.get_location(locn.pot_sip), can_get_pot_sip)
     world.set_rule(world.get_location(locn.divc_gb), can_get_divc_gb)
-    world.set_rule(world.get_location(locn.divc_rb), can_get_divc_rb)
     world.set_rule(world.get_location(locn.divc_sip), can_get_divc_sip)
+    world.set_rule(world.get_location(locn.ast_sip), can_get_ast_sip)
+
+
+def set_hub_rb_logic(world):
+    world.set_rule(world.get_location(locn.kcs_rb), can_get_kcs_rb)
+    world.set_rule(world.get_location(locn.hogstat_rb), can_get_hogstat_rb)
+    world.set_rule(world.get_location(locn.hogspath_rb), can_get_hogspath_rb)
+    world.set_rule(world.get_location(locn.hogwpath_rb), can_get_hogwpath_rb)
+    world.set_rule(world.get_location(locn.quad_rb), can_get_quad_rb)
+    world.set_rule(world.get_location(locn.ground_rb), can_get_grounds_rb)
+    world.set_rule(world.get_location(locn.thest_rb), can_get_thest_rb)
+    world.set_rule(world.get_location(locn.lake_rb), can_get_lake_rb)
+    world.set_rule(world.get_location(locn.lib_rb), can_get_lib_rb)
+    world.set_rule(world.get_location(locn.ghl_rb), can_get_ghl_rb)
+    world.set_rule(world.get_location(locn.wc_rb), can_get_wc_rb)
+    world.set_rule(world.get_location(locn.gh_rb), can_get_gh_rb)
+    world.set_rule(world.get_location(locn.ror_rb), can_get_ror_rb)
+    world.set_rule(world.get_location(locn.dada_rb), can_get_dada_rb)
+    world.set_rule(world.get_location(locn.divc_rb), can_get_divc_rb)
     world.set_rule(world.get_location(locn.div_rb), can_get_div_rb)
     world.set_rule(world.get_location(locn.ast_rb), can_get_ast_rb)
-    world.set_rule(world.get_location(locn.ast_sip), can_get_ast_sip)
 
 
 def set_hub_token_logic(world):
@@ -1331,3 +1372,34 @@ def set_red_brick_purch_logic(world):
     world.set_rule(world.get_location(locn.ghost_studs_purch), can_purch_red_brick(locn.ghost_studs_purch))
     world.set_rule(world.get_location(locn.fast_magic_purch), can_purch_red_brick(locn.fast_magic_purch))
     world.set_rule(world.get_location(locn.fast_dig_purch), can_purch_red_brick(locn.fast_dig_purch))
+
+
+def set_rules(world: "LHP2World"):
+    set_entrance_rules(world)
+    set_lesson_logic(world)
+    set_event_logic(world)
+    set_win_con(world)
+
+    from .Data import RuleMapping
+
+    disabled = set(world.options.DisabledLevels.value)
+
+    for level_name, func in RuleMapping.LEVEL_LOGIC_FUNCS.items():
+        if level_name not in disabled:
+            func(world)
+
+    # Hub Logic
+    set_hub_collect_logic(world)
+    if world.options.ShuffleCharacterTokens != 2:
+        set_hub_token_logic(world)
+    if world.options.ShuffleRedBricks != 2:
+        set_hub_rb_logic(world)
+    # Shop Logic
+    if world.options.ShuffleCharacterTokens != 1:
+        set_char_purch_logic(world)
+    if world.options.ShuffleJokeSpells == 1:
+        set_joke_purch_logic(world)
+    if world.options.ShuffleGoldBrickPurchases == 1:
+        set_gold_brick_purch_logic(world)
+    if world.options.ShuffleRedBricks != 1:
+        set_red_brick_purch_logic(world)

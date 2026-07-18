@@ -792,11 +792,11 @@ joke_spell_table: Dict[str, LHP2ItemData] = {
 }
 
 spell_item_table: Dict[str, LHP2ItemData] = {
-    # ItemName.pets_unlock: LHP2ItemData(base_item_id + 995),
-    # ItemName.invis_unlock: LHP2ItemData(base_item_id + 996),
-    # ItemName.avada_unlock: LHP2ItemData(base_item_id + 997),
+    ItemName.pets_unlock: LHP2ItemData(base_item_id + 995, ItemClassification.progression),
+    ItemName.invis_unlock: LHP2ItemData(base_item_id + 996, ItemClassification.progression),
+    ItemName.avada_unlock: LHP2ItemData(base_item_id + 997, ItemClassification.progression),
     ItemName.diffindo_unlock: LHP2ItemData(base_item_id + 998, ItemClassification.progression),
-    # ItemName.lumos_unlock: LHP2ItemData(base_item_id + 999),
+    ItemName.lumos_unlock: LHP2ItemData(base_item_id + 999, ItemClassification.progression),
     # lumos has 2 bits using second bit for polyjuice potion in the dictionary
     ItemName.poly_unlock: LHP2ItemData(base_item_id + 1000, ItemClassification.progression),
     ItemName.delum_unlock: LHP2ItemData(base_item_id + 1001, ItemClassification.progression),

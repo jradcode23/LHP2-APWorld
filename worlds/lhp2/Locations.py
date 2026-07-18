@@ -825,7 +825,7 @@ red_brick_purch_table: Dict[str, LocationData] = {
 }
 
 # 975 - 1005
-spell_loc_table: Dict[str, LocationData] = {
+joke_spell_loc_table: Dict[str, LocationData] = {
     # LocationName.wingard_purch: LocationData(base_location_id + 975, regn.www, 0),
     LocationName.slug_purch: LocationData(base_location_id + 976, regn.www, 500000),
     LocationName.rictu_purch: LocationData(base_location_id + 977, regn.www, 65000),
@@ -846,12 +846,7 @@ spell_loc_table: Dict[str, LocationData] = {
     LocationName.transfig_purch: LocationData(base_location_id + 992, regn.www, 200000),
     LocationName.engorg_purch: LocationData(base_location_id + 993, regn.www, 10000),
     LocationName.immob_purch: LocationData(base_location_id + 994, regn.www, 400000),
-    # LocationName.pets_purch: LocationData(base_location_id + 995, regn.www),
-    # LocationName.invis_purch: LocationData(base_location_id + 996, regn.www),
-    # # LocationName.avada_purch: LocationData(base_location_id + 997, regn.www),
     # LocationName.diffindo_purch: LocationData(base_location_id + 998, regn.y5c),
-    # # LocationName.lumos_purch: LocationData(base_location_id + 999, regn.www),
-    # lumos has 2 bits using second bit for polyjuice potion in the Dictionary
     # LocationName.agua_purch: LocationData(base_location_id + 1002, regn.y6c),
     # LocationName.focus_purch: LocationData(base_location_id + 1003, regn.cl),
     # LocationName.expecto_purch: LocationData(base_location_id + 1004, regn.ror),
@@ -859,6 +854,11 @@ spell_loc_table: Dict[str, LocationData] = {
 }
 
 hub_progress_loc_table: Dict[str, LocationData] = {
+    LocationName.pets_purch: LocationData(base_location_id + 995, regn.dada),
+    LocationName.invis_purch: LocationData(base_location_id + 996, regn.dada),
+    LocationName.avada_purch: LocationData(base_location_id + 997, regn.dada),
+    # lumos has 2 bits using second bit for polyjuice potion in the Dictionary
+    LocationName.lumos_purch: LocationData(base_location_id + 999, regn.dada),
     LocationName.poly_purch: LocationData(base_location_id + 1000, regn.tsh),
     LocationName.delum_lesson: LocationData(base_location_id + 1001, regn.tsh),
     LocationName.y5_hogwarts: LocationData(base_location_id + 1006, regn.hogwpath),
@@ -913,7 +913,7 @@ hub_event_loc_table: Dict[str, LocationData] = {
 all_location_table = {
     **character_location_table,
     **character_token_location_table,
-    **spell_loc_table,
+    **joke_spell_loc_table,
     **level_beaten_loc_table,
     **leve_sip_loc_table,
     **hub_sip_loc_table,
@@ -959,7 +959,7 @@ def setup_locations(options: LHP2Options):
         temp_location_table.update(red_brick_purch_table)
 
     if options.ShuffleJokeSpells == 1:
-        temp_location_table.update(spell_loc_table)
+        temp_location_table.update(joke_spell_loc_table)
 
     if options.ShuffleGoldBrickPurchases == 1:
         temp_location_table.update(bb_gb_loc_table)

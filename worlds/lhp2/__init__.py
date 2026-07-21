@@ -342,10 +342,11 @@ class LHP2World(World):
             levels_pushed += 1
 
     def choose_starting_spells(self):
+        starting_spells = list(progression_spells)
         spells_pushed: int = 0
         while spells_pushed < self.options.NumStartSpells.value:
-            spell = self.random.choice(progression_spells)
-            progression_spells.remove(spell)
+            spell = self.random.choice(starting_spells)
+            starting_spells.remove(spell)
             self.multiworld.push_precollected(self.create_item(spell))
             self.starting_items.append((spell, self.player))
             spells_pushed += 1

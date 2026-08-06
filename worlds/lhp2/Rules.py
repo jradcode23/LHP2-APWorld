@@ -326,7 +326,7 @@ can_access_y6c = Has(itm.agua_unlock)
 
 # Hub Collectibles
 can_get_knock_sip = can_use_dm_in_hub
-can_get_www_gb = Has(itm.y6_hogwarts_e_item) & can_use_dm_in_hub
+can_get_www_gb = (Has(itm.y6_hogwarts_e_item) | Has(itm.y5_story_complete_e_item)) & can_use_dm_in_hub
 can_get_cafe_gb = char_is_strong_hub & Has(itm.cafe_lesson_e_item)
 can_get_cafe_sip = Has(itm.cafe_lesson_e_item)
 can_get_tent_gb = can_use_dm_in_hub
@@ -416,11 +416,11 @@ can_get_dumble_young = Has(itm.agua_unlock)
 can_get_fat_lady = HasAll(itm.reducto_unlock, itm.dada_lesson_e_item)
 can_get_fleur = Has(itm.agua_unlock)
 can_get_fred_owls = HasAll(itm.agua_unlock, itm.owls_lesson_e_item)
-can_get_fred_pyjamas = Has(itm.y6_hogwarts_e_item)
-can_get_fred = Has(itm.y6_hogwarts_e_item)
+can_get_fred_pyjamas = (Has(itm.y6_hogwarts_e_item) | Has(itm.y5_story_complete_e_item))
+can_get_fred = (Has(itm.y6_hogwarts_e_item) | Has(itm.y5_story_complete_e_item))
 can_get_george_owls = HasAll(itm.owls_lesson_e_item, itm.lumos_unlock) & can_dig_in_hub
-can_get_george_pyjamas = HasAll(itm.reducto_unlock, itm.y6_hogwarts_e_item)
-can_get_george = Has(itm.y6_hogwarts_e_item)
+can_get_george_pyjamas = Has(itm.reducto_unlock) & (Has(itm.y6_hogwarts_e_item) | Has(itm.y5_story_complete_e_item))
+can_get_george = (Has(itm.y6_hogwarts_e_item) | Has(itm.y5_story_complete_e_item))
 can_get_ginny_pyjamas = Has(itm.y5_hogwarts_e_item)
 can_get_goyle_jumper = HasAll(itm.agua_unlock, itm.dada_lesson_e_item)
 can_get_gregorovitch = HasAll(itm.dada_lesson_e_item, itm.lumos_unlock)

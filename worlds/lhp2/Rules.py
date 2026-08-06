@@ -331,6 +331,8 @@ can_get_cafe_gb = char_is_strong_hub & Has(itm.cafe_lesson_e_item)
 can_get_cafe_sip = Has(itm.cafe_lesson_e_item)
 can_get_tent_gb = can_use_dm_in_hub
 can_get_tent_sip = Has(itm.delum_unlock)
+can_get_wild_gb = can_use_dm_in_hub
+can_get_wild_sip = Has(itm.agua_unlock)
 can_get_kcs_gb = Has(itm.dada_lesson_e_item)
 can_get_kcs_rb = HasAll(itm.dada_lesson_e_item, itm.diffindo_unlock)
 can_get_hogstat_rb = can_use_dm_in_hub
@@ -408,9 +410,11 @@ can_get_crabbe_jumper = char_is_strong_hub
 can_get_dolohov = Has(itm.cafe_lesson_e_item)
 can_get_dolohov_work = Has(itm.cafe_lesson_e_item) & can_use_dm_in_hub
 can_get_draco = Has(itm.dada_lesson_e_item) & can_use_dm_in_hub
+can_get_dragomir = Has(itm.diffindo_unlock)
 can_get_dudley = Has(itm.cafe_lesson_e_item)
 can_get_dumble_young = Has(itm.agua_unlock)
 can_get_fat_lady = HasAll(itm.reducto_unlock, itm.dada_lesson_e_item)
+can_get_fleur = Has(itm.agua_unlock)
 can_get_fred_owls = HasAll(itm.agua_unlock, itm.owls_lesson_e_item)
 can_get_fred_pyjamas = Has(itm.y6_hogwarts_e_item)
 can_get_fred = Has(itm.y6_hogwarts_e_item)
@@ -978,6 +982,8 @@ def set_hub_collect_logic(world):
     world.set_rule(world.get_location(locn.cafe_sip), can_get_cafe_sip)
     world.set_rule(world.get_location(locn.tent_gb), can_get_tent_gb)
     world.set_rule(world.get_location(locn.tent_sip), can_get_tent_sip)
+    world.set_rule(world.get_location(locn.wild_gb), can_get_wild_gb)
+    world.set_rule(world.get_location(locn.wild_sip), can_get_wild_sip)
     world.set_rule(world.get_location(locn.kcs_gb), can_get_kcs_gb)
     world.set_rule(world.get_location(locn.hogstat_sip), can_get_hogstat_sip)
     world.set_rule(world.get_location(locn.hogspath_gb), can_get_hogspath_gb)
@@ -1059,9 +1065,11 @@ def set_hub_token_logic(world):
     world.set_rule(world.get_location(locn.dolohov_token), can_get_dolohov)
     world.set_rule(world.get_location(locn.dolohov_workman_token), can_get_dolohov_work)
     world.set_rule(world.get_location(locn.draco_token), can_get_draco)
+    world.set_rule(world.get_location(locn.dragomir_token), can_get_dragomir)
     world.set_rule(world.get_location(locn.dudley_token), can_get_dudley)
     world.set_rule(world.get_location(locn.dumble_young_token), can_get_dumble_young)
     world.set_rule(world.get_location(locn.fat_lady_token), can_get_fat_lady)
+    world.set_rule(world.get_location(locn.fleur_token), can_get_fleur)
     world.set_rule(world.get_location(locn.fred_owls_token), can_get_fred_owls)
     world.set_rule(world.get_location(locn.fred_pyjamas_token), can_get_fred_pyjamas)
     world.set_rule(world.get_location(locn.fred_token), can_get_fred)

@@ -344,6 +344,7 @@ class LHP2World(World):
     def choose_starting_spells(self):
         starting_spells = list(progression_spells)
         spells_pushed: int = 0
+        print(f"{self.player_name} has {self.options.NumStartSpells.value} starting spells")
         while spells_pushed < self.options.NumStartSpells.value:
             spell = self.random.choice(starting_spells)
             starting_spells.remove(spell)

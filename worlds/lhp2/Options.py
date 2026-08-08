@@ -76,7 +76,7 @@ class NumStartSpells(Range):
     """
     display_name = "Number of Starting Spells"
     range_start = 0
-    range_end = 11
+    range_end = 14
     default = 0
 
 

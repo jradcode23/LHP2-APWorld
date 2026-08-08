@@ -188,12 +188,14 @@ can_get_tr_orphan = can_use_dark_mag
 can_access_tsh_free = HasAll(itm.reducto_unlock, itm.agua_unlock, itm.herm_bag_unlock, itm.delum_unlock)
 can_get_delum = HasAll(itm.reducto_unlock, itm.agua_unlock, itm.delum_unlock)
 can_get_polyjuice = Has(itm.reducto_unlock)
-can_get_tsh_sc = Has(itm.reducto_unlock)
+can_get_tsh_sc = Has(itm.reducto_unlock) & can_dig_in_level
 can_get_mad_eye = HasAll(itm.reducto_unlock, itm.agua_unlock) & can_use_dark_mag
 can_get_ron_wed = HasAll(itm.apparition_unlock, itm.specs_unlock)
 
 # Magic is Might Logic
 can_access_mim_free = HasAll(itm.reducto_unlock, itm.diffindo_unlock, itm.delum_unlock, itm.agua_unlock)
+can_beat_mim = Has(itm.pets_unlock)
+can_get_mim_sc = Has(itm.pets_unlock)
 can_get_mim_rc = HasAll(itm.reducto_unlock, itm.diffindo_unlock, itm.delum_unlock) & can_use_key
 can_get_mim_hc = can_use_dark_mag
 can_get_mim_sip = can_use_dark_mag
@@ -202,7 +204,7 @@ can_get_ron_reg = HasAll(itm.reducto_unlock, itm.diffindo_unlock)
 # In Grave Danger Logic
 can_access_igd_free = HasAll(itm.diffindo_unlock, itm.reducto_unlock, itm.herm_bag_unlock)
 can_beat_igd = Has(itm.agua_unlock)
-can_get_igd_gc = HasAll(itm.www_box_unlock, itm.specs_unlock)
+can_get_igd_gc = HasAll(itm.www_box_unlock, itm.specs_unlock) & can_dig_in_level
 can_get_igd_sc = can_use_dark_mag
 can_get_igd_rc = HasAll(itm.www_box_unlock, itm.delum_unlock, itm.herm_bag_unlock)
 can_get_igd_sip = can_use_dark_mag
@@ -231,7 +233,7 @@ can_get_skeleton = can_use_dark_mag
 can_get_xeno_luna = HasAll(itm.www_box_unlock, itm.specs_unlock) & can_use_dark_mag
 
 # Dobby! Logic
-can_access_dob_free = HasAll(itm.specs_unlock, itm.pets_unlock, itm.lumos_unlock)
+can_access_dob_free = HasAll(itm.specs_unlock, itm.pets_unlock) & Or(Has(itm.lumos_unlock), Has(itm.delum_unlock))
 can_get_dob_gc = Has(itm.diffindo_unlock)
 can_get_dob_rc = can_use_dark_mag
 can_get_dob_sip = Has(itm.reducto_unlock)
@@ -864,6 +866,9 @@ def set_tsh_logic(world):
 
 
 def set_mim_logic(world):
+    world.set_rule(world.get_location(locn.mim_beat), can_beat_mim)
+    world.set_rule(world.get_location(locn.mim_tw), can_beat_mim)
+    world.set_rule(world.get_location(locn.mim_sc), can_get_mim_sc)
     world.set_rule(world.get_location(locn.mim_rc), can_get_mim_rc)
     world.set_rule(world.get_location(locn.mim_hc), can_get_mim_hc)
     world.set_rule(world.get_location(locn.mim_sip), can_get_mim_sip)

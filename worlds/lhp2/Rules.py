@@ -71,6 +71,8 @@ can_get_elphias = Has(itm.agua_unlock)
 
 # Dumbledore's Army Logic
 can_beat_da = Has(itm.expecto_unlock)
+can_access_da = Has(itm.da_unlock) & can_dig_in_level
+can_access_da_free = Has(itm.pets_unlock)
 can_get_da_gc = HasAll(itm.reducto_unlock, itm.specs_unlock) & char_is_strong_level
 can_get_da_sc = Has(itm.focus_unlock)
 can_get_da_rc = Has(itm.apparition_unlock)
@@ -594,6 +596,7 @@ def set_entrance_rules(world):
     world.set_rule(world.get_entrance(regn.leaky + " -> " + regn.st), can_access_st)
     world.set_rule(world.get_entrance(regn.leaky + " -> " + regn.tfitp), Has(itm.tfitp_unlock))
     # Freeplay Entrance Rules
+    world.set_rule(world.get_entrance(regn.da + " -> " + regn.daf), can_access_da_free)
     world.set_rule(world.get_entrance(regn.foc + " -> " + regn.focf), Has(itm.focus_unlock))
     world.set_rule(world.get_entrance(regn.oor + " -> " + regn.oorf), can_access_oor_free)
     world.set_rule(world.get_entrance(regn.ansmc + " -> " + regn.ansmcf), can_access_ansmc_free)

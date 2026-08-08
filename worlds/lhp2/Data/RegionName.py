@@ -25,6 +25,7 @@ st = "Snape's Tears"
 tfitp = "The Flaw in the Plan"
 
 # Freeplay Regions
+daf = "Dumbledore's Army Freeplay"
 focf = "Focus! Freeplay"
 oorf = "Out of Retirement Freeplay"
 ansmcf = "A Not So Merry Christmas Freeplay"

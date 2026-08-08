@@ -347,7 +347,7 @@ character_token_location_table: Dict[str, LocationData] = {
     LocationName.harry_winter_token: LocationData(base_location_id + 319, regn.hogs),
     LocationName.arthur_torn_suit_token: LocationData(base_location_id + 320, regn.wcs),
     LocationName.fred_winter_token: LocationData(base_location_id + 321, regn.hogspath),
-    LocationName.cho_winter_token: LocationData(base_location_id + 322, regn.da),
+    LocationName.cho_winter_token: LocationData(base_location_id + 322, regn.daf),
     LocationName.george_winter_token: LocationData(base_location_id + 323, regn.hogspath),
     LocationName.herm_scarf_token: LocationData(base_location_id + 324, regn.da),
     LocationName.luna_blue_jumper_token: LocationData(base_location_id + 325, regn.thest),
@@ -456,7 +456,7 @@ character_token_location_table: Dict[str, LocationData] = {
 # 450 - 473
 level_beaten_loc_table: Dict[str, LocationData] = {
     LocationName.dt_beat: LocationData(base_location_id + 450, regn.dt),
-    LocationName.da_beat: LocationData(base_location_id + 451, regn.da),
+    LocationName.da_beat: LocationData(base_location_id + 451, regn.daf),
     LocationName.foc_beat: LocationData(base_location_id + 452, regn.focf),
     LocationName.kd_beat: LocationData(base_location_id + 453, regn.kd),
     LocationName.agv_beat: LocationData(base_location_id + 454, regn.agv),
@@ -484,7 +484,7 @@ level_beaten_loc_table: Dict[str, LocationData] = {
 # 475 - 498
 leve_sip_loc_table: Dict[str, LocationData] = {
     LocationName.dt_sip: LocationData(base_location_id + 475, regn.dt),
-    LocationName.da_sip: LocationData(base_location_id + 476, regn.da),
+    LocationName.da_sip: LocationData(base_location_id + 476, regn.daf),
     LocationName.foc_sip: LocationData(base_location_id + 477, regn.focf),
     LocationName.kd_sip: LocationData(base_location_id + 478, regn.kd),
     LocationName.agv_sip: LocationData(base_location_id + 479, regn.agv),
@@ -557,7 +557,7 @@ hub_sip_loc_table: Dict[str, LocationData] = {
 house_crest_loc_table: Dict[str, LocationData] = {
     # Gryff Crests
     LocationName.dt_gc: LocationData(base_location_id + 550, regn.dt),
-    LocationName.da_gc: LocationData(base_location_id + 551, regn.da),
+    LocationName.da_gc: LocationData(base_location_id + 551, regn.daf),
     LocationName.foc_gc: LocationData(base_location_id + 552, regn.focf),
     LocationName.kd_gc: LocationData(base_location_id + 553, regn.kd),
     LocationName.agv_gc: LocationData(base_location_id + 554, regn.agv),
@@ -632,7 +632,7 @@ house_crest_loc_table: Dict[str, LocationData] = {
     LocationName.tfitp_rc: LocationData(base_location_id + 621, regn.tfitpf),
     # Huffle Crests
     LocationName.dt_hc: LocationData(base_location_id + 622, regn.dt),
-    LocationName.da_hc: LocationData(base_location_id + 623, regn.da),
+    LocationName.da_hc: LocationData(base_location_id + 623, regn.daf),
     LocationName.foc_hc: LocationData(base_location_id + 624, regn.focf),
     LocationName.kd_hc: LocationData(base_location_id + 625, regn.kd),
     LocationName.agv_hc: LocationData(base_location_id + 626, regn.agv),
@@ -663,7 +663,7 @@ house_crest_loc_table: Dict[str, LocationData] = {
 # 675 - 698
 true_wizard_loc_table: Dict[str, LocationData] = {
     LocationName.dt_tw: LocationData(base_location_id + 675, regn.dt),
-    LocationName.da_tw: LocationData(base_location_id + 676, regn.da),
+    LocationName.da_tw: LocationData(base_location_id + 676, regn.daf),
     LocationName.foc_tw: LocationData(base_location_id + 677, regn.focf),
     LocationName.kd_tw: LocationData(base_location_id + 678, regn.kd),
     LocationName.agv_tw: LocationData(base_location_id + 679, regn.agv),
@@ -977,7 +977,7 @@ def setup_locations(options: LHP2Options):
 
 location_name_groups = {
     regn.dt: {name for name, data in all_location_table.items() if data.region == regn.dt},
-    regn.da: {name for name, data in all_location_table.items() if data.region == regn.da},
+    regn.da: {name for name, data in all_location_table.items() if data.region == regn.da or data.region == regn.daf},
     regn.foc: {name for name, data in all_location_table.items()
                if data.region == regn.foc or data.region == regn.focf},
     regn.kd: {name for name, data in all_location_table.items() if data.region == regn.kd},

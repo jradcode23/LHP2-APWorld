@@ -147,18 +147,19 @@ can_access_ansmc_free = HasAll(itm.reducto_unlock, itm.specs_unlock, itm.agua_un
 can_beat_ansmc = Has(itm.lumos_unlock)
 can_get_ansmc_gc = HasAll(itm.apparition_unlock, itm.lumos_unlock) & can_use_key
 can_get_ansmc_sc = can_use_dark_mag
+can_get_ansmc_hc = Has(itm.pets_unlock)
 can_get_bill_wedding = HasAll(itm.reducto_unlock, itm.delum_unlock)
 
 # Love Hurts Logic
 can_access_lh_free = HasAll(itm.reducto_unlock, itm.agua_unlock)
-can_beat_lh = HasAll(itm.diffindo_unlock, itm.www_box_unlock)
-can_get_lh_gc = Has(itm.www_box_unlock) & can_use_spanner
-can_get_lh_sc = Has(itm.www_box_unlock) & can_use_dark_mag
+can_beat_lh = HasAll(itm.diffindo_unlock, itm.www_box_unlock, itm.pets_unlock)
+can_get_lh_gc = HasAll(itm.www_box_unlock, itm.pets_unlock) & can_use_spanner
+can_get_lh_sc = HasAll(itm.www_box_unlock, itm.pets_unlock) & can_use_dark_mag
 can_get_lh_rc = Has(itm.reducto_unlock) & can_use_key
 can_get_lh_hc = char_is_strong_level
 can_get_lh_sip = can_use_dark_mag
 can_get_draco_suit = Has(itm.delum_unlock) & can_use_dark_mag
-can_get_ginny = Has(itm.agua_unlock)
+can_get_ginny = Has(itm.agua_unlock) & can_dig_in_level
 can_get_prof_slug = char_is_strong_level
 
 # Felix Felicis Logic
@@ -809,6 +810,7 @@ def set_ansmc_logic(world):
     world.set_rule(world.get_location(locn.ansmc_beat), can_beat_ansmc)
     world.set_rule(world.get_location(locn.ansmc_gc), can_get_ansmc_gc)
     world.set_rule(world.get_location(locn.ansmc_sc), can_get_ansmc_sc)
+    world.set_rule(world.get_location(locn.ansmc_hc), can_get_ansmc_hc)
     if world.options.ShuffleCharacterTokens != 2:
         world.set_rule(world.get_location(locn.bill_wedding_token), can_get_bill_wedding)
 

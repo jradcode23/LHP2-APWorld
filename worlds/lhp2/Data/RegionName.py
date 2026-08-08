@@ -27,6 +27,7 @@ tfitp = "The Flaw in the Plan"
 # Freeplay Regions
 daf = "Dumbledore's Army Freeplay"
 focf = "Focus! Freeplay"
+agvf = "A Giant Virtuoso Freeplay"
 oorf = "Out of Retirement Freeplay"
 ansmcf = "A Not So Merry Christmas Freeplay"
 lhf = "Love Hurts Freeplay"

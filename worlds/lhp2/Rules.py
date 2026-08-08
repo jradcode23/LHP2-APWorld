@@ -90,15 +90,18 @@ can_get_molly_apron = Has(itm.reducto_unlock) & char_is_strong_level
 can_get_snape_under = Has(itm.www_box_unlock)
 
 # Kreacher Discomforts
-can_get_kd_tw = Has(itm.reducto_unlock) | has_low_multi
+can_beat_kd = Has(itm.invis_unlock) & can_dig_in_level
+can_get_kd_tw = HasAll(itm.reducto_unlock, itm.invis_unlock) | has_low_multi
 can_get_kd_gc = Has(itm.apparition_unlock) & char_is_strong_level
 can_get_kd_sc = HasAll(itm.reducto_unlock, itm.delum_unlock, itm.diffindo_unlock) & can_use_dark_mag
-can_get_kd_hc = HasAll(itm.reducto_unlock, itm.diffindo_unlock)
-can_get_kd_sip = Has(itm.reducto_unlock)
+can_get_kd_rc = Has(itm.invis_unlock)
+can_get_kd_hc = HasAll(itm.reducto_unlock, itm.diffindo_unlock, itm.invis_unlock)
+can_get_kd_sip = HasAll(itm.reducto_unlock, itm.invis_unlock)
 can_get_kreacher = can_use_dark_mag
-can_get_sirius = Has(itm.agua_unlock)
+can_get_sirius = HasAll(itm.agua_unlock, itm.invis_unlock)
 
 # A Giant Virtuoso
+can_access_agv_free = can_dig_in_level
 can_get_agv_gc = can_use_key
 can_get_agv_sc = Has(itm.herm_bag_unlock)
 can_get_agv_rc = Has(itm.agua_unlock)
@@ -109,10 +112,11 @@ can_get_neville = char_is_strong_level
 can_get_prof_umbridge = can_use_dark_mag
 
 # A Veiled Threat Logic
-can_beat_avt = Has(itm.diffindo_unlock)
-can_get_avt_rc = Has(itm.agua_unlock) & Has(itm.diffindo_unlock)
+can_beat_avt = Has(itm.diffindo_unlock) & can_dig_in_level
+can_get_avt_rc = Has(itm.agua_unlock) & Has(itm.diffindo_unlock) & can_dig_in_level
 can_get_avt_hc = can_use_dark_mag
-can_get_fudge_wizen = Has(itm.diffindo_unlock)
+can_get_avt_sip = can_dig_in_level
+can_get_fudge_wizen = Has(itm.diffindo_unlock) & can_dig_in_level
 can_get_herm_jumper = Has(itm.agua_unlock)
 can_get_lucius_death = can_use_dark_mag
 
@@ -598,6 +602,7 @@ def set_entrance_rules(world):
     # Freeplay Entrance Rules
     world.set_rule(world.get_entrance(regn.da + " -> " + regn.daf), can_access_da_free)
     world.set_rule(world.get_entrance(regn.foc + " -> " + regn.focf), Has(itm.focus_unlock))
+    world.set_rule(world.get_entrance(regn.agv + " -> " + regn.agvf), can_access_agv_free)
     world.set_rule(world.get_entrance(regn.oor + " -> " + regn.oorf), can_access_oor_free)
     world.set_rule(world.get_entrance(regn.ansmc + " -> " + regn.ansmcf), can_access_ansmc_free)
     world.set_rule(world.get_entrance(regn.lh + " -> " + regn.lhf), can_access_lh_free)
@@ -740,9 +745,11 @@ def set_foc_logic(world):
 
 
 def set_kd_logic(world):
+    world.set_rule(world.get_location(locn.kd_beat), can_beat_kd)
     world.set_rule(world.get_location(locn.kd_tw), can_get_kd_tw)
     world.set_rule(world.get_location(locn.kd_gc), can_get_kd_gc)
     world.set_rule(world.get_location(locn.kd_sc), can_get_kd_sc)
+    world.set_rule(world.get_location(locn.kd_rc), can_get_kd_rc)
     world.set_rule(world.get_location(locn.kd_hc), can_get_kd_hc)
     world.set_rule(world.get_location(locn.kd_sip), can_get_kd_sip)
     if world.options.ShuffleCharacterTokens != 2:
@@ -767,6 +774,7 @@ def set_avt_logic(world):
     world.set_rule(world.get_location(locn.avt_tw), can_beat_avt)
     world.set_rule(world.get_location(locn.avt_rc), can_get_avt_rc)
     world.set_rule(world.get_location(locn.avt_hc), can_get_avt_hc)
+    world.set_rule(world.get_location(locn.avt_sip), can_get_avt_sip)
     if world.options.ShuffleCharacterTokens != 2:
         world.set_rule(world.get_location(locn.fudge_wizengamot_token), can_get_fudge_wizen)
         world.set_rule(world.get_location(locn.herm_jumper_token), can_get_herm_jumper)

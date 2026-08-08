@@ -86,6 +86,7 @@ hub_regions = [
 freeplay_regions = [
     RegionName.daf,
     RegionName.focf,
+    RegionName.agvf,
     RegionName.oorf,
     RegionName.ansmcf,
     RegionName.lhf,
@@ -175,6 +176,7 @@ def create_regions(world: MultiWorld, options: LHP2Options, player: int, seed_lo
 
     connect_regions(world, player, RegionName.da, RegionName.daf)
     connect_regions(world, player, RegionName.foc, RegionName.focf)
+    connect_regions(world, player, RegionName.agv, RegionName.agvf)
     connect_regions(world, player, RegionName.oor, RegionName.oorf)
     connect_regions(world, player, RegionName.ansmc, RegionName.ansmcf)
     connect_regions(world, player, RegionName.lh, RegionName.lhf)

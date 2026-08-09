@@ -254,7 +254,7 @@ can_get_griphook = can_use_dark_mag & Has(itm.www_box_unlock)
 can_get_herm_gringotts = can_use_dark_mag
 
 # Back To School Logic
-can_access_bts = HasAll(itm.herm_bag_unlock, itm.bts_unlock)
+can_access_bts = HasAll(itm.herm_bag_unlock, itm.bts_unlock) & can_dig_in_level
 can_access_bts_free = HasAll(itm.agua_unlock, itm.delum_unlock, itm.www_box_unlock, itm.diffindo_unlock)
 can_get_bts_sc = Has(itm.reducto_unlock)
 can_get_bts_hc = HasAll(itm.agua_unlock, itm.delum_unlock) & can_use_key
@@ -265,28 +265,29 @@ can_get_amycus = can_use_dark_mag
 
 # Burning Bridges Logic
 can_access_bb = HasAll(itm.bb_unlock, itm.agua_unlock)
-can_access_bb_free = HasAll(itm.specs_unlock, itm.reducto_unlock, itm.lumos_unlock)
-can_beat_bb = HasAll(itm.diffindo_unlock, itm.herm_bag_unlock, itm.www_box_unlock, itm.delum_unlock)
+can_access_bb_free = HasAll(itm.specs_unlock, itm.reducto_unlock)
+can_beat_bb = HasAll(itm.diffindo_unlock, itm.herm_bag_unlock, itm.www_box_unlock, itm.delum_unlock, itm.lumos_unlock)
 can_get_bb_gc = can_beat_bb & can_use_dark_mag & can_use_key
 can_get_bb_sc = can_use_dark_mag
-can_get_bb_rc = Has(itm.diffindo_unlock)
+can_get_bb_rc = HasAll(itm.diffindo_unlock, itm.lumos_unlock)
 can_get_bb_hc = Has(itm.delum_unlock)
 can_get_bb_sip = can_use_dark_mag
-can_get_neville_cardigan = HasAll(itm.diffindo_unlock, itm.herm_bag_unlock) & can_use_dark_mag
+can_get_neville_cardigan = HasAll(itm.diffindo_unlock, itm.herm_bag_unlock, itm.lumos_unlock) & can_use_dark_mag
 can_get_seamus = HasAll(itm.delum_unlock, itm.www_box_unlock)
 
 # Fiendfyre Frenzy Logic
-can_access_fiend = HasAll(itm.www_box_unlock, itm.reducto_unlock, itm.herm_bag_unlock, itm.fiend_unlock)
+can_access_fiend = (HasAll(itm.www_box_unlock, itm.reducto_unlock, itm.herm_bag_unlock, itm.fiend_unlock)
+                    & can_dig_in_level)
 can_access_fiend_free = HasAll(itm.specs_unlock, itm.delum_unlock)
-can_beat_fiend = HasAll(itm.agua_unlock, itm.diffindo_unlock)
+can_beat_fiend = HasAll(itm.agua_unlock, itm.diffindo_unlock, itm.pets_unlock)
 can_get_fiend_gc = char_is_strong_level
-can_get_fiend_sc = can_use_dark_mag
+can_get_fiend_sc = can_use_dark_mag & Has(itm.pets_unlock)
 can_get_fiend_rc = Has(itm.agua_unlock) & can_use_dark_mag
 can_get_fiend_hc = char_is_strong_level
 can_get_fiend_sip = Has(itm.specs_unlock)
-can_get_goyle = Has(itm.agua_unlock) & can_use_key
-can_get_harry_brown_jacket = HasAll(itm.agua_unlock, itm.diffindo_unlock) & can_use_spanner
-can_get_tom_riddle = HasAll(itm.agua_unlock, itm.diffindo_unlock)
+can_get_goyle = HasAll(itm.agua_unlock, itm.pets_unlock) & can_use_key
+can_get_harry_brown_jacket = HasAll(itm.agua_unlock, itm.diffindo_unlock, itm.pets_unlock) & can_use_spanner
+can_get_tom_riddle = HasAll(itm.agua_unlock, itm.diffindo_unlock, itm.pets_unlock)
 
 # Snape's Tears Logic
 can_access_st = HasAll(itm.agua_unlock, itm.www_box_unlock, itm.st_unlock)
@@ -298,7 +299,7 @@ can_get_st_rc = HasAll(itm.diffindo_unlock, itm.lumos_unlock, itm.invis_unlock) 
 can_get_st_hc = HasAll(itm.diffindo_unlock, itm.lumos_unlock, itm.invis_unlock) & char_is_strong_level
 can_get_death_eater = can_use_key
 can_get_fenrir = can_use_dark_mag
-can_get_prof_snape = Has(itm.diffindo_unlock) & can_use_dark_mag
+can_get_prof_snape = HasAll(itm.diffindo_unlock, itm.lumos_unlock, itm.invis_unlock) & can_use_dark_mag
 
 # The Flaw in the Plan Logic
 can_access_tfitp_free = HasAll(itm.reducto_unlock, itm.agua_unlock, itm.diffindo_unlock, itm.www_box_unlock)

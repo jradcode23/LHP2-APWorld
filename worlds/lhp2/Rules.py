@@ -331,7 +331,7 @@ can_access_hufflepuff_common = Has(itm.y5_hogwarts_e_item) & can_use_dm_in_hub
 can_access_ravenclaw_tower = Has(itm.agua_unlock) & (Has(itm.cafe_lesson_e_item) | Has(itm.y6_hogwarts_e_item))
 can_access_hogsmeade = Has(itm.y6_hogwarts_e_item) | Has(itm.cafe_lesson_e_item)
 can_access_cafe = Has(itm.y6_story_complete_e_item) | Has(itm.y5_story_complete_e_item)
-can_access_y5c = HasAll(itm.diffindo_unlock, itm.pets_unlock, itm.lumos_unlock)
+can_access_y5c = HasAll(itm.diffindo_unlock, itm.pets_unlock)
 can_access_y6c = HasAll(itm.agua_unlock, itm.lumos_unlock)
 
 # Hub Collectibles
@@ -343,7 +343,7 @@ can_get_tent_gb = can_use_dm_in_hub
 can_get_tent_sip = Has(itm.delum_unlock)
 can_get_wild_gb = can_use_dm_in_hub
 can_get_wild_sip = Has(itm.agua_unlock)
-can_get_kcs_gb = Has(itm.dada_lesson_e_item)
+can_get_kcs_gb = HasAll(itm.dada_lesson_e_item, itm.pets_unlock)
 can_get_kcs_rb = HasAll(itm.dada_lesson_e_item, itm.diffindo_unlock)
 can_get_hogstat_rb = can_use_dm_in_hub
 can_get_hogstat_sip = HasAll(itm.herm_bag_unlock, itm.reducto_unlock, itm.y6_story_complete_e_item)
@@ -354,7 +354,7 @@ can_get_hogs_gb = can_use_key_in_hub
 can_get_hogs_sip = Has(itm.delum_unlock)
 can_get_hogwpath_gb = HasAll(itm.reducto_unlock, itm.dada_lesson_e_item)
 can_get_hogwpath_rb = Has(itm.herm_bag_unlock)
-can_get_hogwpath_sip = Has(itm.dada_lesson_e_item) & Has(itm.lumos_unlock)
+can_get_hogwpath_sip = HasAll(itm.dada_lesson_e_item, itm.lumos_unlock)
 can_get_quad_gb = HasAll(itm.www_box_unlock, itm.dada_lesson_e_item)
 can_get_quad_rb = HasAll(itm.diffindo_unlock, itm.dada_lesson_e_item)
 can_get_quad_sip = Has(itm.delum_unlock)
@@ -653,9 +653,8 @@ def set_lesson_logic(world):
     world.set_rule(world.get_location(locn.dada_lesson), Has(itm.y5_hogwarts_e_item))
     world.set_rule(world.get_location(locn.thestral_lesson), Has(itm.dada_lesson_e_item))
     world.set_rule(world.get_location(locn.dueling_lesson), Has(itm.thestral_lesson_e_item))
-    world.set_rule(world.get_location(locn.diffindo_lesson), Has(itm.dueling_lesson_e_item))
-    world.set_rule(world.get_location(locn.patroneous_lesson), HasAll(itm.expecto_unlock, itm.diffindo_lesson_e_item,
-                                                                      itm.lumos_unlock))
+    world.set_rule(world.get_location(locn.diffindo_lesson), HasAll(itm.dueling_lesson_e_item))
+    world.set_rule(world.get_location(locn.patroneous_lesson), HasAll(itm.expecto_unlock, itm.diffindo_lesson_e_item))
     world.set_rule(world.get_location(locn.grawp_lesson), Has(itm.patroneous_lesson_e_item))
     world.set_rule(world.get_location(locn.focus_lesson), Has(itm.grawp_lesson_e_item))
     world.set_rule(world.get_location(locn.owls_lesson), Has(itm.focus_lesson_e_item))

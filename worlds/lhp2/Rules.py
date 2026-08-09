@@ -417,11 +417,13 @@ can_get_charity = Has(itm.draught_lesson_e_item)
 can_get_charlie = Has(itm.owls_lesson_e_item)
 can_get_cho = HasAll(itm.delum_unlock, itm.poly_unlock, itm.agua_lesson_e_item)
 can_get_crabbe_jumper = char_is_strong_hub
+can_get_dean_winter = can_dig_in_hub
 can_get_dolohov = Has(itm.cafe_lesson_e_item)
 can_get_dolohov_work = Has(itm.cafe_lesson_e_item) & can_use_dm_in_hub
 can_get_draco = Has(itm.dada_lesson_e_item) & can_use_dm_in_hub
 can_get_dragomir = Has(itm.diffindo_unlock)
 can_get_dudley = Has(itm.cafe_lesson_e_item)
+can_get_dudley_shirt = HasAll(itm.dada_lesson_e_item, itm.pets_unlock)
 can_get_dumble_young = Has(itm.agua_unlock)
 can_get_fat_lady = HasAll(itm.reducto_unlock, itm.dada_lesson_e_item)
 can_get_fleur = Has(itm.agua_unlock)
@@ -443,9 +445,9 @@ can_get_lavender = Has(itm.agua_lesson_e_item)
 can_get_lily_casual = HasAll(itm.reducto_unlock, itm.dada_lesson_e_item)
 can_get_lucius = can_use_dm_in_hub
 can_get_luna_blue = Has(itm.thestral_lesson_e_item)
-can_get_luna_overalls = HasAll(itm.reducto_unlock, itm.dada_lesson_e_item)
+can_get_luna_overalls = HasAll(itm.reducto_unlock, itm.dada_lesson_e_item, itm.pets_unlock)
 can_get_luna_pink = Has(itm.specs_unlock)
-can_get_luna = Has(itm.dada_lesson_e_item)
+can_get_luna = Has(itm.dada_lesson_e_item) & can_dig_in_hub
 can_get_madam_pince = can_use_dm_in_hub
 can_get_mafalda = HasAll(itm.agua_unlock, itm.dada_lesson_e_item)
 can_get_belby = can_use_dm_in_hub
@@ -460,7 +462,7 @@ can_get_mrs_cole = can_use_dm_in_hub
 can_get_narcissa = Has(itm.agua_unlock)
 can_get_neville_tank = HasAll(itm.reducto_unlock, itm.dada_lesson_e_item)
 can_get_neville_waiter = Has(itm.specs_unlock)
-can_get_padma = Has(itm.thestral_lesson_e_item)
+can_get_padma = Has(itm.thestral_lesson_e_item) & can_dig_in_hub
 can_get_petunia_green = Has(itm.cafe_lesson_e_item)
 can_get_petunia = Has(itm.cafe_lesson_e_item)
 can_get_pius = can_use_dm_in_hub
@@ -476,6 +478,7 @@ can_get_ron_blue = Has(itm.y5_hogwarts_e_item)
 can_get_ron_green = HasAll(itm.reducto_unlock, itm.www_box_unlock)
 can_get_ron_red_sweater = HasAll(itm.dada_lesson_e_item, itm.lumos_unlock)
 can_get_rufus = Has(itm.delum_unlock)
+can_get_seamus_winter = can_dig_in_hub
 can_get_scabior = can_use_dm_in_hub
 can_get_slug_young = can_use_dm_in_hub & Has(itm.diffindo_unlock)
 can_get_snatcher = can_use_dm_in_hub
@@ -1080,11 +1083,13 @@ def set_hub_token_logic(world):
     world.set_rule(world.get_location(locn.charlie_token), can_get_charlie)
     world.set_rule(world.get_location(locn.cho_token), can_get_cho)
     world.set_rule(world.get_location(locn.crabbe_jumper_token), can_get_crabbe_jumper)
+    world.set_rule(world.get_location(locn.dean_winter_token), can_get_dean_winter)
     world.set_rule(world.get_location(locn.dolohov_token), can_get_dolohov)
     world.set_rule(world.get_location(locn.dolohov_workman_token), can_get_dolohov_work)
     world.set_rule(world.get_location(locn.draco_token), can_get_draco)
     world.set_rule(world.get_location(locn.dragomir_token), can_get_dragomir)
     world.set_rule(world.get_location(locn.dudley_token), can_get_dudley)
+    world.set_rule(world.get_location(locn.dudley_shirt_token), can_get_dudley_shirt)
     world.set_rule(world.get_location(locn.dumble_young_token), can_get_dumble_young)
     world.set_rule(world.get_location(locn.fat_lady_token), can_get_fat_lady)
     world.set_rule(world.get_location(locn.fleur_token), can_get_fleur)
@@ -1139,6 +1144,7 @@ def set_hub_token_logic(world):
     world.set_rule(world.get_location(locn.ron_green_shirt_token), can_get_ron_green)
     world.set_rule(world.get_location(locn.ron_red_sweater_token), can_get_ron_red_sweater)
     world.set_rule(world.get_location(locn.scrimgeour_token), can_get_rufus)
+    world.set_rule(world.get_location(locn.seamus_winter_token), can_get_seamus_winter)
     world.set_rule(world.get_location(locn.scabior_token), can_get_scabior)
     world.set_rule(world.get_location(locn.slughorn_young_token), can_get_slug_young)
     world.set_rule(world.get_location(locn.snatcher_token), can_get_snatcher)

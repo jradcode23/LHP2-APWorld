@@ -121,7 +121,7 @@ can_get_herm_jumper = Has(itm.agua_unlock)
 can_get_lucius_death = can_use_dark_mag
 
 # Out of Retirement Logic
-can_access_oor = HasAll(itm.apparition_unlock, itm.lumos_unlock)
+can_access_oor = HasAll(itm.apparition_unlock, itm.lumos_unlock, itm.oor_unlock)
 can_access_oor_free = HasAll(itm.reducto_unlock)
 can_beat_oor = Has(itm.www_box_unlock)
 can_get_oor_gc = can_use_spanner
@@ -189,6 +189,8 @@ can_access_tsh_free = HasAll(itm.reducto_unlock, itm.agua_unlock, itm.herm_bag_u
 can_get_delum = HasAll(itm.reducto_unlock, itm.agua_unlock, itm.delum_unlock)
 can_get_polyjuice = Has(itm.reducto_unlock)
 can_get_tsh_sc = Has(itm.reducto_unlock) & can_dig_in_level
+can_get_tsh_rc = Has(itm.lumos_unlock)
+can_get_tsh_sip = Has(itm.lumos_unlock)
 can_get_mad_eye = HasAll(itm.reducto_unlock, itm.agua_unlock) & can_use_dark_mag
 can_get_ron_wed = HasAll(itm.apparition_unlock, itm.specs_unlock)
 
@@ -377,6 +379,7 @@ can_get_gryf_common_sip = HasAll(itm.dada_lesson_e_item, itm.agua_unlock)
 can_get_raven_tower_sip = can_use_dm_in_hub
 can_get_lib_rb = HasAll(itm.poly_unlock, itm.diffindo_unlock) & ravenclaw_chars
 can_get_lib_sip = Has(itm.herm_bag_unlock)
+can_get_lib_gb = Has(itm.pets_unlock)
 can_get_ghl_gb = Has(itm.focus_unlock)
 can_get_ghl_rb = can_use_dm_in_hub
 can_get_ghl_sip = Has(itm.delum_unlock)
@@ -667,7 +670,8 @@ def set_lesson_logic(world):
     world.set_rule(world.get_location(locn.draught_lesson), Has(itm.y6_hogwarts_e_item))
     world.set_rule(world.get_location(locn.vial_lesson), Has(itm.draught_lesson_e_item))
     world.set_rule(world.get_location(locn.agua_lesson), HasAll(itm.vial_lesson_e_item))
-    world.set_rule(world.get_location(locn.reducto_lesson), HasAll(itm.agua_lesson_e_item, itm.reducto_unlock))
+    world.set_rule(world.get_location(locn.reducto_lesson), HasAll(itm.agua_lesson_e_item, itm.reducto_unlock,
+                                                                   itm.diffindo_lesson_e_item))
     world.set_rule(world.get_location(locn.dumble_lesson), Has(itm.reducto_lesson_e_item))
     world.set_rule(world.get_location(locn.y6_story_complete), Has(itm.dumble_lesson_e_item))
 
@@ -863,6 +867,8 @@ def set_tsh_logic(world):
     world.set_rule(world.get_location(locn.delum_lesson), can_get_delum)
     world.set_rule(world.get_location(locn.poly_purch), can_get_polyjuice)
     world.set_rule(world.get_location(locn.tsh_sc), can_get_tsh_sc)
+    world.set_rule(world.get_location(locn.tsh_rc), can_get_tsh_rc)
+    world.set_rule(world.get_location(locn.tsh_sip), can_get_tsh_sip)
     if world.options.ShuffleCharacterTokens != 2:
         world.set_rule(world.get_location(locn.madeye_token), can_get_mad_eye)
         world.set_rule(world.get_location(locn.ron_wedding_token), can_get_ron_wed)
@@ -1030,6 +1036,7 @@ def set_hub_collect_logic(world):
     world.set_rule(world.get_location(locn.gryf_sip), can_get_gryf_common_sip)
     world.set_rule(world.get_location(locn.raven_sip), can_get_raven_tower_sip)
     world.set_rule(world.get_location(locn.lib_sip), can_get_lib_sip)
+    world.set_rule(world.get_location(locn.lib_gb), can_get_lib_gb)
     world.set_rule(world.get_location(locn.ghl_gb), can_get_ghl_gb)
     world.set_rule(world.get_location(locn.ghl_sip), can_get_ghl_sip)
     world.set_rule(world.get_location(locn.wc_gb), can_get_wc_gb)

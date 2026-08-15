@@ -55,7 +55,8 @@ char_is_strong_hub = (strong_chars & Has(itm.poly_unlock)) | Has(itm.super_stren
 ravenclaw_chars = (Has(itm.cho_play) | Has(itm.cho_winter_play) | Has(itm.luna_play) | Has(itm.luna_blue_jumper_play) |
                    Has(itm.luna_overalls_play) | Has(itm.luna_pink_dress_play) | Has(itm.luna_purple_coat_play) |
                    Has(itm.luna_yellow_dress_play) | Has(itm.belby_play) | Has(itm.padma_patil_play) |
-                   Has(itm.penelope_play))
+                   Has(itm.penelope_play) | Has(itm.dumble_cursed_play) | Has(itm.dumble_young_play) |
+                   Has(itm.prof_dumble_play))
 
 has_high_multi = (Has(itm.score_x6_unlock) | Has(itm.score_x8_unlock) | Has(itm.score_x10_unlock) |
                   HasAll(itm.score_x2_unlock, itm.score_x4_unlock))

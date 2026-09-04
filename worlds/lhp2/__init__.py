@@ -201,7 +201,7 @@ class LHP2World(World):
     item_name_groups = item_name_groups
     location_name_groups = location_name_groups
 
-    data_version = 1.1
+    data_version = 1.2
     web = LHP2Web()
 
     # Settings

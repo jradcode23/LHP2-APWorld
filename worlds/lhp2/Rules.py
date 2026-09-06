@@ -810,6 +810,7 @@ def set_jd_logic(world):
     world.set_rule(world.get_location(locn.jd_sc), can_get_jd_sc)
     world.set_rule(world.get_location(locn.jd_rc), can_get_jd_rc)
     world.set_rule(world.get_location(locn.jd_hc), can_get_jd_hc)
+    world.set_rule(world.get_location(locn.jd_sip), can_get_jd_sip)
     if world.options.ShuffleCharacterTokens != 2:
         world.set_rule(world.get_location(locn.cormac_suit_token), can_get_cormac_suit)
         world.set_rule(world.get_location(locn.harry_christmas_token), can_get_harry_christ)

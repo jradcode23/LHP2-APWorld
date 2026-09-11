@@ -335,7 +335,7 @@ can_access_ravenclaw_tower = Has(itm.agua_unlock) & (Has(itm.cafe_lesson_e_item)
 can_access_hogsmeade = Has(itm.y6_hogwarts_e_item) | Has(itm.cafe_lesson_e_item)
 can_access_cafe = Has(itm.y6_story_complete_e_item) | Has(itm.y5_story_complete_e_item)
 can_access_y5c = HasAll(itm.diffindo_unlock, itm.pets_unlock, itm.dueling_lesson_e_item)
-can_access_y6c = HasAll(itm.agua_unlock, itm.lumos_unlock, itm.dumble_lesson_e_item)
+can_access_y6c = HasAll(itm.agua_unlock, itm.lumos_unlock, itm.vial_lesson_e_item)
 
 # Hub Collectibles
 can_get_knock_sip = can_use_dm_in_hub

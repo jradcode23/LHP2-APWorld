@@ -233,7 +233,7 @@ can_get_ll_rc = can_access_lunas_room & Has(itm.delum_unlock)
 can_get_ll_hc = can_use_spanner
 can_get_ll_sip = Has(itm.lumos_unlock)
 can_get_skeleton = can_use_dark_mag
-can_get_xeno_luna = HasAll(itm.www_box_unlock, itm.specs_unlock) & can_use_dark_mag
+can_get_xeno_luna = HasAll(itm.www_box_unlock, itm.specs_unlock) & can_use_dark_mag & can_access_lunas_room
 
 # Dobby! Logic
 can_access_dob_free = HasAll(itm.specs_unlock, itm.pets_unlock) & Or(Has(itm.lumos_unlock), Has(itm.delum_unlock))
@@ -328,7 +328,7 @@ can_access_great_hall = Has(itm.dada_lesson_e_item)
 can_access_weasley_courtyard = HasAll(itm.focus_lesson_e_item, itm.www_box_unlock)
 can_access_mid_grand_stair = HasAll(itm.y6_hogwarts_e_item, itm.diffindo_unlock)
 can_access_dumb_office = Has(itm.www_box_unlock)
-can_access_upper_grand_stair = HasAll(itm.thestral_lesson_e_item, itm.agua_unlock)
+can_access_upper_grand_stair = HasAll(itm.dada_lesson_e_item, itm.agua_unlock)
 can_access_slytherin_common = HasAll(itm.herm_bag_unlock, itm.y5_hogwarts_e_item) & can_use_dm_in_hub
 can_access_hufflepuff_common = Has(itm.y5_hogwarts_e_item) & can_use_dm_in_hub
 can_access_ravenclaw_tower = Has(itm.agua_unlock) & (Has(itm.cafe_lesson_e_item) | Has(itm.y6_hogwarts_e_item))

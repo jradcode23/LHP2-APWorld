@@ -198,6 +198,7 @@ can_get_ron_wed = HasAll(itm.apparition_unlock, itm.specs_unlock)
 # Magic is Might Logic
 can_access_mim_free = HasAll(itm.reducto_unlock, itm.diffindo_unlock, itm.delum_unlock, itm.agua_unlock)
 can_beat_mim = Has(itm.pets_unlock)
+can_get_mim_gc = char_is_strong_level
 can_get_mim_sc = Has(itm.pets_unlock)
 can_get_mim_rc = HasAll(itm.reducto_unlock, itm.diffindo_unlock, itm.delum_unlock) & can_use_key
 can_get_mim_hc = can_use_dark_mag
@@ -880,6 +881,7 @@ def set_tsh_logic(world):
 def set_mim_logic(world):
     world.set_rule(world.get_location(locn.mim_beat), can_beat_mim)
     world.set_rule(world.get_location(locn.mim_tw), can_beat_mim)
+    world.set_rule(world.get_location(locn.mim_gc), can_get_mim_gc)
     world.set_rule(world.get_location(locn.mim_sc), can_get_mim_sc)
     world.set_rule(world.get_location(locn.mim_rc), can_get_mim_rc)
     world.set_rule(world.get_location(locn.mim_hc), can_get_mim_hc)

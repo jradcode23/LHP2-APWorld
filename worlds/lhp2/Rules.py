@@ -243,7 +243,7 @@ can_get_dob_rc = can_use_dark_mag
 can_get_dob_sip = Has(itm.reducto_unlock)
 can_get_dobby = can_use_dark_mag
 can_get_wormtail = can_use_dark_mag
-can_get_olivander = Has(itm.lumos_unlock)
+can_get_olivander = Has(itm.lumos_unlock) | Has(itm.delum_unlock)
 
 # The Thief's Downfall Logic
 can_access_ttd_free = Has(itm.herm_bag_unlock)

@@ -22,7 +22,7 @@ regn = RegionName
 can_use_dark_mag = (Has(itm.alecto_play) | Has(itm.amycus_play) | Has(itm.dolohov_play) | Has(itm.bellatrix_play) |
                     Has(itm.bellatrix_azka_play) | Has(itm.death_eater_play) | Has(itm.dolohov_workman_play) |
                     Has(itm.fenrir_play) | Has(itm.grindel_old_play) | Has(itm.grindel_young_play) |
-                    Has(itm.lord_voldemort_play) | Has(itm.lucius_play) | Has(itm.lucius_death_eater_play) |
+                    Has(itm.lord_voldemort_play) | Has(itm.salazar_play) | Has(itm.lucius_play) | Has(itm.lucius_death_eater_play) |
                     Has(itm.black_play) | Has(itm.pius_play) | Has(itm.scabior_play) | Has(itm.snatcher_play) |
                     Has(itm.rowle_play) | Has(itm.tom_riddle_play) | Has(itm.wormtail_play) | Has(itm.yaxley_play))
 
@@ -56,7 +56,8 @@ ravenclaw_chars = (Has(itm.cho_play) | Has(itm.cho_winter_play) | Has(itm.luna_p
                    Has(itm.luna_overalls_play) | Has(itm.luna_pink_dress_play) | Has(itm.luna_purple_coat_play) |
                    Has(itm.luna_yellow_dress_play) | Has(itm.belby_play) | Has(itm.padma_patil_play) |
                    Has(itm.penelope_play) | Has(itm.dumble_cursed_play) | Has(itm.dumble_young_play) |
-                   Has(itm.prof_dumble_play))
+                   Has(itm.prof_dumble_play) | Has(itm.luna_lion_head_play) | Has(itm.rowena_play) |
+                   Has(itm.lockhart_straitjacket_play))
 
 has_high_multi = (Has(itm.score_x6_unlock) | Has(itm.score_x8_unlock) | Has(itm.score_x10_unlock) |
                   HasAll(itm.score_x2_unlock, itm.score_x4_unlock))
@@ -1372,6 +1373,12 @@ def set_char_purch_logic(world):
     world.set_rule(world.get_location(locn.skeleton_purch), can_purch_char(locn.skeleton_purch))
 
 
+def set_dlc_char_purch_logic(world):
+    from .Locations import dlc_character_location_table
+    for location_name in dlc_character_location_table:
+        world.set_rule(world.get_location(location_name), has_needed_multi(location_name))
+
+
 def set_joke_purch_logic(world):
     world.set_rule(world.get_location(locn.slug_purch), can_purch_joke(locn.slug_purch))
     world.set_rule(world.get_location(locn.rictu_purch), can_purch_joke(locn.rictu_purch))
@@ -1462,6 +1469,8 @@ def set_rules(world: "LHP2World"):
     # Shop Logic
     if world.options.ShuffleCharacterTokens != 1:
         set_char_purch_logic(world)
+        if world.options.GameVersion == 1:
+            set_dlc_char_purch_logic(world)
     if world.options.ShuffleJokeSpells == 1:
         set_joke_purch_logic(world)
     if world.options.ShuffleGoldBrickPurchases == 1:

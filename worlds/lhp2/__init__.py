@@ -263,6 +263,7 @@ class LHP2World(World):
                     self.options.HardPurchases.value = slot_data["HardPurchases"]
                     self.options.LowMultiplierPriceMinimum.value = slot_data["LowMultiplierPriceMinimum"]
                     self.options.HighMultiplierPriceMinimum.value = slot_data["HighMultiplierPriceMinimum"]
+                    self.options.GameVersion.value = slot_data.get("GameVersion", 0)
 
     def validate_yaml(self):
         if (self.options.NumStartLevels >
@@ -388,4 +389,5 @@ class LHP2World(World):
             "LowMultiplierPriceMinimum": self.options.LowMultiplierPriceMinimum.value,
             "HighMultiplierPriceMinimum": self.options.HighMultiplierPriceMinimum.value,
             "FasterDuels": self.options.FasterDuels.value,
+            "GameVersion": self.options.GameVersion.value,
         }

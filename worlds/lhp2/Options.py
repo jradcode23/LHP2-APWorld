@@ -353,6 +353,22 @@ class FasterDuels(DefaultOnToggle):
     display_name = "Faster Duels"
 
 
+class GameVersion(Choice):
+    """
+    The version of the game you play this seed on.
+
+    Legacy: the original LEGO Harry Potter: Years 5-7 (Steam / GOG).
+    Collection: LEGO Harry Potter Collection. Adds its 10 extra characters sold at Madam Malkin's as items and
+    purchase locations (not with Character Token Shuffle set to Tokens only).
+
+    On the Legacy game, a Collection seed still works: the DLC purchases are sent automatically.
+    """
+    display_name = "Game Version"
+    option_legacy = 0
+    option_collection = 1
+    default = 0
+
+
 @dataclass
 class LHP2Options(PerGameCommonOptions):
     EndGoal: EndGoal
@@ -375,3 +391,4 @@ class LHP2Options(PerGameCommonOptions):
     StartingDetectors: StartingDetectors
     StartingFastMagic: StartingFastMagic
     FasterDuels: FasterDuels
+    GameVersion: GameVersion

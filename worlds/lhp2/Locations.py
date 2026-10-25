@@ -236,6 +236,20 @@ character_location_table: Dict[str, LocationData] = {
     LocationName.skeleton_purch: LocationData(base_location_id + 212, regn.mm, 5000000),
 }
 
+# 1100 - 1109, Collection only (priced like characters with the same abilities)
+dlc_character_location_table: Dict[str, LocationData] = {
+    LocationName.rowena_purch: LocationData(base_location_id + 1100, regn.mm, 75000),
+    LocationName.helga_purch: LocationData(base_location_id + 1101, regn.mm, 50000),
+    LocationName.luna_lion_head_purch: LocationData(base_location_id + 1102, regn.mm, 50000),
+    LocationName.godric_purch: LocationData(base_location_id + 1103, regn.mm, 50000),
+    LocationName.lockhart_straitjacket_purch: LocationData(base_location_id + 1104, regn.mm, 50000),
+    LocationName.hermione_pink_dress_purch: LocationData(base_location_id + 1105, regn.mm, 25000),
+    LocationName.harry_yule_ball_purch: LocationData(base_location_id + 1106, regn.mm, 25000),
+    LocationName.salazar_purch: LocationData(base_location_id + 1107, regn.mm, 3750000),
+    LocationName.ron_ghoul_purch: LocationData(base_location_id + 1108, regn.mm, 20000),
+    LocationName.peeves_purch: LocationData(base_location_id + 1109, regn.mm, 50000),
+}
+
 # 213 - 425
 character_token_location_table: Dict[str, LocationData] = {
     LocationName.hagrid_token: LocationData(base_location_id + 213, regn.fff),
@@ -912,6 +926,7 @@ hub_event_loc_table: Dict[str, LocationData] = {
 
 all_location_table = {
     **character_location_table,
+    **dlc_character_location_table,
     **character_token_location_table,
     **joke_spell_loc_table,
     **level_beaten_loc_table,
@@ -947,6 +962,9 @@ def setup_locations(options: LHP2Options):
 
     if options.ShuffleCharacterTokens == 2:
         temp_location_table.update(character_location_table)
+
+    if options.GameVersion == 1 and options.ShuffleCharacterTokens != 1:
+        temp_location_table.update(dlc_character_location_table)
 
     if options.ShuffleRedBricks == 0:
         temp_location_table.update(red_brick_loc_table)

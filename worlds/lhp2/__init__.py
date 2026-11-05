@@ -129,50 +129,53 @@ def lhp2_map_to_tab_index(data: Any) -> int:
         369: 38, 375: 38, 383: 38, 387: 38,
         # Diagon Alley
         370: 39, 376: 39, 384: 39, 388: 39,
+        # Madam Malkin's Collection Edition
+        10366: 40, 10372: 40, 10378: 40, 10382: 40,
     }
  
     # Hub offset -> tab index (0-based index in maps.json)
     hub_offset_to_tab = {
-        0:  9,   # Tent
-        1:  10,  # Wilderness
-        2:  7,   # Cafe
-        3:  6,   # London
-        4:  8,   # King's Cross Station
-        5:  12,  # Hogsmeade Path
-        6:  13,  # Hogsmeade
-        7:  11,  # Hogsmeade Station
-        8:  14,  # Hogwarts Path
-        9:  17,  # Greenhouse
-        10: 16,  # Training Grounds
-        11: 15,  # Quad
-        12: 32,  # Room of Requirement Corridor
-        13: 30,  # Weasley Courtyard Storage
-        14: 29,  # Weasley Courtyard
-        15: 31,  # Great Hall
-        16: 28,  # Great Hall Lobby
-        17: 21,  # Black Lake
-        18: 19,  # Quidditch Pitch
-        19: 20,  # Thestral Forest
-        20: 18,  # Hogwarts Grounds
-        21: 26,  # Ravenclaw Tower
-        22: 25,  # Gryffindor Common Room
-        23: 24,  # Dorm Lobby + Slytherin and Hufflepuff Common Rooms
-        24: 40,  # Astronomy Tower
-        25: 35,  # Year 6 Charms
-        26: 34,  # Year 5 Charms
-        27: 37,  # Potions
-        28: 39,  # Divination
-        29: 36,  # DADA
-        30: 38,  # Divination Courtyard
-        31: 33,  # Classroom Lobby
-        32: 23,  # Grand Staircase
-        33: 27,  # Library
-        34: 22,  # Foyer
+        0:  10,   # Tent
+        1:  11,  # Wilderness
+        2:  8,   # Cafe
+        3:  7,   # London
+        4:  9,   # King's Cross Station
+        5:  13,  # Hogsmeade Path
+        6:  14,  # Hogsmeade
+        7:  12,  # Hogsmeade Station
+        8:  15,  # Hogwarts Path
+        9:  18,  # Greenhouse
+        10: 17,  # Training Grounds
+        11: 16,  # Quad
+        12: 33,  # Room of Requirement Corridor
+        13: 31,  # Weasley Courtyard Storage
+        14: 30,  # Weasley Courtyard
+        15: 32,  # Great Hall
+        16: 29,  # Great Hall Lobby
+        17: 22,  # Black Lake
+        18: 20,  # Quidditch Pitch
+        19: 21,  # Thestral Forest
+        20: 19,  # Hogwarts Grounds
+        21: 27,  # Ravenclaw Tower
+        22: 26,  # Gryffindor Common Room
+        23: 25,  # Dorm Lobby + Slytherin and Hufflepuff Common Rooms
+        24: 41,  # Astronomy Tower
+        25: 36,  # Year 6 Charms
+        26: 35,  # Year 5 Charms
+        27: 38,  # Potions
+        28: 40,  # Divination
+        29: 37,  # DADA
+        30: 39,  # Divination Courtyard
+        31: 34,  # Classroom Lobby
+        32: 24,  # Grand Staircase
+        33: 28,  # Library
+        34: 23,  # Foyer
         35: 4,   # Madam Malkin's
         36: 2,   # Knockturn Alley
-        37: 5,   # Leaky Cauldron
+        37: 6,   # Leaky Cauldron
         38: 3,   # Weasley's Wizard Wheezes
         39: 1,   # Diagon Alley
+        40: 5,   # Madam Malkin's Collection Edition
     }
  
     hub_offset = raw_id_to_hub_offset.get(map_id)

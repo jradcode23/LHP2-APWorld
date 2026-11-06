@@ -456,6 +456,20 @@ character_token_item_table: Dict[str, LHP2ItemData] = {
     ItemName.skeleton_token: LHP2ItemData(base_item_id + 425, ItemClassification.progression),
 }
 
+# 1100 - 1109, Collection only
+dlc_character_item_table: Dict[str, LHP2ItemData] = {
+    ItemName.rowena_play: LHP2ItemData(base_item_id + 1100, ItmClasDeprioSkip),
+    ItemName.helga_play: LHP2ItemData(base_item_id + 1101),
+    ItemName.luna_lion_head_play: LHP2ItemData(base_item_id + 1102, ItmClasDeprioSkip),
+    ItemName.godric_play: LHP2ItemData(base_item_id + 1103),
+    ItemName.lockhart_straitjacket_play: LHP2ItemData(base_item_id + 1104, ItmClasDeprioSkip),
+    ItemName.hermione_pink_dress_play: LHP2ItemData(base_item_id + 1105),
+    ItemName.harry_yule_ball_play: LHP2ItemData(base_item_id + 1106),
+    ItemName.salazar_play: LHP2ItemData(base_item_id + 1107, ItmClasDeprioSkip),
+    ItemName.ron_ghoul_play: LHP2ItemData(base_item_id + 1108),
+    ItemName.peeves_play: LHP2ItemData(base_item_id + 1109),
+}
+
 # 440 - 446
 horcrux_item_table: Dict[str, LHP2ItemData] = {
     ItemName.tr_diary: LHP2ItemData(base_item_id + 440, ItemClassification.progression),
@@ -821,6 +835,7 @@ ability_item_table: Dict[str, LHP2ItemData] = {
 
 item_data_table = {
     **character_item_table,
+    **dlc_character_item_table,
     **character_token_item_table,
     **joke_spell_table,
     **spell_item_table,
@@ -855,6 +870,9 @@ def setup_items(options: LHP2Options):
 
     if options.ShuffleCharacterTokens == 0:
         temp_item_table.update(character_token_item_table)
+
+    if options.GameVersion == 1 and options.ShuffleCharacterTokens != 1:
+        temp_item_table.update(dlc_character_item_table)
 
     if options.ShuffleRedBricks == 0:
         temp_item_table.update(red_brick_purchasable_table)
@@ -894,6 +912,7 @@ progression_spells = [
 ]
 
 dark_magic_names = [
+    ItemName.salazar_play,
     ItemName.alecto_play,
     ItemName.amycus_play,
     ItemName.dolohov_play,
@@ -942,7 +961,8 @@ strong_ability_names = [
 
 item_name_groups = {
     "Token": {name: data for name, data in character_token_item_table.items()},
-    "Character": {name: data for name, data in character_item_table.items()},
+    "Character": {name: data for name, data in {**character_item_table, **dlc_character_item_table}.items()},
+    "Collection DLC Character": {name: data for name, data in dlc_character_item_table.items()},
     "Spell": {name: data for name, data in spell_and_ability_table.items()},
     "Level Unlock": {name: data for name, data in level_unlock_item_table.items()},
     "Student In Peril": {name: data for name, data in student_in_peril_table.items()},
@@ -955,7 +975,7 @@ item_name_groups = {
     "Deluminator": {ItemName.delum_unlock: spell_and_ability_table[ItemName.delum_unlock]},
     "Polyjuice": {ItemName.poly_unlock: spell_and_ability_table[ItemName.poly_unlock]},
     "Herm Bag": {ItemName.herm_bag_unlock: spell_and_ability_table[ItemName.herm_bag_unlock]},
-    "Dark Magic": {name: character_item_table[name] for name in dark_magic_names},
+    "Dark Magic": {name: item_data_table[name] for name in dark_magic_names},
     "Key": {name: character_item_table[name] for name in key_names},
     "Strength": {name: item_data_table[name] for name in strong_ability_names},
 }

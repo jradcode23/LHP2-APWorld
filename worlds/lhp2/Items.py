@@ -729,6 +729,13 @@ gold_brick_item_table: Dict[str, LHP2ItemData] = {
     ItemName.gb5: LHP2ItemData(base_item_id + 701, qty=40),
 }
 
+trap_item_table: Dict[str, LHP2ItemData] = {
+    ItemName.stupefy_trap: LHP2ItemData(base_item_id + 800, qty=0),
+    ItemName.immob_trap: LHP2ItemData(base_item_id + 801, qty=0),
+    ItemName.slug_trap: LHP2ItemData(base_item_id + 802, qty=0),
+    ItemName.incarc_trap: LHP2ItemData(base_item_id + 803, qty=0),
+}
+
 # Red Brick Purchasable 900 - 933
 red_brick_purchasable_table: Dict[str, LHP2ItemData] = {
     ItemName.christmas_purchasable: LHP2ItemData(base_item_id + 901, ItemClassification.progression),
@@ -849,6 +856,7 @@ item_data_table = {
     **red_brick_unlock_table,
     **ability_item_table,
     **purp_stud_item_table,
+    **trap_item_table,
     **horcrux_item_table,
 }
 

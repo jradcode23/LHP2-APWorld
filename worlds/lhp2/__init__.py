@@ -1,3 +1,4 @@
+import random
 import settings
 
 from typing import Dict, ClassVar, Any, Union
@@ -5,7 +6,8 @@ from settings import FilePath
 
 from BaseClasses import Item, Tutorial, ItemClassification
 from Options import OptionError
-from .Items import LHP2Item, item_data_table, horcrux_names_set, progression_spells, item_name_groups, setup_items
+from .Items import (LHP2Item, item_data_table, horcrux_names_set, progression_spells, item_name_groups, setup_items,
+                    trap_item_table)
 from .Locations import all_location_table, LocationData, setup_locations, location_name_groups
 from .Data import ItemName, RegionName
 from .Options import LHP2Options
@@ -314,6 +316,13 @@ class LHP2World(World):
         # Fill extra locations
         extra_locations = len(self.seed_location_table) - len(itempool)
         print(f"{self.player_name} has {extra_locations} extra locations")
+        trap_total = extra_locations * (self.options.TrapPercentage / 100)
+        if trap_total > 0:
+            while trap_total > 0:
+                random_trap = random.choice(list(trap_item_table.keys()))
+                itempool.append(self.create_item(random_trap))
+                trap_total -= 1
+                extra_locations -= 1
         if extra_locations > 0:
             while extra_locations > 0:
                 itempool.append(self.create_item("Purple Stud"))

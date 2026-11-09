@@ -353,6 +353,18 @@ class FasterDuels(DefaultOnToggle):
     display_name = "Faster Duels"
 
 
+class TrapPercentage(Range):
+    """
+    Determines what percentage of filler items are traps.
+    Traps are effects on the player, Stupefy, Immobulus, Slugulus Eructo, Incarcerous
+    Note: If you have no filler items, there will be no traps.
+    """
+    display_name = "Trap Percentage"
+    range_start = 0
+    range_end = 100
+    default = 50
+
+
 class GameVersion(Choice):
     """
     The version of the game you play this seed on.
@@ -391,4 +403,5 @@ class LHP2Options(PerGameCommonOptions):
     StartingDetectors: StartingDetectors
     StartingFastMagic: StartingFastMagic
     FasterDuels: FasterDuels
+    TrapPercentage: TrapPercentage
     GameVersion: GameVersion

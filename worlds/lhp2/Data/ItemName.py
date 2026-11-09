@@ -826,3 +826,9 @@ harry_yule_ball_play = "Harry (Yule Ball) Playable"
 salazar_play = "Salazar Slytherin Playable"
 ron_ghoul_play = "Ron (Ghoul) Playable"
 peeves_play = "Peeves Playable"
+
+# Traps
+stupefy_trap = "Stupefy Trap"
+immob_trap = "Immobulus Trap"
+slug_trap = "Slugulus Eructo Trap"
+incarc_trap = "Incarcerous Trap"

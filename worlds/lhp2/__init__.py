@@ -402,4 +402,5 @@ class LHP2World(World):
             "HighMultiplierPriceMinimum": self.options.HighMultiplierPriceMinimum.value,
             "FasterDuels": self.options.FasterDuels.value,
             "GameVersion": self.options.GameVersion.value,
+            "APWorldVersion": 119,
         }

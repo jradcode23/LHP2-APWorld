@@ -730,10 +730,10 @@ gold_brick_item_table: Dict[str, LHP2ItemData] = {
 }
 
 trap_item_table: Dict[str, LHP2ItemData] = {
-    ItemName.stupefy_trap: LHP2ItemData(base_item_id + 800, qty=0),
-    ItemName.immob_trap: LHP2ItemData(base_item_id + 801, qty=0),
-    ItemName.slug_trap: LHP2ItemData(base_item_id + 802, qty=0),
-    ItemName.incarc_trap: LHP2ItemData(base_item_id + 803, qty=0),
+    ItemName.stupefy_trap: LHP2ItemData(base_item_id + 800, ItemClassification.trap, qty=0),
+    ItemName.immob_trap: LHP2ItemData(base_item_id + 801, ItemClassification.trap, qty=0),
+    ItemName.slug_trap: LHP2ItemData(base_item_id + 802, ItemClassification.trap, qty=0),
+    ItemName.incarc_trap: LHP2ItemData(base_item_id + 803, ItemClassification.trap, qty=0),
 }
 
 # Red Brick Purchasable 900 - 933

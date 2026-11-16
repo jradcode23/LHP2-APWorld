@@ -70,10 +70,12 @@ token_rule_table = {
     locn.charlie_purch:            can_get_charlie,
     locn.cho_purch:                can_get_cho,
     locn.crabbe_jumper_purch:      can_get_crabbe_jumper,
+    locn.dean_winter_purch:        can_get_dean_winter,
     locn.dolohov_purch:            can_get_dolohov,
     locn.dolohov_workman_purch:    can_get_dolohov_work,
     locn.draco_purch:              can_get_draco,
     locn.dudley_purch:             can_get_dudley,
+    locn.dudley_shirt_purch:       can_get_dudley_shirt,
     locn.dumble_young_purch:       can_get_dumble_young,
     locn.fat_lady_purch:           can_get_fat_lady,
     locn.fred_owls_purch:          can_get_fred_owls,
@@ -125,6 +127,7 @@ token_rule_table = {
     locn.rita_skeeter_purch:       can_get_rita,
     locn.ron_blue_pyjamas_purch:   can_get_ron_blue,
     locn.ron_green_shirt_purch:    can_get_ron_green,
+    locn.seamus_winter_purch:      can_get_seamus_winter,
     locn.scrimgeour_purch:         can_get_rufus,
     locn.scabior_purch:            can_get_scabior,
     locn.slughorn_young_purch:     can_get_slug_young,
@@ -212,6 +215,7 @@ token_rule_table = {
     # Dobby!
     locn.dobby_purch: can_get_dobby,
     locn.wormtail_purch: can_get_wormtail,
+    locn.ollivander_purch: can_get_olivander,
 
     # Thief’s Downfall
     locn.bogrod_purch: can_get_bogrod,

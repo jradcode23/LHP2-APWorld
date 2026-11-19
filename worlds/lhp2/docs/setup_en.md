@@ -9,8 +9,9 @@
   - Requires .NET 9.0 or higher
 - The Lego Harry Potter 5-7 Archipelago Mod [Link](https://github.com/jradcode23/LHP2-Mod/releases)
 - --
-## Optional Software
+## Optional Standalone Version Software
 - DXWnd [Link](https://sourceforge.net/projects/dxwnd/)
+    - Plays the game in windowed mode. 
 - --
 ## First Time Setup 
 - Install Reloaded II Mod Loader

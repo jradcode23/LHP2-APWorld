@@ -25,6 +25,9 @@
 - Navigate to the "Mods" folder in wherever you installed Reloaded II
 - Move the LHP2.Archi.Mod folder into the Reloaded II Mods folder
 - --
+## Linux Users
+- If you are having issues getting the game to load. Users have reports that adding DISABLE_LSFGVK=1 %command% in the steam launch options and then launching the game like normal from steam will get it to work
+---
 ## Connecting to a Multiworld
 - In Reloaded II, select the LHP2 Archipelago Mod and click "Configure Mod"
 - Fill out the Host IP, Port Number, Slot Name, and Password as applicable

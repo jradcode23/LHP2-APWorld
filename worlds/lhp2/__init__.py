@@ -4,7 +4,7 @@ import settings
 from typing import Dict, ClassVar, Any, Union
 from settings import FilePath
 
-from BaseClasses import Item, Tutorial, ItemClassification
+from BaseClasses import Item, Tutorial, ItemClassification, Location
 from Options import OptionError
 from .Items import (LHP2Item, item_data_table, horcrux_names_set, progression_spells, item_name_groups, setup_items,
                     trap_item_table)
@@ -385,7 +385,10 @@ class LHP2World(World):
                 state.prog_items[self.player]["UNIQUE_HORCRUX"] -= 1
         return changed
 
-    def fill_slot_data(self):
+    def fill_slot_data(self) -> dict[str, Any]:
+        horcux_locations: Dict[str, Any] = {}
+        if self.options.EndGoal == 0:
+            self.get_horcrux_locations(horcux_locations)
         return {
             "EndGoal": self.options.EndGoal.value,
             # "CollectiblesRequired": self.options.CollectibleQuantity.value,
@@ -403,4 +406,21 @@ class LHP2World(World):
             "FasterDuels": self.options.FasterDuels.value,
             "GameVersion": self.options.GameVersion.value,
             "APWorldVersion": 119,
+            "HorcruxLocations": horcux_locations,
         }
+
+    def get_horcrux_locations(self, dictionary) -> dict[str, Any]:
+        for loc in [location for location in self.multiworld.get_locations() if not location.is_event]:
+            player = loc.item.player
+            item = loc.item.name
+
+            if player != self.player or item not in horcrux_names_set:
+                continue
+
+            dictionary[item] = {
+                "player": loc.player,
+                "name": loc.name,
+                "id": loc.address,
+            }
+            # print(f"Horcrux: {item} | Player: {player} | Location: {loc.name} | ID: {loc.address}")
+        return dictionary

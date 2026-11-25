@@ -863,7 +863,6 @@ item_data_table = {
 
 def setup_items(options: LHP2Options):
     temp_item_table = {
-        **character_item_table,
         **spell_item_table,
         **level_unlock_item_table,
         **level_sip_item_table,
@@ -875,6 +874,13 @@ def setup_items(options: LHP2Options):
         **ability_item_table,
         **purp_stud_item_table,
     }
+
+    if options.RemoveFillerCharacters == 0:
+        temp_item_table.update(character_item_table)
+    else:
+        for char, data in character_item_table.items():
+            if data.classification is not ItemClassification.filler:
+                temp_item_table[char] = data
 
     if options.ShuffleCharacterTokens == 0:
         temp_item_table.update(character_token_item_table)

@@ -302,6 +302,13 @@ class CheaperShops(Range):
     default = 5
 
 
+class RemoveFillerCharacters(Toggle):
+    """
+    This option removes any character that isn't considered progression from the pool.
+    """
+    display_name = "Remove Filler Characters"
+
+
 class HardPurchases(Toggle):
     """
     Turning this on makes it so purchases no longer require a stud multiplier.
@@ -397,6 +404,7 @@ class LHP2Options(PerGameCommonOptions):
     ShuffleJokeSpells: ShuffleJokeSpells
     ShuffleGoldBrickPurchases: ShuffleGoldBrickPurchases
     CheaperShops: CheaperShops
+    RemoveFillerCharacters: RemoveFillerCharacters
     HardPurchases: HardPurchases
     LowMultiplierPriceMinimum: LowMultiplierPriceMinimum
     HighMultiplierPriceMinimum: HighMultiplierPriceMinimum

@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 from .Data import LocationName, ItemName, RegionName
 from .Options import EndGoal, HardPurchases, ShuffleRedBricks, ShuffleCharacterTokens
 from .Locations import all_location_table, level_beaten_loc_table
+from .Regions import level_regions, level_abbreviations
 
 itm = ItemName
 locn = LocationName
@@ -497,6 +498,17 @@ can_get_vernon = Has(itm.cafe_lesson_e_item)
 can_get_waitress_luchino = Has(itm.cafe_lesson_e_item)
 can_get_yaxley = can_use_dm_in_hub
 
+# Hogwarts Crest Win Con Logic
+crest_rules = {
+    level: HasAll(
+        getattr(itm, f"{level}_gc"),
+        getattr(itm, f"{level}_sc"),
+        getattr(itm, f"{level}_rc"),
+        getattr(itm, f"{level}_hc"),
+    )
+    for level in level_abbreviations
+}
+
 
 # Shop Logic
 def from_option(option: type[Option], value: Any, operator: Operator = "eq") -> Rule:
@@ -701,26 +713,45 @@ def set_event_logic(world):
     world.set_rule(world.get_location(locn.dumble_lesson_event), CanReachLocation(locn.dumble_lesson))
     world.set_rule(world.get_location(locn.y6_story_complete_event), CanReachLocation(locn.y6_story_complete))
     world.set_rule(world.get_location(locn.cafe_lesson_event), CanReachLocation(locn.cafe_lesson))
+
+    # Set Voldemort Win Con Logic
     if world.options.EndGoal == EndGoal.option_defeat_voldemort:
         world.set_rule(world.get_location("Defeat Voldemort"),
                        Has("UNIQUE_HORCRUX", world.options.NumHorcruxRequired.value) & can_beat_tfitp)
-    if world.options.EndGoal == EndGoal.option_levels_beaten:
-        world.set_rule(world.get_location("All Required Levels Beaten"),
-                       Has("Level Beaten", world.options.NumLevelsRequired.value))
+    # Set Level Beaten/Hogwarts Crest Event Logic
+    if world.options.EndGoal == EndGoal.option_levels_beaten or world.options.EndGoal == EndGoal.option_house_champion:
         disabled = set(world.options.DisabledLevels.value)
+        event_suffix = " Token" if world.options.EndGoal == EndGoal.option_levels_beaten else " Hogwarts Crest"
         for (name, data) in level_beaten_loc_table.items():
             if data.region in disabled or data.region.endswith(" Freeplay") and data.region[:-9] in disabled:
                 continue
-            event_name = name + " Token"
+            event_name = name + event_suffix if world.options.EndGoal == EndGoal.option_levels_beaten else (
+                    name.removesuffix(" Level Beaten") + event_suffix)
             event: Location = world.get_location(event_name)
-            world.set_rule(event, CanReachLocation(name))
+
+            if world.options.EndGoal == EndGoal.option_levels_beaten:
+                world.set_rule(event, CanReachLocation(name))
+            else:
+                region_name = data.region.removesuffix(" Freeplay")
+                level_index = level_regions.index(region_name)
+                world.set_rule(event, crest_rules[level_abbreviations[level_index]])
+
+    # Set House Champion Win Con Logic
+    if world.options.EndGoal == EndGoal.option_house_champion:
+        world.set_rule(world.get_location("House Champion"), Has("Hogwarts Crest",
+                                                                 world.options.NumHouseCrestsRequired.value))
+
+    # Set Levels Beaten Win Con Logic
+    if world.options.EndGoal == EndGoal.option_levels_beaten:
+        world.set_rule(world.get_location("All Required Levels Beaten"),
+                       Has("Level Beaten", world.options.NumLevelsRequired.value))
 
 
 def set_win_con(world):
     if world.options.EndGoal == EndGoal.option_defeat_voldemort:
         world.set_completion_rule(defeat_voldemort)
-    # if options.EndGoal == EndGoal.option_the_collector:
-    #     world.completion_condition[player] =
+    if world.options.EndGoal == EndGoal.option_house_champion:
+        world.set_completion_rule(Has("House Champion"))
     if world.options.EndGoal == EndGoal.option_levels_beaten:
         world.set_completion_rule(Has("All Required Levels Beaten"))
 

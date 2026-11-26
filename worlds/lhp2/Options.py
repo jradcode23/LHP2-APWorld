@@ -7,47 +7,14 @@ class EndGoal(Choice):
     Determine the goal for the seed
 
     Defeat Voldemort: Collect the 7 Horcruxes and defeat Voldemort in The Flaw in the Plan
-
+    House Champion: Receive enough House Crests to Complete X number of Hogwarts Crests
     Levels Beaten: Beat X number of levels to win
     """
     display_name = "Goal"
     option_defeat_voldemort = 0
-    # option_the_collector = 1
+    option_house_champion = 1
     option_levels_beaten = 2
     default = 0
-
-
-# class CollectibleQuantity(OptionDict):
-#     """
-#     The number of each collectible you need to beat the seed. Does nothing if the collector is your not win con.
-#
-#     Valid Keys:
-#     - Character Token
-#     - Gold Brick
-#     - House Crest Completed
-#     - Student in Peril
-#     - True Wizard
-#     """
-#     display_name = "Collectibles Required"
-#     min = 0
-#     max_values_dict: dict[str, int] = {
-#         ItemName.gb: 200,
-#         ItemName.sip: 60,
-#         ItemName.tw: 24,
-#         ItemName.ct: 200,
-#         ItemName.hcgb: 24,
-#     }
-#     default = {ItemName.gb: 100, ItemName.sip: 30, ItemName.tw: 12, ItemName.ct: 100, ItemName.hcgb: 12}
-
-
-# class FlawInThePlanCondition(Choice):
-#     """
-#     Determine the Level Unlock Condition for The Flaw in The Plan. Does nothing if Voldemort is not the goal.
-#     """
-#     display_name = "Flaw In The Plan Unlock Condition"
-#     option_horcruxes = 0
-#     option_level_shuffled = 1
-#     default = 0
 
 
 class NumHorcruxesRequired(Range):
@@ -58,6 +25,17 @@ class NumHorcruxesRequired(Range):
     range_start = 1
     range_end = 7
     default = 4
+
+
+class NumHouseCrestsRequired(Range):
+    """
+    Determine the required number of Hogwarts Crests to beat the game.
+    Please note that 1 Hogwarts Crest is all 4 House Crests in the same level.
+    """
+    display_name = "Number of House Crests Required"
+    range_start = 1
+    range_end = 24
+    default = 12
 
 
 class NumLevelsRequired(Range):
@@ -401,9 +379,8 @@ class GameVersion(Choice):
 @dataclass
 class LHP2Options(PerGameCommonOptions):
     EndGoal: EndGoal
-    # CollectibleQuantity: CollectibleQuantity
-    # FlawInThePlanCondition: FlawInThePlanCondition
     NumHorcruxRequired: NumHorcruxesRequired
+    NumHouseCrestsRequired: NumHouseCrestsRequired
     NumLevelsRequired: NumLevelsRequired
     NumStartSpells: NumStartSpells
     NumStartLevels: NumStartLevels

@@ -8,7 +8,7 @@ from BaseClasses import Item, Tutorial, ItemClassification, Location
 from Options import OptionError
 from .Items import (LHP2Item, item_data_table, horcrux_names_set, progression_spells, item_name_groups, setup_items,
                     trap_item_table)
-from .Locations import all_location_table, LocationData, setup_locations, location_name_groups
+from .Locations import all_location_table, LocationData, setup_locations, location_name_groups, LHP2Location
 from .Data import ItemName, RegionName
 from .Options import LHP2Options
 from .Regions import create_regions, connect_regions
@@ -199,8 +199,8 @@ class LHP2World(World):
     item_name_to_id = {name: data.code for name, data in item_data_table.items() if data.code is not None}
     location_name_to_id = {name: data.id for name, data in all_location_table.items()}
 
-    seed_location_table: Dict[str, int]
-    seed_item_table: Dict[str, int]
+    seed_location_table: Dict[str, LHP2Location] = {}
+    seed_item_table: Dict[str, LHP2Item] = {}
     starting_items: list[tuple[str, int]] = []
 
     item_name_groups = item_name_groups
@@ -233,6 +233,7 @@ class LHP2World(World):
         self.validate_yaml()
         self.choose_starting_levels()
         self.choose_starting_spells()
+        self.seed_item_table = setup_items(self.options)
 
         if self.options.StartingDetectors.value == 1:
             self.multiworld.push_precollected(self.create_item(ItemName.char_token_detect_unlock))
@@ -259,6 +260,7 @@ class LHP2World(World):
                     slot_data = self.multiworld.re_gen_passthrough["Lego Harry Potter 5-7"]
                     self.options.EndGoal.value = slot_data["EndGoal"]
                     self.options.NumHorcruxRequired.value = slot_data["NumHorcruxRequired"]
+                    self.options.NumHouseCrestsRequired.value = slot_data["NumHouseCrestsRequired"]
                     self.options.NumLevelsRequired.value = slot_data["NumLevelsRequired"]
                     self.options.ShuffleCharacterTokens.value = slot_data["ShuffleCharacterTokens"]
                     self.options.ShuffleRedBricks.value = slot_data["ShuffleRedBricks"]
@@ -273,18 +275,22 @@ class LHP2World(World):
     def validate_yaml(self):
         if (self.options.NumStartLevels >
                 (len(self.options.StartingLevelOptions.value) - len(self.options.DisabledLevels.value))):
-            raise OptionError("You want to start with more levels than are in the starting pool")
+            raise OptionError(f"{self.player_name} wants to start with more levels than are in the starting pool")
         if self.options.HighMultiplierPriceMinimum.value < self.options.LowMultiplierPriceMinimum.value:
-            raise OptionError("The High Multiplier must be larger than the Low Multiplier")
+            raise OptionError(f"{self.player_name}, the High Multiplier must be larger than the Low Multiplier")
         if self.options.EndGoal.value == 0:
             if "The Flaw in the Plan" in self.options.DisabledLevels.value:
-                raise OptionError("You can't disable The Flaw in the Plan in Voldemort Wincon.")
+                raise OptionError(f"{self.player_name}, you can't disable The Flaw in the Plan in Voldemort Wincon.")
+        if self.options.EndGoal.value == 1:
+            if self.options.NumHouseCrestsRequired.value > (24 - len(self.options.DisabledLevels.value)):
+                raise OptionError(f"{self.player_name} wants more House Crests than are available in the pool.")
         if self.options.EndGoal.value == 2:
             if self.options.NumLevelsRequired.value > (24 - len(self.options.DisabledLevels.value)):
-                raise OptionError("You want more levels to win than are enabled.")
+                raise OptionError(f"{self.player_name} wants more levels to win than are enabled.")
         if self.options.ShuffleCharacterTokens.value == 2:
             if len(self.options.DisabledLevels.value) > 0:
-                raise OptionError("Disabled Levels is incompatible with Character Tokens requiring Purchase Only.")
+                raise OptionError(f"{self.player_name}, Disabled Levels is incompatible with "
+                                  f"Character Tokens requiring Purchase Only.")
 
     def create_regions(self):
         self.seed_location_table = setup_locations(self.options)
@@ -292,15 +298,16 @@ class LHP2World(World):
 
     def create_item(self, name: str) -> Item:
         data = item_data_table[name]
+        if data.code in range(400549, 400646):
+            data = self.seed_item_table[name]
         item = LHP2Item(name, data.classification, data.code, self.player)
         return item
 
     def create_items(self):
         itempool = []
-        seed_items = setup_items(self.options)
 
         # Build the full pool
-        for name, data in seed_items.items():
+        for name, data in self.seed_item_table.items():
             itempool += [self.create_item(name) for _ in range(data.qty)]
 
         # Remove starting items for selected player
@@ -391,9 +398,8 @@ class LHP2World(World):
             self.get_horcrux_locations(horcux_locations)
         return {
             "EndGoal": self.options.EndGoal.value,
-            # "CollectiblesRequired": self.options.CollectibleQuantity.value,
-            # "FlawInThePlanCondition": self.options.FlawInThePlanCondition.value,
             "NumHorcruxRequired": self.options.NumHorcruxRequired.value,
+            "NumHouseCrestsRequired": self.options.NumHouseCrestsRequired.value,
             "NumLevelsRequired": self.options.NumLevelsRequired.value,
             "ShuffleCharacterTokens": self.options.ShuffleCharacterTokens.value,
             "ShuffleRedBricks": self.options.ShuffleRedBricks.value,

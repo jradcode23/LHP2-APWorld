@@ -113,6 +113,14 @@ lhp2_all_regions = [
 ]
 
 
+level_abbreviations = [
+    "dt", "da", "foc", "kd", "agv", "avt", "oor", "jd",
+    "ansmc", "lh", "ff", "thath", "tsh", "mim", "igd",
+    "sal", "ll", "dob", "ttd", "bts", "bb", "fiend",
+    "st", "tfitp",
+]
+
+
 def create_regions(world: MultiWorld, options: LHP2Options, player: int, seed_locs):
     menu = Region("Menu", player, world)
     world.regions.append(menu)
@@ -200,6 +208,9 @@ def create_regions(world: MultiWorld, options: LHP2Options, player: int, seed_lo
     if options.EndGoal == EndGoal.option_defeat_voldemort:
         event: Location = create_event("Defeat Voldemort", "Voldemort Defeated", tfitpf_region, player)
         event.show_in_spoiler = True
+    if options.EndGoal == EndGoal.option_house_champion:
+        event: Location = create_event("House Champion", "House Champion", diag_region, player)
+        event.show_in_spoiler = True
     if options.EndGoal == EndGoal.option_levels_beaten:
         event: Location = create_event("All Required Levels Beaten", "All Required Levels Beaten", diag_region, player)
         event.show_in_spoiler = True
@@ -230,14 +241,18 @@ def create_events(world: MultiWorld, options: LHP2Options, player: int):
         event: Location = create_event(name, item_name, world.get_region(data.region, player), player)
         event.show_in_spoiler = True
 
-    if options.EndGoal == EndGoal.option_levels_beaten:
+    if options.EndGoal == EndGoal.option_levels_beaten or options.EndGoal == EndGoal.option_house_champion:
+        item_name = "Level Beaten" if options.EndGoal == EndGoal.option_levels_beaten else "Hogwarts Crest"
+        location_suffix = " Token" if options.EndGoal == EndGoal.option_levels_beaten else " Hogwarts Crest"
         disabled = set(options.DisabledLevels.value)
         for (name, data) in level_beaten_loc_table.items():
             if data.region in disabled or data.region.endswith(" Freeplay") and data.region[:-9] in disabled:
                 continue
-            location_name = name + " Token"
-            item_name = "Level Beaten"
-            event: Location = create_event(location_name, item_name, world.get_region(data.region, player), player)
+            location_name = name + location_suffix if options.EndGoal == EndGoal.option_levels_beaten else (
+                name.removesuffix(" Level Beaten") + location_suffix)
+            region = world.get_region(data.region, player) if options.EndGoal == EndGoal.option_levels_beaten else (
+                world.get_region(RegionName.diag, player))
+            event: Location = create_event(location_name, item_name, region, player)
             event.show_in_spoiler = True
 
 

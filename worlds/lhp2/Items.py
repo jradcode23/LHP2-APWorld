@@ -1,11 +1,10 @@
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Optional, Dict
 
 from BaseClasses import Item, ItemClassification
 from .Data import ItemName, RegionName
-from .Options import LHP2Options
-from ..stardew_valley.stardew_rule import false_
+from .Options import LHP2Options, EndGoal
 
 
 class LHP2Item(Item):
@@ -863,13 +862,12 @@ item_data_table = {
 }
 
 
-def setup_items(options: LHP2Options):
+def setup_items(options: LHP2Options) -> Dict[str, LHP2Item]:
     temp_item_table = {
         **spell_item_table,
         **level_unlock_item_table,
         **level_sip_item_table,
         **hub_sip_item_table,
-        **house_crest_item_table,
         **true_wizard_item_table,
         **gold_brick_item_table,
         **red_brick_unlock_table,
@@ -879,16 +877,24 @@ def setup_items(options: LHP2Options):
 
     temp_item_table.update(create_character_table(options))
 
-    if options.ShuffleCharacterTokens == 0:
+    if options.EndGoal == EndGoal.option_house_champion:  # House Crest Win Con
+        temp_item_table.update({
+            name: replace(item, classification=ItmClasDeprioSkip)
+            for name, item in house_crest_item_table.items()
+        })
+    else:
+        temp_item_table.update(house_crest_item_table)
+
+    if options.ShuffleCharacterTokens == 0:  # Purchases & Tokens
         temp_item_table.update(character_token_item_table)
 
-    if options.ShuffleRedBricks == 0:
+    if options.ShuffleRedBricks == 0:  # Purchases & Bricks
         temp_item_table.update(red_brick_purchasable_table)
 
-    if options.ShuffleJokeSpells == 1:
+    if options.ShuffleJokeSpells == 1:  # Shuffle Spells enabled
         temp_item_table.update(joke_spell_table)
 
-    if options.EndGoal.value == 0:
+    if options.EndGoal.value == 0:  # Voldemort Win Con
         temp_item_table.update(horcrux_item_table)
 
     disabled = set(options.DisabledLevels.value)

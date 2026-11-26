@@ -1,9 +1,11 @@
+import random
 from dataclasses import dataclass
 from typing import Optional, Dict
 
 from BaseClasses import Item, ItemClassification
 from .Data import ItemName, RegionName
 from .Options import LHP2Options
+from ..stardew_valley.stardew_rule import false_
 
 
 class LHP2Item(Item):
@@ -207,7 +209,7 @@ character_item_table: Dict[str, LHP2ItemData] = {
     ItemName.yaxley_play: LHP2ItemData(base_item_id + 180, ItmClasDeprioSkip),
     ItemName.zacharias_play: LHP2ItemData(base_item_id + 181),
     ItemName.waitress_treats_play: LHP2ItemData(base_item_id + 182),
-    ItemName.lord_voldemort_play: LHP2ItemData(base_item_id + 183, ItemClassification.progression),
+    ItemName.lord_voldemort_play: LHP2ItemData(base_item_id + 183, ItmClasDeprioSkip),
     ItemName.ron_blue_pyjamas_play: LHP2ItemData(base_item_id + 184),
     ItemName.neville_cardigan_play: LHP2ItemData(base_item_id + 185, ItmClasDeprioSkip),
     ItemName.neville_pyjamas_play: LHP2ItemData(base_item_id + 186, ItmClasDeprioSkip),
@@ -875,18 +877,10 @@ def setup_items(options: LHP2Options):
         **purp_stud_item_table,
     }
 
-    if options.RemoveFillerCharacters == 0:
-        temp_item_table.update(character_item_table)
-    else:
-        for char, data in character_item_table.items():
-            if data.classification is not ItemClassification.filler:
-                temp_item_table[char] = data
+    temp_item_table.update(create_character_table(options))
 
     if options.ShuffleCharacterTokens == 0:
         temp_item_table.update(character_token_item_table)
-
-    if options.GameVersion == 1 and options.ShuffleCharacterTokens != 1:
-        temp_item_table.update(dlc_character_item_table)
 
     if options.ShuffleRedBricks == 0:
         temp_item_table.update(red_brick_purchasable_table)
@@ -926,52 +920,63 @@ progression_spells = [
 ]
 
 dark_magic_names = [
-    ItemName.salazar_play,
-    ItemName.alecto_play,
-    ItemName.amycus_play,
-    ItemName.dolohov_play,
-    ItemName.bellatrix_play,
-    ItemName.bellatrix_azka_play,
-    ItemName.death_eater_play,
-    ItemName.dolohov_workman_play,
-    ItemName.fenrir_play,
-    ItemName.grindel_old_play,
-    ItemName.grindel_young_play,
-    ItemName.lord_voldemort_play,
-    ItemName.lucius_play,
-    ItemName.lucius_death_eater_play,
-    ItemName.black_play,
-    ItemName.pius_play,
-    ItemName.scabior_play,
-    ItemName.snatcher_play,
-    ItemName.rowle_play,
-    ItemName.tom_riddle_play,
-    ItemName.wormtail_play,
-    ItemName.yaxley_play,
+    ItemName.salazar_play, ItemName.alecto_play, ItemName.amycus_play, ItemName.dolohov_play, ItemName.bellatrix_play,
+    ItemName.bellatrix_azka_play, ItemName.death_eater_play, ItemName.dolohov_workman_play, ItemName.fenrir_play,
+    ItemName.grindel_old_play, ItemName.grindel_young_play, ItemName.lord_voldemort_play, ItemName.lucius_play,
+    ItemName.lucius_death_eater_play, ItemName.black_play, ItemName.pius_play, ItemName.scabior_play,
+    ItemName.snatcher_play, ItemName.rowle_play, ItemName.tom_riddle_play, ItemName.wormtail_play, ItemName.yaxley_play,
 ]
 
-key_names = [
-    ItemName.bogrod_play,
-    ItemName.cole_play,
-    ItemName.griphook_play,
-    ItemName.ministry_guard_play,
-]
+key_names = [ItemName.bogrod_play, ItemName.cole_play, ItemName.griphook_play, ItemName.ministry_guard_play]
 
 strong_ability_names = [
-    ItemName.dudley_play,
-    ItemName.dudley_grey_play,
-    ItemName.dudley_shirt_play,
-    ItemName.fenrir_play,
-    ItemName.fang_play,
-    ItemName.hagrid_play,
-    ItemName.hagrid_wed_play,
-    ItemName.muggle_orphan_play,
-    ItemName.remus_lupin_play,
-    ItemName.sirius_black_play,
-    ItemName.sirius_azkaban_play,
-    ItemName.vernon_play,
+    ItemName.dudley_play, ItemName.dudley_grey_play, ItemName.dudley_shirt_play, ItemName.fenrir_play,
+    ItemName.fang_play, ItemName.hagrid_play, ItemName.hagrid_wed_play, ItemName.muggle_orphan_play,
+    ItemName.remus_lupin_play, ItemName.sirius_black_play, ItemName.sirius_azkaban_play, ItemName.vernon_play,
     ItemName.super_strength_unlock,
 ]
+
+raven_claw_chars = [
+    ItemName.cho_winter_play, ItemName.cho_winter_play, ItemName.luna_play, ItemName.luna_blue_jumper_play,
+    ItemName.luna_overalls_play, ItemName.luna_pink_dress_play, ItemName.luna_purple_coat_play,
+    ItemName.luna_yellow_dress_play, ItemName.belby_play, ItemName.padma_patil_play, ItemName.penelope_play,
+    ItemName.dumble_cursed_play, ItemName.dumble_young_play, ItemName.prof_dumble_play, ItemName.luna_lion_head_play,
+    ItemName.rowena_play, ItemName.lockhart_straitjacket_play,
+]
+
+arthur_chars = [
+    ItemName.arthur_play, ItemName.arthur_suit_play, ItemName.arthur_cardigan_play, ItemName.arthur_torn_suit_play
+]
+
+
+def create_character_table(options: LHP2Options):
+    remove_filler_chars = options.RemoveFillerCharacters == 1
+    remove_extra_chars = options.RemoveExtraProgressionChars == 1
+    temp_char_table = {}
+    eligible_char_table = {**character_item_table}
+    if options.GameVersion == 1:
+        eligible_char_table.update(**dlc_character_item_table)
+    for char, data in eligible_char_table.items():
+        if data.classification is ItemClassification.filler and not remove_filler_chars:
+            temp_char_table[char] = data
+        if data.classification is ItmClasDeprioSkip and not remove_extra_chars:
+            temp_char_table[char] = data
+    if remove_extra_chars:
+        dark_char = random.choice([c for c in dark_magic_names if c != ItemName.salazar_play])
+        temp_char_table[dark_char] = eligible_char_table[dark_char]
+
+        key_char = random.choice(key_names)
+        temp_char_table[key_char] = eligible_char_table[key_char]
+
+        raven_char = random.choice([c for c in raven_claw_chars if c != ItemName.rowena_play or c !=
+                                    ItemName.lockhart_straitjacket_play])
+        temp_char_table[raven_char] = eligible_char_table[raven_char]
+
+        arthur_char = random.choice(arthur_chars)
+        temp_char_table[arthur_char] = eligible_char_table[arthur_char]
+
+    return temp_char_table
+
 
 item_name_groups = {
     "Token": {name: data for name, data in character_token_item_table.items()},

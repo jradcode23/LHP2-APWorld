@@ -309,6 +309,16 @@ class RemoveFillerCharacters(Toggle):
     display_name = "Remove Filler Characters"
 
 
+class RemoveExtraProgressionChars(Toggle):
+    """
+    This option makes it so there is only 1 character with each ability in the pool
+    Characters who have overlap with the starting trio or red bricks (dig/strength) are removed
+    Dark Magic, Ravenclaw, Arthur, and Key Characters will only have 1
+    Please note that DLC Characters will not be your selected characters so the seed will always be beatable on standalone
+    """
+    display_name = "Remove Extra Progression Characters"
+
+
 class HardPurchases(Toggle):
     """
     Turning this on makes it so purchases no longer require a stud multiplier.
@@ -405,6 +415,7 @@ class LHP2Options(PerGameCommonOptions):
     ShuffleGoldBrickPurchases: ShuffleGoldBrickPurchases
     CheaperShops: CheaperShops
     RemoveFillerCharacters: RemoveFillerCharacters
+    RemoveExtraProgressionChars: RemoveExtraProgressionChars
     HardPurchases: HardPurchases
     LowMultiplierPriceMinimum: LowMultiplierPriceMinimum
     HighMultiplierPriceMinimum: HighMultiplierPriceMinimum

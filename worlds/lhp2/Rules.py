@@ -22,9 +22,10 @@ regn = RegionName
 can_use_dark_mag = (Has(itm.alecto_play) | Has(itm.amycus_play) | Has(itm.dolohov_play) | Has(itm.bellatrix_play) |
                     Has(itm.bellatrix_azka_play) | Has(itm.death_eater_play) | Has(itm.dolohov_workman_play) |
                     Has(itm.fenrir_play) | Has(itm.grindel_old_play) | Has(itm.grindel_young_play) |
-                    Has(itm.lord_voldemort_play) | Has(itm.salazar_play) | Has(itm.lucius_play) | Has(itm.lucius_death_eater_play) |
-                    Has(itm.black_play) | Has(itm.pius_play) | Has(itm.scabior_play) | Has(itm.snatcher_play) |
-                    Has(itm.rowle_play) | Has(itm.tom_riddle_play) | Has(itm.wormtail_play) | Has(itm.yaxley_play))
+                    Has(itm.lord_voldemort_play) | Has(itm.salazar_play) | Has(itm.lucius_play) |
+                    Has(itm.lucius_death_eater_play) | Has(itm.black_play) | Has(itm.pius_play) | Has(itm.scabior_play)
+                    | Has(itm.snatcher_play) | Has(itm.rowle_play) | Has(itm.tom_riddle_play) | Has(itm.wormtail_play)
+                    | Has(itm.yaxley_play))
 
 can_use_dm_in_hub = Has(ItemName.poly_unlock) & can_use_dark_mag
 

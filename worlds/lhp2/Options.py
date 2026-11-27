@@ -27,12 +27,12 @@ class NumHorcruxesRequired(Range):
     default = 4
 
 
-class NumHouseCrestsRequired(Range):
+class NumHogwartsCrestsRequired(Range):
     """
     Determine the required number of Hogwarts Crests to beat the game.
     Please note that 1 Hogwarts Crest is all 4 House Crests in the same level.
     """
-    display_name = "Number of House Crests Required"
+    display_name = "Number of Hogwarts Crests Required"
     range_start = 1
     range_end = 24
     default = 12
@@ -380,7 +380,7 @@ class GameVersion(Choice):
 class LHP2Options(PerGameCommonOptions):
     EndGoal: EndGoal
     NumHorcruxRequired: NumHorcruxesRequired
-    NumHouseCrestsRequired: NumHouseCrestsRequired
+    NumHogwartsCrestsRequired: NumHogwartsCrestsRequired
     NumLevelsRequired: NumLevelsRequired
     NumStartSpells: NumStartSpells
     NumStartLevels: NumStartLevels

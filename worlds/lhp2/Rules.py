@@ -739,7 +739,7 @@ def set_event_logic(world):
     # Set House Champion Win Con Logic
     if world.options.EndGoal == EndGoal.option_house_champion:
         world.set_rule(world.get_location("House Champion"), Has("Hogwarts Crest",
-                                                                 world.options.NumHouseCrestsRequired.value))
+                                                                 world.options.NumHogwartsCrestsRequired.value))
 
     # Set Levels Beaten Win Con Logic
     if world.options.EndGoal == EndGoal.option_levels_beaten:

@@ -260,7 +260,7 @@ class LHP2World(World):
                     slot_data = self.multiworld.re_gen_passthrough["Lego Harry Potter 5-7"]
                     self.options.EndGoal.value = slot_data["EndGoal"]
                     self.options.NumHorcruxRequired.value = slot_data["NumHorcruxRequired"]
-                    self.options.NumHouseCrestsRequired.value = slot_data["NumHouseCrestsRequired"]
+                    self.options.NumHogwartsCrestsRequired.value = slot_data["NumHogwartsCrestsRequired"]
                     self.options.NumLevelsRequired.value = slot_data["NumLevelsRequired"]
                     self.options.ShuffleCharacterTokens.value = slot_data["ShuffleCharacterTokens"]
                     self.options.ShuffleRedBricks.value = slot_data["ShuffleRedBricks"]
@@ -282,7 +282,7 @@ class LHP2World(World):
             if "The Flaw in the Plan" in self.options.DisabledLevels.value:
                 raise OptionError(f"{self.player_name}, you can't disable The Flaw in the Plan in Voldemort Wincon.")
         if self.options.EndGoal.value == 1:
-            if self.options.NumHouseCrestsRequired.value > (24 - len(self.options.DisabledLevels.value)):
+            if self.options.NumHogwartsCrestsRequired.value > (24 - len(self.options.DisabledLevels.value)):
                 raise OptionError(f"{self.player_name} wants more House Crests than are available in the pool.")
         if self.options.EndGoal.value == 2:
             if self.options.NumLevelsRequired.value > (24 - len(self.options.DisabledLevels.value)):
@@ -399,7 +399,7 @@ class LHP2World(World):
         return {
             "EndGoal": self.options.EndGoal.value,
             "NumHorcruxRequired": self.options.NumHorcruxRequired.value,
-            "NumHouseCrestsRequired": self.options.NumHouseCrestsRequired.value,
+            "NumHogwartsCrestsRequired": self.options.NumHogwartsCrestsRequired.value,
             "NumLevelsRequired": self.options.NumLevelsRequired.value,
             "ShuffleCharacterTokens": self.options.ShuffleCharacterTokens.value,
             "ShuffleRedBricks": self.options.ShuffleRedBricks.value,

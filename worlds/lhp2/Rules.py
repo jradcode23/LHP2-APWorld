@@ -237,7 +237,7 @@ can_get_ll_rc = can_access_lunas_room & Has(itm.delum_unlock)
 can_get_ll_hc = can_use_spanner
 can_get_ll_sip = Has(itm.lumos_unlock)
 can_get_skeleton = can_use_dark_mag
-can_get_xeno_luna = HasAll(itm.www_box_unlock, itm.specs_unlock) & can_use_dark_mag & can_access_lunas_room
+can_get_xeno_luna = HasAll(itm.www_box_unlock, itm.specs_unlock, itm.lumos_unlock) & can_use_dark_mag & can_dig_in_level
 
 # Dobby! Logic
 can_access_dob_free = HasAll(itm.specs_unlock, itm.pets_unlock) & Or(Has(itm.lumos_unlock), Has(itm.delum_unlock))

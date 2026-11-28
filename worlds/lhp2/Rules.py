@@ -47,8 +47,8 @@ can_dig_in_hub = Has(itm.pets_unlock) | (char_can_dig & Has(itm.poly_unlock))
 
 strong_chars = (Has(itm.dudley_play) | Has(itm.dudley_grey_play) | Has(itm.dudley_shirt_play) | Has(itm.fenrir_play) |
                 Has(itm.fang_play) | Has(itm.hagrid_play) | Has(itm.hagrid_wed_play) | Has(itm.muggle_orphan_play) |
-                Has(itm.remus_lupin_play) | Has(itm.sirius_black_play) | Has(itm.sirius_azkaban_play) |
-                Has(itm.vernon_play))
+                HasAll(itm.remus_lupin_play, itm.pets_unlock) | HasAll(itm.sirius_black_play, itm.pets_unlock) |
+                HasAll(itm.sirius_azkaban_play, itm.pets_unlock) | Has(itm.vernon_play))
 
 char_is_strong_level = strong_chars | Has(itm.super_strength_unlock)
 
